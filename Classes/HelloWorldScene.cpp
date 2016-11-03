@@ -1,4 +1,5 @@
 ﻿#include "HelloWorldScene.h"
+#include "SimpleAudioEngine.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -28,6 +29,8 @@
 
 USING_NS_CC;
 using namespace std;
+using namespace CocosDenshion;
+
 CCPoint point1 = ccp(0, 0);
 CCPoint point2 = ccp(10, 10);
 CCPoint point3 = ccp(0, 0);
@@ -65,6 +68,7 @@ bool chugan = false;
 bool chuganpre = false;
 bool way1 = true;
 bool way1_chugan = true;
+bool powm = true;
 int shuaxin = 0;
 
 
@@ -134,6 +138,14 @@ bool HelloWorldScene::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	auto audioengine = SimpleAudioEngine::getInstance();
+	audioengine->preloadBackgroundMusic("mp3/dang.mp3");
+	audioengine->preloadEffect("mp3/success.wav");
+	audioengine->preloadEffect("mp3/fail.wav");
+	audioengine->preloadEffect("mp3/moni.wav");
+	audioengine->preloadEffect("mp3/ok.wav");
+	audioengine->preloadEffect("mp3/pow.mp3");
+	//audioengine->playBackgroundMusic("mp3/dang.mp3", true);
 	return true;
 }
 void  HelloWorldScene::initPhysics() {
@@ -509,6 +521,8 @@ void HelloWorldScene::ballset() {//读取文件中球的位置以及杆的方向
 				_player->getBody()->SetLinearVelocity(b2Vec2(ganx / 30, -gany / 30));
 			}
 		}
+		SimpleAudioEngine::getInstance()->playEffect("mp3/moni.wav");
+
 	}
 	else//否则进入通过给出白球和子球的位置，指示出进袋的路线
 	{
@@ -602,6 +616,8 @@ void HelloWorldScene::ballset() {//读取文件中球的位置以及杆的方向
 		ganx1 = qiux - b2_0[1];
 		gany1 = qiuy - b3_0[1];//设置击球的路线
 		_player->getBody()->SetLinearVelocity(b2Vec2(ganx1 /100 , gany1 /100 ));//设置白球出球的方向
+		SimpleAudioEngine::getInstance()->playEffect("mp3/ok.wav");
+
 		way1 = false;
 
 	}
@@ -687,7 +703,12 @@ void  HelloWorldScene::update(float dt) {
 			}
 			if ((fabs(ballPos.y - ballPos1.y) >= 1) || (fabs(ballPos.x - ballPos1.x) >= 1))//如果子球运动的速度较小，就不再记录在运动轨迹之中
 			{
-
+				b2Vec2 v = ball->getBody()->GetLinearVelocity();
+				if (abs(v.x)>1 && abs(v.y)>1&& powm)
+				{
+					SimpleAudioEngine::getInstance()->playEffect("mp3/pow.mp3");
+					powm = 0;
+				}
 				drawing = true;
 				a1[i2] = ballPos.x;
 				b1[i2] = ballPos.y;
@@ -750,6 +771,7 @@ void  HelloWorldScene::update(float dt) {
 		fin.open("g://exchangeFile/way.txt");
 		fin >> way;
 		fin.close();
+		powm = 1;
 		if (!way)
 		{
 			Sleep(2000);//静止5秒，用户击球时间
@@ -1099,6 +1121,7 @@ void HelloWorldScene::reset1() {
 		gany1 = qiuy - b3_0[1];//设置击球的路线
 		
 		_player->getBody()->SetLinearVelocity(b2Vec2(ganx1*2  , gany1 * 2));//设置白球出球的方向
+		SimpleAudioEngine::getInstance()->playEffect("mp3/ok.wav");
 		//log("ganx1:%f", ganx1);
 		//log("gany1:%f", gany1);
 		way1 = false;
@@ -1207,7 +1230,6 @@ void HelloWorldScene::reset() {
 
 
 	fout.close();
-	log("1");
 	for (int i = 0; !fin.eof(); i++)
 	{
 		if (i == 15)
@@ -1221,7 +1243,6 @@ void HelloWorldScene::reset() {
 		fin >> str[i];
 		log("i:%d", i);
 	}
-	log("2");
 
 	num = num - 1;
 	if (shuaxin != 0)
@@ -1244,7 +1265,6 @@ void HelloWorldScene::reset() {
 		ball->getBody()->SetLinearVelocity(b2Vec2_zero);
 
 	}
-	log("3");
 
 	if (b2[0] != 0)
 	{
@@ -1336,7 +1356,6 @@ void HelloWorldScene::reset() {
 			}
 		}
 	}
-	log("4");
 
 	x2 = x2;
 	y2 = 667 - y2;
@@ -1364,5 +1383,7 @@ void HelloWorldScene::reset() {
 
 			_player->getBody()->SetLinearVelocity(b2Vec2(ganx / 30, -gany / 30));
 		}
+		SimpleAudioEngine::getInstance()->playEffect("mp3/moni.wav");
+
 	}
 }
