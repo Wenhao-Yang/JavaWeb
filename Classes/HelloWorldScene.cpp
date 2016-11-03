@@ -1,19 +1,25 @@
-#include "HelloWorldScene.h"
+ï»¿#include "HelloWorldScene.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <math.h>
 
 #define create_weight _screenSize.width * 0.0145
-#define create_height _screenSize.height * 0.000
-#define create_height01 _screenSize.height * 0.017
+#define create_height (-_screenSize.height * 0.010)//ä¸‹é¢çš„ï¼Œæƒ³å¤§æ”¹å°
 
-#define create_weight1 _screenSize.width * 0.0125
-#define create_height1 _screenSize.height * 0.006
+#define create_weight01 _screenSize.width * 0.0140//ä¸Šé¢çš„
+#define create_height01 _screenSize.height * 0.008
+
+#define create_weight1 _screenSize.width * 0.0138
+#define create_height1 (-_screenSize.height * 0.010)//ä¸‹é¢çš„ï¼Œæƒ³å¤§æ”¹å°
+
+#define create_weight11 _screenSize.width * 0.0135//ä¸Šé¢çš„
 #define create_height11 _screenSize.height * 0.0185
 
-#define create_weight2 _screenSize.width * 0.0020
-#define create_height2 _screenSize.height * 0.008
+#define create_weight2 _screenSize.width * 0.0022
+#define create_height2 _screenSize.height * 0.000//ä¸‹é¢çš„ï¼Œæƒ³å¤§æ”¹å°
+
+#define create_weight22 _screenSize.width * 0.0032//ä¸Šé¢çš„
 #define create_height22 _screenSize.height * 0.020
 
 #define DF_LEVEL1  (5000)
@@ -29,6 +35,7 @@ CCPoint point4 = ccp(0, 0);
 CCPoint point5 = ccp(0, 0);
 CCPoint point6 = ccp(0, 0);
 CCPoint point7 = ccp(0, 0);
+CCPoint point71 = ccp(0, 0);
 CCPoint point8 = ccp(0, 0);
 CCPoint point9 = ccp(0, 0);
 CCPoint point10 = ccp(0, 0);
@@ -49,8 +56,8 @@ double y[6];
 float r = 0;
 double p1[12];
 double p2[12];
-int ganx = 0, gany = 0;
-int ganx1 = 0, gany1 = 0;
+float ganx = 0, gany = 0;
+float ganx1 = 0, gany1 = 0;
 //ofstream fout;
 bool way = true;
 bool shibie = true;
@@ -62,10 +69,10 @@ int shuaxin = 0;
 
 
 HelloWorldScene::HelloWorldScene() {
-	_screenSize = CCDirector::sharedDirector()->getWinSize();//Éè¶¨ÆÁÄ»µÄ´óĞ¡
+	_screenSize = CCDirector::sharedDirector()->getWinSize();//è®¾å®šå±å¹•çš„å¤§å°
 
-	//CCSprite * bg = CCSprite::create("white.png");//´´½¨Ò»¸ö±³¾°¾«Áé
-	//bg->setPosition(ccp(_screenSize.width * 0.5f, _screenSize.height * 0.5f));//ÉèÖÃÖĞĞÄµã
+	//CCSprite * bg = CCSprite::create("white.png");//åˆ›å»ºä¸€ä¸ªèƒŒæ™¯ç²¾çµ
+	//bg->setPosition(ccp(_screenSize.width * 0.5f, _screenSize.height * 0.5f));//è®¾ç½®ä¸­å¿ƒç‚¹
 	//this->addChild(bg,-1);
 
 	CCSize s = CCDirector::sharedDirector()->getWinSize();
@@ -75,7 +82,7 @@ HelloWorldScene::HelloWorldScene() {
 	this->addChild(layer, 1, layer->getTag());
 
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("sprite_sheet.plist");
-	_gameBatchNode = CCSpriteBatchNode::create("sprite_sheet.png", 50);//¶ÁÈ¡¾«ÁéµÄÍ¼Æ¬
+	_gameBatchNode = CCSpriteBatchNode::create("sprite_sheet.png", 50);//è¯»å–ç²¾çµçš„å›¾ç‰‡
 	this->addChild(_gameBatchNode, kMiddleground);
 
 	// init physics
@@ -130,35 +137,35 @@ bool HelloWorldScene::init()
 	return true;
 }
 void  HelloWorldScene::initPhysics() {
-	b2Vec2 gravity;//´´½¨Ò»¸öÖØÁ¦¼ÓËÙ¶È
-	gravity.Set(0.0f, 0.0f);//ÉèÖÃÖØÁ¦¼ÓËÙ¶È
-	_world = new b2World(gravity);//ÎïÀíÊÀ½çµÄÊôĞÔ
+	b2Vec2 gravity;//åˆ›å»ºä¸€ä¸ªé‡åŠ›åŠ é€Ÿåº¦
+	gravity.Set(0.0f, 0.0f);//è®¾ç½®é‡åŠ›åŠ é€Ÿåº¦
+	_world = new b2World(gravity);//ç‰©ç†ä¸–ç•Œçš„å±æ€§
 
 	_world->SetAllowSleeping(true);
 	_world->SetContinuousPhysics(true);
 
-	m_debugDraw = new GLESDebugDraw(PTM_RATIO);//ÕâÀïĞÂ½¨Ò»¸ö debugäÖÈ¾Ä£¿é
-	_world->SetDebugDraw(m_debugDraw);//ÉèÖÃĞèÒªÏÔÊ¾ÄÇĞ©¶«Î÷
+	m_debugDraw = new GLESDebugDraw(PTM_RATIO);//è¿™é‡Œæ–°å»ºä¸€ä¸ª debugæ¸²æŸ“æ¨¡å—
+	_world->SetDebugDraw(m_debugDraw);//è®¾ç½®éœ€è¦æ˜¾ç¤ºé‚£äº›ä¸œè¥¿
 
 	uint32 flags = 0;
 	flags += b2Draw::e_shapeBit;
 	m_debugDraw->SetFlags(flags);
 
-	b2FixtureDef fixtureDef;//´´½¨Ò»¸ö¼Ğ¾ß
-	b2BodyDef bodyDef;//´´½¨Ò»¸ö¸ÕÌå
+	b2FixtureDef fixtureDef;//åˆ›å»ºä¸€ä¸ªå¤¹å…·
+	b2BodyDef bodyDef;//åˆ›å»ºä¸€ä¸ªåˆšä½“
 
-	_pockets = CCArray::createWithCapacity(6);//ÉèÖÃÇò¶´
+	_pockets = CCArray::createWithCapacity(6);//è®¾ç½®çƒæ´
 	_pockets->retain();
 
-	b2Body *pocket;//´´½¨Ò»¸öÇò´ü¸ÕÌå
-	b2Sprite *pocketData;//´´½¨Çò´üµÄ¾«Áé
+	b2Body *pocket;//åˆ›å»ºä¸€ä¸ªçƒè¢‹åˆšä½“
+	b2Sprite *pocketData;//åˆ›å»ºçƒè¢‹çš„ç²¾çµ
 	b2CircleShape circle;
 	float startX = _screenSize.width * 0.00;//0.84
 	float startY = (_screenSize.height - 100)* 0.98f;
 	for (int i = 0; i < 6; ++i) {
 		log("i: %d ", i);
-		bodyDef.type = b2_staticBody;//ÉèÖÃ¸ÕÌåµÄÀàĞÍÎª¾²Ì¬
-		if (i < 3) {//ÉèÖÃÃ¿Ò»¸öÇò´üµÄÎ»ÖÃ
+		bodyDef.type = b2_staticBody;//è®¾ç½®åˆšä½“çš„ç±»å‹ä¸ºé™æ€
+		if (i < 3) {//è®¾ç½®æ¯ä¸€ä¸ªçƒè¢‹çš„ä½ç½®
 			bodyDef.position.Set(
 				(startX + i * ((_screenSize.height - 100) * 1.00f * 0.5f)) / PTM_RATIO,
 				startY / PTM_RATIO);
@@ -172,22 +179,22 @@ void  HelloWorldScene::initPhysics() {
 			x[i] = startX + (i - 3)*_screenSize.width * 1.00f*0.5f;
 			y[i] = startY - 2 * ((_screenSize.height - 100) * 0.96f * 0.5f);
 		}
-		pocket = _world->CreateBody(&bodyDef);//ÔÚ_worldÊÀ½çÖĞ´´½¨Õâ¸ö¸ÕÌå
+		pocket = _world->CreateBody(&bodyDef);//åœ¨_worldä¸–ç•Œä¸­åˆ›å»ºè¿™ä¸ªåˆšä½“
 		fixtureDef.isSensor = true;
 		r = 1.5 * BALL_RADIUS;
 		circle.m_radius = (float)(1.5 * BALL_RADIUS) / PTM_RATIO;
-		fixtureDef.shape = &circle;//ÉèÖÃ¼Ğ¾ßµÄĞÎ×´
-		pocket->CreateFixture(&fixtureDef);//°Ñ¸ÕÌåºÍ¼Ğ¾ßÁ¬½ÓÔÚÒ»Æğ
+		fixtureDef.shape = &circle;//è®¾ç½®å¤¹å…·çš„å½¢çŠ¶
+		pocket->CreateFixture(&fixtureDef);//æŠŠåˆšä½“å’Œå¤¹å…·è¿æ¥åœ¨ä¸€èµ·
 		pocketData = new b2Sprite(this, kSpritePocket);
-		pocket->SetUserData(pocketData);//°Ñ¾«ÁéºÍ¸ÕÌåÁ¬½ÓÔÚÒ»Æğ
-		_pockets->addObject(pocketData);//°ÑÕâ¸ö¾«Áé¼ÓÈëµ½Ä£ÄâµÄÊÀ½çÖĞ
+		pocket->SetUserData(pocketData);//æŠŠç²¾çµå’Œåˆšä½“è¿æ¥åœ¨ä¸€èµ·
+		_pockets->addObject(pocketData);//æŠŠè¿™ä¸ªç²¾çµåŠ å…¥åˆ°æ¨¡æ‹Ÿçš„ä¸–ç•Œä¸­
 	}
 
-	b2BodyDef tableBodyDef;//ÉèÖÃÇò×ÀµÄ±ß½ç
+	b2BodyDef tableBodyDef;//è®¾ç½®çƒæ¡Œçš„è¾¹ç•Œ
 	tableBodyDef.position.Set(0, 0);
 	b2Body *tableBody = _world->CreateBody(&tableBodyDef);
 	b2EdgeShape tableBox;
-	//ÏÂ±ß½çµÄÎ»ÖÃ
+	//ä¸‹è¾¹ç•Œçš„ä½ç½®
 	tableBox.Set(b2Vec2(_screenSize.width * 0.05f / PTM_RATIO, (_screenSize.height - 100) * 0.02f / PTM_RATIO),
 		b2Vec2(_screenSize.width * 0.46f / PTM_RATIO, (_screenSize.height - 100) * 0.02f / PTM_RATIO));
 	tableBody->CreateFixture(&tableBox, 0);
@@ -202,7 +209,7 @@ void  HelloWorldScene::initPhysics() {
 	p2[8] = (_screenSize.height - 100) * 0.02f;
 	p1[9] = _screenSize.width * 0.95f;
 	p2[9] = (_screenSize.height - 100) * 0.02f;
-	//ÉÏ±ß½çµÄÎ»ÖÃ
+	//ä¸Šè¾¹ç•Œçš„ä½ç½®
 	tableBox.Set(b2Vec2(_screenSize.width * 0.05f / PTM_RATIO, (_screenSize.height - 100) * 0.98f / PTM_RATIO),
 		b2Vec2(_screenSize.width * 0.46f / PTM_RATIO, (_screenSize.height - 100) * 0.98f / PTM_RATIO));
 	tableBody->CreateFixture(&tableBox, 0);
@@ -217,7 +224,7 @@ void  HelloWorldScene::initPhysics() {
 	p2[10] = (_screenSize.height - 100) * 0.98f;
 	p1[11] = _screenSize.width * 0.95f;
 	p2[11] = (_screenSize.height - 100) * 0.98f;
-	//×ó±ß½çµÄÎ»ÖÃ
+	//å·¦è¾¹ç•Œçš„ä½ç½®
 	tableBox.Set(b2Vec2(_screenSize.width * 0.00f / PTM_RATIO, (_screenSize.height - 100) * 0.09f / PTM_RATIO),
 		b2Vec2(_screenSize.width * 0.00f / PTM_RATIO, (_screenSize.height - 100) * 0.91f / PTM_RATIO));
 	tableBody->CreateFixture(&tableBox, 0);
@@ -225,7 +232,7 @@ void  HelloWorldScene::initPhysics() {
 	p2[4] = (_screenSize.height - 100) * 0.09f;
 	p1[5] = _screenSize.width * 0.00f;
 	p2[5] = (_screenSize.height - 100) * 0.91f;
-	//ÓÒ±ß½çµÄÎ»ÖÃ
+	//å³è¾¹ç•Œçš„ä½ç½®
 	tableBox.Set(b2Vec2(_screenSize.width * 1.00f / PTM_RATIO, (_screenSize.height - 100) * 0.09f / PTM_RATIO),
 		b2Vec2(_screenSize.width * 1.00f / PTM_RATIO, (_screenSize.height - 100) * 0.91f / PTM_RATIO));
 	tableBody->CreateFixture(&tableBox, 0);
@@ -238,7 +245,7 @@ void  HelloWorldScene::initPhysics() {
 	_balls = CCArray::createWithCapacity(9);
 	_balls->retain();
 
-	for (int j = 0; j < 1000; j++)//³õÊ¼»¯¼ÇÂ¼±íÊ¾ÇòÔË¶¯×ø±êµÄÊı×é
+	for (int j = 0; j < 1000; j++)//åˆå§‹åŒ–è®°å½•è¡¨ç¤ºçƒè¿åŠ¨åæ ‡çš„æ•°ç»„
 	{
 		a[j] = 0;
 		b[j] = 0;
@@ -249,19 +256,19 @@ void  HelloWorldScene::initPhysics() {
 		d1[j] = 0;
 		c1[j] = 0;
 	}
-	i1 = 0;//³õÊ¼»¯°×ÇòÔË¶¯µÄÖ¡Êı
-	i2 = 0;//³õÊ¼»¯×ÓÇòÔË¶¯µÄÖ¡Êı
+	i1 = 0;//åˆå§‹åŒ–ç™½çƒè¿åŠ¨çš„å¸§æ•°
+	i2 = 0;//åˆå§‹åŒ–å­çƒè¿åŠ¨çš„å¸§æ•°
 
 	ballset();
 
 }
-void HelloWorldScene::ballset() {//¶ÁÈ¡ÎÄ¼şÖĞÇòµÄÎ»ÖÃÒÔ¼°¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
-	string str[20];//ÓÃÀ´¼ÇÂ¼ÇòµÄÑÕÉ«
-	int  b2[20];//ÓÃÀ´¼ÇÂ¼x×ø±ê
-	int b3[20];//ÓÃÀ´¼ÇÂ¼y×ø±ê
-	int r1[20];//ÓÃÀ´¼ÇÂ¼°ë¾¶
-	int b2_0[2];
-	int b3_0[2];
+void HelloWorldScene::ballset() {//è¯»å–æ–‡ä»¶ä¸­çƒçš„ä½ç½®ä»¥åŠæ†çš„æ–¹å‘å’Œæ˜¯å¦å‡ºæ†
+	string str[20];//ç”¨æ¥è®°å½•çƒçš„é¢œè‰²
+	float  b2[20];//ç”¨æ¥è®°å½•xåæ ‡
+	float b3[20];//ç”¨æ¥è®°å½•yåæ ‡
+	int r1[20];//ç”¨æ¥è®°å½•åŠå¾„
+	float b2_0[2];
+	float b3_0[2];
 	int do_id;
 	ifstream fin;
 	ifstream fin1;
@@ -269,10 +276,10 @@ void HelloWorldScene::ballset() {//¶ÁÈ¡ÎÄ¼şÖĞÇòµÄÎ»ÖÃÒÔ¼°¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
 	ofstream fout;
 	int x, x1, y, y1;
 	int x2, y2;
-	fin.open("g://exchangeFile/qiu.txt");//¶ÁÈ¡ÇòµÄ×ø±ê
-	fin1.open("g://exchangeFile/gan.txt");//¶ÁÈ¡¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
-	fin2.open("g://exchangeFile/way.txt");//¶ÁÈ¡Òª½øĞĞÄ£ÄâµÄ·½Ê½
-	fout.open("g://exchangeFile/shi.txt");//Ğ´ÈëopencvÊÇ·ñÊ¶±ğ
+	fin.open("g://exchangeFile/qiu.txt");//è¯»å–çƒçš„åæ ‡
+	fin1.open("g://exchangeFile/gan.txt");//è¯»å–æ†çš„æ–¹å‘å’Œæ˜¯å¦å‡ºæ†
+	fin2.open("g://exchangeFile/way.txt");//è¯»å–è¦è¿›è¡Œæ¨¡æ‹Ÿçš„æ–¹å¼
+	fout.open("g://exchangeFile/shi.txt");//å†™å…¥opencvæ˜¯å¦è¯†åˆ«
 	fin2 >> way;
 	if (way == 0)
 	{
@@ -305,7 +312,7 @@ void HelloWorldScene::ballset() {//¶ÁÈ¡ÎÄ¼şÖĞÇòµÄÎ»ÖÃÒÔ¼°¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
 		}
 	}
 	num = num - 1;
-	if (chugan)//Èç¹ûÊÇ³ö¸ËµÄÇé¿ö£¬Edison¶ËÍ£Ö¹Ê¶±ğ
+	if (chugan)//å¦‚æœæ˜¯å‡ºæ†çš„æƒ…å†µï¼ŒEdisonç«¯åœæ­¢è¯†åˆ«
 	{
 		fout << false << endl;
 	}
@@ -333,7 +340,7 @@ void HelloWorldScene::ballset() {//¶ÁÈ¡ÎÄ¼şÖĞÇòµÄÎ»ÖÃÒÔ¼°¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
 	fout.close();
 	Sleep(500);
 
-	Ball *ball;//Ìí¼ÓÇò
+	Ball *ball;//æ·»åŠ çƒ
 	float newX;
 	float newY;
 	float playerX;
@@ -341,61 +348,78 @@ void HelloWorldScene::ballset() {//¶ÁÈ¡ÎÄ¼şÖĞÇòµÄÎ»ÖÃÒÔ¼°¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
 	int zuobiaox = 0;
 	int zuobiaoy = 0;
 	int color;
-	for (int i = 0; i < 15; i++)//³õÊ¼»¯15-num¸öÇò£¬²¢°ÑËüÃÇ¼ÓÈë£¬·ÀÖ¹ÄÚ´æÒç³ö
+	for (int i = 0; i < 15; i++)//åˆå§‹åŒ–15-numä¸ªçƒï¼Œå¹¶æŠŠå®ƒä»¬åŠ å…¥ï¼Œé˜²æ­¢å†…å­˜æº¢å‡º
 	{
 		color = kColorYellow;
-		ball = Ball::create(this, kSpriteBall, ccp(0, 0), color);
+		ball = Ball::create(this, kSpriteBall, ccp(-30, 0), color);
 		_gameBatchNode->addChild(ball, kMiddleground);
 		_balls->addObject(ball);
 	}
 
 	if (b[0] != 0)
 	{
-		for (int i = 0; i < num; i++) {//ÉèÖÃÇòµÄÊıÁ¿
-			if (str[i] != "white")//ÉèÖÃ×ÓÇòµÄÎ»ÖÃ
+		for (int i = 0; i < num; i++) {//è®¾ç½®çƒçš„æ•°é‡
+			if (str[i] != "white")//è®¾ç½®å­çƒçš„ä½ç½®
 			{
+
 				if (b2[i] < 410)
 				{
-					newX = b2[i] + create_weight;
 					if (b3[i] > 330)
 					{
+						newX = b2[i] + create_weight;
 						newY = 667 - (b3[i] + create_height);
 
 					}
 					else {
+						newX = b2[i] + create_weight01;
 						newY = 667 - (b3[i] + create_height01);
 
 					}
 				}
 				else if (b2[i] > 410 && b2[i] < 820)
 				{
-					newX = b2[i] + create_weight1;
 					//newY = 667 - (b3[i] + create_height1);
 					if (b3[i] > 330)
 					{
+						newX = b2[i] + create_weight1;
+
 						newY = 667 - (b3[i] + create_height1);
 
 					}
 					else {
+						newX = b2[i] + create_weight11;
+
 						newY = 667 - (b3[i] + create_height11);
 
 					}
 				}
 				else if (b2[i] > 820 && b2[i] < 1366)
 				{
-					newX = b2[i] + create_weight2;
 					//newY = 667 - (b3[i] + create_height2);
 					if (b3[i] > 330)
 					{
+						newX = b2[i] + create_weight2;
+
 						newY = 667 - (b3[i] + create_height2);
 
 					}
 					else {
+						newX = b2[i] + create_weight22;
+
 						newY = 667 - (b3[i] + create_height22);
 
 					}
 				}
-
+				if (!way)
+				{
+					float distance = sqrt(pow(b2_0[0] - b2[i], 2) + pow(b3_0[0] - b3[i], 2));
+					if (distance < 20)
+					{
+						b2_0[0] = b2[i];
+						b3_0[0] = b3[i];
+					}
+				}
+				
 				ball = (Ball *)_balls->objectAtIndex(i);
 
 				ball->setSpritePosition(ccp(newX, newY));
@@ -407,25 +431,53 @@ void HelloWorldScene::ballset() {//¶ÁÈ¡ÎÄ¼şÖĞÇòµÄÎ»ÖÃÒÔ¼°¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
 				_gameBatchNode->addChild(ball, kMiddleground);
 				_balls->addObject(ball);*/
 			}
-			else {//ÉèÖÃ°×ÇòµÄÎ»ÖÃ
+			else {//è®¾ç½®ç™½çƒçš„ä½ç½®
 
 				if (b2[i] < 410)
 				{
-					playerX = b2[i] + create_weight;
-					playerY = 667 - (b3[i] + create_height);
+					
+					if (b3[i] > 330)
+					{
+						playerX = b2[i] + create_weight;
+						playerY = 667 - (b3[i] + create_height);
+
+					}
+					else {
+						playerX = b2[i] + create_weight01;
+						playerY = 667 - (b3[i] + create_height01);
+
+					}
 				}
 				else if (b2[i] > 410 && b2[i] < 820)
 				{
-					playerX = b2[i] + create_weight1;
-					playerY = 667 - (b3[i] + create_height1);
+					if (b3[i] > 330)
+					{
+						playerX = b2[i] + create_weight1;
+						playerY = 667 - (b3[i] + create_height1);
+
+					}
+					else {
+						playerX = b2[i] + create_weight11;
+						playerY = 667 - (b3[i] + create_height11);
+
+					}
 				}
 				else if (b2[i] > 820 && b2[i] < 1366)
 				{
-					playerX = b2[i] + create_weight2;
-					playerY = 667 - (b3[i] + create_height2);
+					if (b3[i] > 330)
+					{
+						playerX = b2[i] + create_weight2;
+						playerY = 667 - (b3[i] + create_height2);
+
+					}
+					else {
+						playerX = b2[i] + create_weight2;
+						playerY = 667 - (b3[i] + create_height2);
+
+					}
 				}
-				b2_0[1] = b2[i] + create_weight;
-				b3_0[1] = 667 - (b3[i] + create_height);
+				b2_0[1] = playerX;
+				b3_0[1] = playerY;
 			}
 		}
 	}
@@ -435,14 +487,14 @@ void HelloWorldScene::ballset() {//¶ÁÈ¡ÎÄ¼şÖĞÇòµÄÎ»ÖÃÒÔ¼°¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
 
 	_player = Ball::create(this, kSpritePlayer, ccp(playerX, playerY), kColorWhite);
 	_gameBatchNode->addChild(_player, kMiddleground);
-	if (way == 1)//Èç¹ûway==1£¬½øÈëÍ¨¹ı¶ÁÈ¡¸ËµÄ·½ÏòÄ£Äâ»÷ÇòÂ·Ïß
+	if (way == 1)//å¦‚æœway==1ï¼Œè¿›å…¥é€šè¿‡è¯»å–æ†çš„æ–¹å‘æ¨¡æ‹Ÿå‡»çƒè·¯çº¿
 	{
 
-		if (chugan == 1 && b[0] != 0)//µ±Çò¸ËÖ¸Ïò°×ÇòÊ±chugan == 1
+		if (chugan == 1 && b[0] != 0)//å½“çƒæ†æŒ‡å‘ç™½çƒæ—¶chugan == 1
 		{
-			if (x2 >= playerX&&y2 >= playerY)//¸ù¾İÇò¸ËÔÚ°×ÇòµÄ²»Í¬Î»ÖÃ£¬ÉèÖÃ°×Çò³öÇòµÄ·½Ïò
+			if (x2 >= playerX&&y2 >= playerY)//æ ¹æ®çƒæ†åœ¨ç™½çƒçš„ä¸åŒä½ç½®ï¼Œè®¾ç½®ç™½çƒå‡ºçƒçš„æ–¹å‘
 			{
-				_player->getBody()->SetLinearVelocity(b2Vec2(ganx / 30, -gany / 30));//ÉèÖÃ°×Çò³öÇòµÄ·½Ïò
+				_player->getBody()->SetLinearVelocity(b2Vec2(ganx / 30, -gany / 30));//è®¾ç½®ç™½çƒå‡ºçƒçš„æ–¹å‘
 			}
 			else if (x2 < playerX&&y2 < playerY)
 			{
@@ -458,96 +510,98 @@ void HelloWorldScene::ballset() {//¶ÁÈ¡ÎÄ¼şÖĞÇòµÄÎ»ÖÃÒÔ¼°¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
 			}
 		}
 	}
-	else//·ñÔò½øÈëÍ¨¹ı¸ø³ö°×ÇòºÍ×ÓÇòµÄÎ»ÖÃ£¬Ö¸Ê¾³ö½ø´üµÄÂ·Ïß
+	else//å¦åˆ™è¿›å…¥é€šè¿‡ç»™å‡ºç™½çƒå’Œå­çƒçš„ä½ç½®ï¼ŒæŒ‡ç¤ºå‡ºè¿›è¢‹çš„è·¯çº¿
 	{
 		float dox = 0;
 		float doy = 0;
 		if (do_id == 1)
 		{
 			dox = _screenSize.width * 0.00f;
-			doy = (_screenSize.height - 100) * 0.98f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.98f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 2)
 		{
 			dox = _screenSize.width * 0.50f;
-			doy = (_screenSize.height - 100) * 0.98f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.98f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 3)
 		{
 			dox = _screenSize.width * 1.00f;
-			doy = (_screenSize.height - 100) * 0.98f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.98f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 4)
 		{
 			dox = _screenSize.width * 0.00f;
-			doy = (_screenSize.height - 100) * 0.02f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.02f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 5)
 		{
 			dox = _screenSize.width * 0.50f;
-			doy = (_screenSize.height - 100) * 0.02f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.02f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 6)
 		{
 			dox = _screenSize.width * 1.00f;
-			doy = (_screenSize.height - 100) * 0.02f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.02f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 
 		float qiux = 0;
-		float qiuy = 0;//Òª½ø´üµÄÄÇ¸öÇò
-		if (b2_0[0] < 410)
-		{
-			qiux = b2_0[0] + create_weight;
-			if (b3_0[0] > 330)
-			{
-				qiuy = 667 - (b3_0[0] + create_height);//Òª½ø´üµÄÄÇ¸öÇò
+		float qiuy = 0;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
+		//if (b2_0[0] < 410)
+		//{
+		//	qiux = b2_0[0] + create_weight;
+		//	if (b3_0[0] > 330)
+		//	{
+		//		qiuy = 667 - (b3_0[0] + create_height);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-			else {
-				qiuy = 667 - (b3_0[0] + create_height01);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//	else {
+		//		qiuy = 667 - (b3_0[0] + create_height01);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-		}
-		else if (b2_0[0] > 410 && b2_0[0] < 820)
-		{
-			qiux = b2_0[0] + create_weight1;
-			if (b3_0[0] > 330)
-			{
-				qiuy = 667 - (b3_0[0] + create_height1);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//}
+		//else if (b2_0[0] > 410 && b2_0[0] < 820)
+		//{
+		//	qiux = b2_0[0] + create_weight1;
+		//	if (b3_0[0] > 330)
+		//	{
+		//		qiuy = 667 - (b3_0[0] + create_height1);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-			else {
-				qiuy = 667 - (b3_0[0] + create_height11);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//	else {
+		//		qiuy = 667 - (b3_0[0] + create_height11);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-		}
-		else if (b2_0[0] > 820 && b2_0[0] < 1366)
-		{
-			qiux = b2_0[0] + create_weight2;
-			if (b3_0[0] > 330)
-			{
-				qiuy = 667 - (b3_0[0] + create_height2);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//}
+		//else if (b2_0[0] > 820 && b2_0[0] < 1366)
+		//{
+		//	qiux = b2_0[0] + create_weight2;
+		//	if (b3_0[0] > 330)
+		//	{
+		//		qiuy = 667 - (b3_0[0] + create_height2);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-			else {
-				qiuy = 667 - (b3_0[0] + create_height22);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//	else {
+		//		qiuy = 667 - (b3_0[0] + create_height22);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-		}
+		//	}
+		//}
+		qiux = b2_0[0];
+		qiuy = b3_0[0];
 		point7.x = dox;
 		point7.y = doy;
 		float k = (doy - qiuy) / (dox - qiux);
 		float creat_x = BALL_RADIUS*(sqrt(1 / (pow(k, 2) + 1)));
-		float creat_y = sqrt(pow(BALL_RADIUS, 2) - pow(creat_x, 2));//¼ÆËã³öÇò´üºÍÇòµÄÁ¬Ïß
+		float creat_y = sqrt(pow(BALL_RADIUS, 2) - pow(creat_x, 2));//è®¡ç®—å‡ºçƒè¢‹å’Œçƒçš„è¿çº¿
 		qiux = qiux + 2 * ((b2_0[0] - dox) / (abs(b2_0[0] - dox))) * creat_x;
-		qiuy = qiuy + 2 * ((b3_0[0] - doy) / (abs(b3_0[0] - doy))) * creat_y;//¼ÆËã³öĞèÒª»÷ÇòµÄµã
+		qiuy = qiuy + 2 * ((b3_0[0] - doy) / (abs(b3_0[0] - doy))) * creat_y;//è®¡ç®—å‡ºéœ€è¦å‡»çƒçš„ç‚¹
 		point8.x = qiux;
 		point8.y = qiuy;
 		point9.x = b2_0[1];
 		point9.y = b3_0[1];
 		ganx1 = qiux - b2_0[1];
-		gany1 = qiuy - b3_0[1];//ÉèÖÃ»÷ÇòµÄÂ·Ïß
-		_player->getBody()->SetLinearVelocity(b2Vec2(ganx1, gany1));//ÉèÖÃ°×Çò³öÇòµÄ·½Ïò
+		gany1 = qiuy - b3_0[1];//è®¾ç½®å‡»çƒçš„è·¯çº¿
+		_player->getBody()->SetLinearVelocity(b2Vec2(ganx1 /100 , gany1 /100 ));//è®¾ç½®ç™½çƒå‡ºçƒçš„æ–¹å‘
 		way1 = false;
 
 	}
@@ -558,10 +612,11 @@ void HelloWorldScene::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4& tra
 
 	if (drawing) {
 		//DrawPrimitives::setDrawColor4F(0, 255, 255, 255);
-		DrawPrimitives::setDrawColor4B(0, 255, 255, 255);//ÉèÖÃÑÕÉ«
-		glLineWidth(10.0f);//ÉèÖÃÏßÌõ¿í¶È
-
-		for (int j = 0; j < 1000; j++)//»­³ö×ÓÇòµÄÔË¶¯¹ì¼£
+		DrawPrimitives::setDrawColor4B(0, 255, 255, 255);//è®¾ç½®é¢œè‰²
+		glLineWidth(10.0f);//è®¾ç½®çº¿æ¡å®½åº¦
+		//ccDrawLine(point7, point71);
+		//ccDrawLine(point8, point9);
+		for (int j = 0; j < 1000; j++)//ç”»å‡ºå­çƒçš„è¿åŠ¨è½¨è¿¹
 		{
 			point3.x = a1[j];
 			point3.y = b1[j];
@@ -569,23 +624,23 @@ void HelloWorldScene::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4& tra
 			point4.y = d1[j];
 			ccDrawLine(ccp(a1[j], b1[j]), ccp(c1[j], d1[j]));
 		}
-		DrawPrimitives::setDrawColor4B(135, 206, 250, 255);//ÉèÖÃÑÕÉ«
-		//DrawPrimitives::setDrawColor4B(10,10, 0, 255);//ÉèÖÃÑÕÉ«
+		DrawPrimitives::setDrawColor4B(135, 206, 250, 255);//è®¾ç½®é¢œè‰²
+		//DrawPrimitives::setDrawColor4B(10,10, 0, 255);//è®¾ç½®é¢œè‰²
 
-		for (int j = 0; j < 1000; j++)//»­³ö°×ÇòµÄÔË¶¯¹ì¼£
+		for (int j = 0; j < 1000; j++)//ç”»å‡ºç™½çƒçš„è¿åŠ¨è½¨è¿¹
 		{
 			point1.x = a[j];
 			point1.y = b[j];
 			point2.x = c[j];
 			point2.y = d[j];
-			//glLineWidth(2.0f);//ÉèÖÃÏßÌõ¿í¶È
+			//glLineWidth(2.0f);//è®¾ç½®çº¿æ¡å®½åº¦
 			ccDrawLine(ccp(a[j], b[j]), ccp(c[j], d[j]));
 		}
 	}
-	//glLineWidth(4.0f);//ÉèÖÃÏßÌõ¿í¶È
-	DrawPrimitives::setDrawColor4B(123, 104, 238, 255);//ÉèÖÃÑÕÉ«
+	//glLineWidth(4.0f);//è®¾ç½®çº¿æ¡å®½åº¦
+	DrawPrimitives::setDrawColor4B(123, 104, 238, 255);//è®¾ç½®é¢œè‰²
 
-	for (int j = 0; j < 12; j++)//»­³öÇòÌ¨±ß½ç
+	for (int j = 0; j < 12; j++)//ç”»å‡ºçƒå°è¾¹ç•Œ
 	{
 		point5.x = p1[j];
 		point5.y = p2[j];
@@ -594,23 +649,23 @@ void HelloWorldScene::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4& tra
 		point6.y = p2[j];
 		DrawPrimitives::drawLine(point5, point6);
 	}
-	for (int j = 0; j < 6; j++)//»­³öÇò´ü
+	for (int j = 0; j < 6; j++)//ç”»å‡ºçƒè¢‹
 	{
 		if (j < 3) {
-			ccDrawColor4B(255, 255, 255, 255);//ÑÕÉ«
+			ccDrawColor4B(255, 255, 255, 255);//é¢œè‰²
 		}
 		else
 		{
-			ccDrawColor4B(0, 255, 0, 255);//ÑÕÉ«
+			ccDrawColor4B(0, 255, 0, 255);//é¢œè‰²
 		}
 		ccDrawCircle(ccp(x[j], y[j]), r, 0, 10, false);
 	}
-	ccDrawColor4B(0, 255, 0, 255);//ÑÕÉ«
-	ccDrawCircle(ccp(point10.x,point10.y), BALL_RADIUS, 0, 10, false);
+	ccDrawColor4B(0, 255, 0, 255);//é¢œè‰²
+	//ccDrawCircle(ccp(point10.x,point10.y), BALL_RADIUS, 0, 10, false);
 }
 void  HelloWorldScene::update(float dt) {
 
-	_world->Step(dt, 10, 10);//Ã¿µ÷ÓÃÒ»´ÎStep()±íÊ¾µ±Ç°µÄworldµÄÊ±¼äÏòÇ°ÍÆ½øÁËÒ»²½
+	_world->Step(dt, 10, 10);//æ¯è°ƒç”¨ä¸€æ¬¡Step()è¡¨ç¤ºå½“å‰çš„worldçš„æ—¶é—´å‘å‰æ¨è¿›äº†ä¸€æ­¥
 	int count = num - 1;
 	Ball *ball;
 	//log("updata1");
@@ -618,19 +673,19 @@ void  HelloWorldScene::update(float dt) {
 	for (int j = 0; j < count; ++j) {
 		ball = (Ball *)_balls->objectAtIndex(j);
 		//log("j:%d", j);
-		if (!ball->isVisible()) {//Çò½ø¶´µÄÇé¿ö
+		if (!ball->isVisible()) {//çƒè¿›æ´çš„æƒ…å†µ
 			ball->hide();
 			_ballsInPlay--;
 		}
 		else {
-			CCPoint ballPos = ball->getPosition();//µÃµ½±»»÷ÇòÉÏÒ»Ö¡µÄµã
+			CCPoint ballPos = ball->getPosition();//å¾—åˆ°è¢«å‡»çƒä¸Šä¸€å¸§çš„ç‚¹
 			ball->update(dt);
-			CCPoint ballPos1 = ball->getPosition();//µÃµ½±»»÷ÇòµÄµã
-			if ((ballPos1.x < _screenSize.width * 0.00f)|| (ballPos1.x > _screenSize.width ) || (ballPos1.y < (_screenSize.height - 100) * 0.03f) || (ballPos1.y > (_screenSize.height - 100) * 0.98f))//ÅĞ¶ÏÊÇ·ñ½øÇò
+			CCPoint ballPos1 = ball->getPosition();//å¾—åˆ°è¢«å‡»çƒçš„ç‚¹
+			if ((ballPos1.x < _screenSize.width * 0.00f)|| (ballPos1.x > _screenSize.width ) || (ballPos1.y < (_screenSize.height - 100) * 0.03f) || (ballPos1.y > (_screenSize.height - 100) * 0.98f))//åˆ¤æ–­æ˜¯å¦è¿›çƒ
 			{
-				ball->getBody()->SetLinearVelocity(b2Vec2_zero);//½øÇò¾ÍÉèÖÃÕâ¸öÇòµÄËÙ¶ÈÎªÁã
+				ball->getBody()->SetLinearVelocity(b2Vec2_zero);//è¿›çƒå°±è®¾ç½®è¿™ä¸ªçƒçš„é€Ÿåº¦ä¸ºé›¶
 			}
-			if ((fabs(ballPos.y - ballPos1.y) >= 1) || (fabs(ballPos.x - ballPos1.x) >= 1))//Èç¹û×ÓÇòÔË¶¯µÄËÙ¶È½ÏĞ¡£¬¾Í²»ÔÙ¼ÇÂ¼ÔÚÔË¶¯¹ì¼£Ö®ÖĞ
+			if ((fabs(ballPos.y - ballPos1.y) >= 1) || (fabs(ballPos.x - ballPos1.x) >= 1))//å¦‚æœå­çƒè¿åŠ¨çš„é€Ÿåº¦è¾ƒå°ï¼Œå°±ä¸å†è®°å½•åœ¨è¿åŠ¨è½¨è¿¹ä¹‹ä¸­
 			{
 
 				drawing = true;
@@ -645,11 +700,11 @@ void  HelloWorldScene::update(float dt) {
 	//log("updata2");
 
 
-	CCPoint playerPos = _player->getPosition();//µÃµ½°×ÇòÉÏÒ»Ö¡µÄµã
+	CCPoint playerPos = _player->getPosition();//å¾—åˆ°ç™½çƒä¸Šä¸€å¸§çš„ç‚¹
 
 	_player->update(dt);
-	CCPoint playerPos1 = _player->getPosition();//µÃµ½°×ÇòµÄµã
-	if ((fabs(playerPos.y - playerPos1.y) >= 1) || (fabs(playerPos.x - playerPos1.x) >= 1))//Èç¹û°×ÇòÔË¶¯µÄËÙ¶È½ÏĞ¡£¬¾Í²»ÔÙ¼ÇÂ¼ÔÚÔË¶¯¹ì¼£Ö®ÖĞ
+	CCPoint playerPos1 = _player->getPosition();//å¾—åˆ°ç™½çƒçš„ç‚¹
+	if ((fabs(playerPos.y - playerPos1.y) >= 1) || (fabs(playerPos.x - playerPos1.x) >= 1))//å¦‚æœç™½çƒè¿åŠ¨çš„é€Ÿåº¦è¾ƒå°ï¼Œå°±ä¸å†è®°å½•åœ¨è¿åŠ¨è½¨è¿¹ä¹‹ä¸­
 	{
 		drawing = true;
 		a[i1] = playerPos.x;
@@ -667,12 +722,12 @@ void  HelloWorldScene::update(float dt) {
 		i1++;
 		i1_pre = i1;
 	}
-	else {//Í£Ö¹¼ÇÂ¼°×ÇòµÄ¹ì¼£
+	else {//åœæ­¢è®°å½•ç™½çƒçš„è½¨è¿¹
 		if (i1 == 0)
 		{
 			i1_pre = 0;
 		}
-		if (chugan&&i1 != 0)//Èç¹ûÖ®Ç°°×ÇòÊ±ÔË¶¯µÄ£¬°ÑÖ®Ç°¶ÁÈ¡°×ÇòĞÅÏ¢µÄÎÄ¼ş¸ÄĞ´Îª0£¬·ÀÖ¹ÒÔºó²»¶Ï¶ÁÈ¡£¬Ôì³ÉEdison¶Ë²»½øĞĞÊµÊ±Ê¶±ğ
+		if (chugan&&i1 != 0)//å¦‚æœä¹‹å‰ç™½çƒæ—¶è¿åŠ¨çš„ï¼ŒæŠŠä¹‹å‰è¯»å–ç™½çƒä¿¡æ¯çš„æ–‡ä»¶æ”¹å†™ä¸º0ï¼Œé˜²æ­¢ä»¥åä¸æ–­è¯»å–ï¼Œé€ æˆEdisonç«¯ä¸è¿›è¡Œå®æ—¶è¯†åˆ«
 		{
 			//log("1111111111111");
 			ofstream fout1;
@@ -685,9 +740,9 @@ void  HelloWorldScene::update(float dt) {
 
 
 #if DF_STARTER==1
-			Sleep(DF_LEVEL1)//¾²Ö¹5Ãë£¬ÓÃ»§»÷ÇòÊ±¼ä
+			Sleep(DF_LEVEL1)//é™æ­¢5ç§’ï¼Œç”¨æˆ·å‡»çƒæ—¶é—´
 #elif (DF_STARTER==2)  
-			Sleep(DF_LEVEL2);//¾²Ö¹5Ãë£¬ÓÃ»§»÷ÇòÊ±¼ä
+			Sleep(DF_LEVEL2);//é™æ­¢5ç§’ï¼Œç”¨æˆ·å‡»çƒæ—¶é—´
 
 #endif
 		}
@@ -697,7 +752,7 @@ void  HelloWorldScene::update(float dt) {
 		fin.close();
 		if (!way)
 		{
-			Sleep(2000);//¾²Ö¹5Ãë£¬ÓÃ»§»÷ÇòÊ±¼ä
+			Sleep(2000);//é™æ­¢5ç§’ï¼Œç”¨æˆ·å‡»çƒæ—¶é—´
 
 			/*ofstream fout1;
 			fout1.open("g://exchangeFile/shi.txt");
@@ -710,7 +765,7 @@ void  HelloWorldScene::update(float dt) {
 		{
 			reset1();
 		}else{
-			reset();//Ë¢ĞÂÌ¨ÇòÒÔ¼°Çò¸ËµÄĞÅÏ¢
+			reset();//åˆ·æ–°å°çƒä»¥åŠçƒæ†çš„ä¿¡æ¯
 		}
 	}
 
@@ -718,7 +773,7 @@ void  HelloWorldScene::update(float dt) {
 void HelloWorldScene::reset1() {
 	drawing = false;
 
-	for (int i = 0; i < 1000; i++)//³õÊ¼»¯¼ÇÂ¼±íÊ¾ÇòÔË¶¯×ø±êµÄÊı×é
+	for (int i = 0; i < 1000; i++)//åˆå§‹åŒ–è®°å½•è¡¨ç¤ºçƒè¿åŠ¨åæ ‡çš„æ•°ç»„
 	{
 		a[i] = 0;
 		b[i] = 0;
@@ -729,24 +784,24 @@ void HelloWorldScene::reset1() {
 		d1[i] = 0;
 		c1[i] = 0;
 	}
-	i2 = 0;//³õÊ¼»¯°×ÇòÔË¶¯µÄÖ¡Êı
-	i1 = 0;//³õÊ¼»¯×ÓÇòÔË¶¯µÄÖ¡Êı
+	i2 = 0;//åˆå§‹åŒ–ç™½çƒè¿åŠ¨çš„å¸§æ•°
+	i1 = 0;//åˆå§‹åŒ–å­çƒè¿åŠ¨çš„å¸§æ•°
 	_player->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 	num = 0;
-	string str[100];//ÓÃÀ´¼ÇÂ¼ÇòµÄÑÕÉ«
-	int  b2[100];//ÓÃÀ´¼ÇÂ¼x×ø±ê
-	int b3[100];//ÓÃÀ´¼ÇÂ¼y×ø±ê
-	int r1[100];//ÓÃÀ´¼ÇÂ¼°ë¾¶
-	int b2_0[2];
-	int b3_0[2];
+	string str[100];//ç”¨æ¥è®°å½•çƒçš„é¢œè‰²
+	float  b2[100];//ç”¨æ¥è®°å½•xåæ ‡
+	float b3[100];//ç”¨æ¥è®°å½•yåæ ‡
+	int r1[100];//ç”¨æ¥è®°å½•åŠå¾„
+	float b2_0[2];
+	float b3_0[2];
 	int do_id;
-	int playX;
-	int playY;
+	float playX,newX;
+	float playY, newY;
 	ifstream fin;
 	ifstream fin2;
 	ofstream fout;
-	fin.open("g://exchangeFile/qiu.txt");//¶ÁÈ¡ÇòµÄ×ø±ê
-	fout.open("g://exchangeFile/shi.txt");//Ğ´ÈëopencvÊÇ·ñÊ¶±ğ
+	fin.open("g://exchangeFile/qiu.txt");//è¯»å–çƒçš„åæ ‡
+	fout.open("g://exchangeFile/shi.txt");//å†™å…¥opencvæ˜¯å¦è¯†åˆ«
 	fin2.open("g://exchangeFile/way.txt");
 	fin2 >> way;
 	if (way == 0)
@@ -795,7 +850,7 @@ void HelloWorldScene::reset1() {
 	}
 	fout.close();
 	//Sleep(100);
-	log("1");
+	//log("1");
 	for (int i = 0; !fin.eof(); i++)
 	{
 		num++;
@@ -808,7 +863,7 @@ void HelloWorldScene::reset1() {
 			break;
 		}
 	}
-	log("2");
+	//log("2");
 
 	num = num - 1;
 	if (shuaxin != 0)
@@ -824,28 +879,28 @@ void HelloWorldScene::reset1() {
 	{
 		ball = (Ball *)_balls->objectAtIndex(i);
 
-		ball->setSpritePosition(ccp(0, 0));
+		ball->setSpritePosition(ccp(-30, 0));
 		ball->getBody()->SetLinearVelocity(b2Vec2_zero);
 
 	}
-	log("3");
+	//log("3");
 
 	if (b2[0] != 0)
 	{
-		for (int i = 0, j = 0; i < num; i++, j++) {//¸ù¾İÕâ´Î¶ÁÈ¡µÄÇòµÄĞÅÏ¢£¬¸Ä±äÇòµÄÎ»ÖÃ
+		for (int i = 0, j = 0; i < num; i++, j++) {//æ ¹æ®è¿™æ¬¡è¯»å–çš„çƒçš„ä¿¡æ¯ï¼Œæ”¹å˜çƒçš„ä½ç½®
 			if (str[i] == "white"&&r1[i] > 0)
 			{
 				
 				if (b2[i] < 410)
 				{
-					playX = b2[i] + create_weight;
-					//playY = 667 - (b3[i] + create_height);
 					if (b3[i] > 330)
 					{
+						playX = b2[i] + create_weight;
 						playY = 667 - (b3[i] + create_height);
 
 					}
 					else {
+						playX = b2[i] + create_weight01;
 						playY = 667 - (b3[i] + create_height01);
 
 					}
@@ -854,13 +909,14 @@ void HelloWorldScene::reset1() {
 				}
 				else if (b2[i] > 410 && b2[i] < 820)
 				{
-					playX = b2[i] + create_weight1;
 					if (b3[i] > 330)
 					{
+						playX = b2[i] + create_weight1;
 						playY = 667 - (b3[i] + create_height1);
 
 					}
 					else {
+						playX = b2[i] + create_weight11;
 						playY = 667 - (b3[i] + create_height11);
 
 					}
@@ -868,13 +924,16 @@ void HelloWorldScene::reset1() {
 				}
 				else if (b2[i] > 820 && b2[i] < 1366)
 				{
-					playX = b2[i] + create_weight2;
 					if (b3[i] > 330)
 					{
+						playX = b2[i] + create_weight2;
+
 						playY = 667 - (b3[i] + create_height2);
 
 					}
 					else {
+						playX = b2[i] + create_weight22;
+
 						playY = 667 - (b3[i] + create_height22);
 
 					}
@@ -890,146 +949,160 @@ void HelloWorldScene::reset1() {
 			}
 			if (str[i] != "white"&&r1[i] > 0) {
 				ball = (Ball *)_balls->objectAtIndex(j);
+				float distance = sqrt(pow(b2_0[0] - b2[i], 2) + pow(b3_0[0] - b3[i], 2));
 				
 				if (b2[i] < 410)
 				{
 					if (b3[i] > 330)
 					{
-						ball->setSpritePosition(ccp(b2[i] + create_weight, 667 - (b3[i] + create_height)));
-
+						newX = b2[i] + create_weight;
+						newY = 667 - (b3[i] + create_height);
 					}
 					else {
-						ball->setSpritePosition(ccp(b2[i] + create_weight, 667 - (b3[i] + create_height01)));
-
+						newX = b2[i] + create_weight01;
+						newY = 667 - (b3[i] + create_height01);
 					}
 				}
 				else if (b2[i] > 410 && b2[i] < 820)
 				{
 					if (b3[i] > 330)
 					{
-						ball->setSpritePosition(ccp(b2[i] + create_weight1, 667 - (b3[i] + create_height1)));
-
+						newX = b2[i] + create_weight1;
+						newY = 667 - (b3[i] + create_height1);
 					}
 					else {
-						ball->setSpritePosition(ccp(b2[i] + create_weight1, 667 - (b3[i] + create_height11)));
-
+						newX = b2[i] + create_weight11;
+						newY = 667 - (b3[i] + create_height11);
 					}
 				}
 				else if (b2[i] > 820 && b2[i] < 1366)
 				{
 					if (b3[i] > 330)
 					{
-						ball->setSpritePosition(ccp(b2[i] + create_weight2, 667 - (b3[i] + create_height2)));
-
+						newX = b2[i] + create_weight2;
+						newY = 667 - (b3[i] + create_height2);
 					}
 					else {
-						ball->setSpritePosition(ccp(b2[i] + create_weight2, 667 - (b3[i] + create_height22)));
-
+						newX = b2[i] + create_weight22;
+						newY = 667 - (b3[i] + create_height22);
 					}
 				}
-
+				ball->setSpritePosition(ccp(newX, newY));
+				if (distance < 20)
+				{
+					b2_0[0] = newX;
+					b3_0[0] = newY;
+				}
 				ball->getBody()->SetLinearVelocity(b2Vec2_zero);
 			}
 		}
 	}
-	log("44");
+	//log("44");
 
 
 	if (way1_chugan)
 	{
-		log("5");
+		//log("5");
 		float dox = 0;
 		float doy = 0;
 		if (do_id == 1)
 		{
 			dox = _screenSize.width * 0.00f;
-			doy = (_screenSize.height - 100) * 0.98f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.98f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 2)
 		{
 			dox = _screenSize.width * 0.50f;
-			doy = (_screenSize.height - 100) * 0.98f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.98f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 3)
 		{
 			dox = _screenSize.width * 1.00f;
-			doy = (_screenSize.height - 100) * 0.98f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.98f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 4)
 		{
 			dox = _screenSize.width * 0.00f;
-			doy = (_screenSize.height - 100) * 0.02f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.02f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 5)
 		{
 			dox = _screenSize.width * 0.50f;
-			doy = (_screenSize.height - 100) * 0.02f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.02f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		if (do_id == 6)
 		{
 			dox = _screenSize.width * 1.00f;
-			doy = (_screenSize.height - 100) * 0.02f;//Òª½ø´üµÄÄÇ¸öÇò´üµÄÎ»ÖÃ
+			doy = (_screenSize.height - 100) * 0.02f;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒè¢‹çš„ä½ç½®
 		}
 		float qiux = 0;
-		float qiuy = 0;//Òª½ø´üµÄÄÇ¸öÇò
-		if (b2_0[0] < 410)
-		{
-			qiux = b2_0[0] + create_weight;
-			if (b3_0[0] > 330)
-			{
-				qiuy = 667 - (b3_0[0] + create_height);//Òª½ø´üµÄÄÇ¸öÇò
+		float qiuy = 0;//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
+		//if (b2_0[0] < 410)
+		//{
+		//	qiux = b2_0[0] + create_weight;
+		//	if (b3_0[0] > 330)
+		//	{
+		//		qiuy = 667 - (b3_0[0] + create_height);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-			else {
-				qiuy = 667 - (b3_0[0] + create_height01);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//	else {
+		//		qiuy = 667 - (b3_0[0] + create_height01);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-		}
-		else if (b2_0[0] > 410 && b2_0[0] < 820)
-		{
-			qiux = b2_0[0] + create_weight1;
-			if (b3_0[0] > 330)
-			{
-				qiuy = 667 - (b3_0[0] + create_height1);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//}
+		//else if (b2_0[0] > 410 && b2_0[0] < 820)
+		//{
+		//	qiux = b2_0[0] + create_weight1;
+		//	if (b3_0[0] > 330)
+		//	{
+		//		qiuy = 667 - (b3_0[0] + create_height1);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-			else {
-				qiuy = 667 - (b3_0[0] + create_height11);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//	else {
+		//		qiuy = 667 - (b3_0[0] + create_height11);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-		}
-		else if (b2_0[0] > 820 && b2_0[0] < 1366)
-		{
-			qiux = b2_0[0] + create_weight2;
-			if (b3_0[0] > 330)
-			{
-				qiuy = 667 - (b3_0[0] + create_height2);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//}
+		//else if (b2_0[0] > 820 && b2_0[0] < 1366)
+		//{
+		//	qiux = b2_0[0] + create_weight2;
+		//	if (b3_0[0] > 330)
+		//	{
+		//		qiuy = 667 - (b3_0[0] + create_height2);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-			else {
-				qiuy = 667 - (b3_0[0] + create_height22);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//	else {
+		//		qiuy = 667 - (b3_0[0] + create_height22);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 
-			}
-		}
-		//qiuy = 667 - (b3_0[0] + create_height01);//Òª½ø´üµÄÄÇ¸öÇò
+		//	}
+		//}
+		qiux = b2_0[0];
+		qiuy = b3_0[0];
+		//log("create_height2:%f", create_height2);
+		//qiuy = 667 - (b3_0[0] + create_height01);//è¦è¿›è¢‹çš„é‚£ä¸ªçƒ
 		point7.x = dox;
 		point7.y = doy;
 		float k = (doy - qiuy) / (dox - qiux);
 		float creat_x = BALL_RADIUS*(sqrt(1 / (pow(k, 2) + 1)));
-		float creat_y = sqrt(pow(BALL_RADIUS, 2) - pow(creat_x, 2));//¼ÆËã³öÇò´üºÍÇòµÄÁ¬Ïß
-		log("creatx:%f", ((b2_0[0] - dox) / (abs(b2_0[0] - dox))));
-		log("creaty:%f", ((b3_0[0] - doy) / (abs(b3_0[0] - doy))));
+		float creat_y = sqrt(pow(BALL_RADIUS, 2) - pow(creat_x, 2));//è®¡ç®—å‡ºçƒè¢‹å’Œçƒçš„è¿çº¿
+		//log("creatx:%f", ((b2_0[0] - dox) / (abs(b2_0[0] - dox))));
+		//log("creaty:%f", ((b3_0[0] - doy) / (abs(b3_0[0] - doy))));
+		point71.x = qiux;
+		point71.y = qiuy;
 		qiux = qiux + 2 * ((b2_0[0] - dox) / (abs(b2_0[0] - dox))) * creat_x;
-		qiuy = qiuy + 2 * ((b3_0[0] - doy) / (abs(b3_0[0] - doy))) * creat_y;//¼ÆËã³öĞèÒª»÷ÇòµÄµã
+		qiuy = qiuy + 2 * ((b3_0[0] - doy) / (abs(b3_0[0] - doy))) * creat_y;//è®¡ç®—å‡ºéœ€è¦å‡»çƒçš„ç‚¹
 		point8.x = qiux;
 		point8.y = qiuy;
 		point9.x = b2_0[1];
 		point9.y =b3_0[1];
 		ganx1 = qiux - b2_0[1];
-		gany1 = qiuy - b3_0[1];//ÉèÖÃ»÷ÇòµÄÂ·Ïß
-		_player->getBody()->SetLinearVelocity(b2Vec2(ganx1, gany1));//ÉèÖÃ°×Çò³öÇòµÄ·½Ïò
+		gany1 = qiuy - b3_0[1];//è®¾ç½®å‡»çƒçš„è·¯çº¿
+		
+		_player->getBody()->SetLinearVelocity(b2Vec2(ganx1*2  , gany1 * 2));//è®¾ç½®ç™½çƒå‡ºçƒçš„æ–¹å‘
+		//log("ganx1:%f", ganx1);
+		//log("gany1:%f", gany1);
 		way1 = false;
-		log("6");
+		//log("6");
 	}
 	else {
 		way1 = true;
@@ -1041,7 +1114,7 @@ void HelloWorldScene::reset() {
 
 	drawing = false;
 
-	for (int i = 0; i < 1000; i++)//³õÊ¼»¯¼ÇÂ¼±íÊ¾ÇòÔË¶¯×ø±êµÄÊı×é
+	for (int i = 0; i < 1000; i++)//åˆå§‹åŒ–è®°å½•è¡¨ç¤ºçƒè¿åŠ¨åæ ‡çš„æ•°ç»„
 	{
 		a[i] = 0;
 		b[i] = 0;
@@ -1052,14 +1125,14 @@ void HelloWorldScene::reset() {
 		d1[i] = 0;
 		c1[i] = 0;
 	}
-	i2 = 0;//³õÊ¼»¯°×ÇòÔË¶¯µÄÖ¡Êı
-	i1 = 0;//³õÊ¼»¯×ÓÇòÔË¶¯µÄÖ¡Êı
+	i2 = 0;//åˆå§‹åŒ–ç™½çƒè¿åŠ¨çš„å¸§æ•°
+	i1 = 0;//åˆå§‹åŒ–å­çƒè¿åŠ¨çš„å¸§æ•°
 	_player->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 
-	string str[100];//ÓÃÀ´¼ÇÂ¼ÇòµÄÑÕÉ«
-	int  b2[100];//ÓÃÀ´¼ÇÂ¼x×ø±ê
-	int b3[100];//ÓÃÀ´¼ÇÂ¼y×ø±ê
-	int r1[100];//ÓÃÀ´¼ÇÂ¼°ë¾¶
+	string str[100];//ç”¨æ¥è®°å½•çƒçš„é¢œè‰²
+	int  b2[100];//ç”¨æ¥è®°å½•xåæ ‡
+	int b3[100];//ç”¨æ¥è®°å½•yåæ ‡
+	int r1[100];//ç”¨æ¥è®°å½•åŠå¾„
 	int b2_0[2];
 	int b3_0[2];
 	int do_id;
@@ -1077,9 +1150,9 @@ void HelloWorldScene::reset() {
 	}
 	if (shuaxin != 0)
 	{
-		fin1.open("g://exchangeFile/gan1.txt");//¶ÁÈ¡¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
-		fin.open("g://exchangeFile/qiu1.txt");//¶ÁÈ¡ÇòµÄ×ø±ê
-		fout.open("g://exchangeFile/shi.txt");//Ğ´ÈëopencvÊÇ·ñÊ¶±ğ
+		fin1.open("g://exchangeFile/gan1.txt");//è¯»å–æ†çš„æ–¹å‘å’Œæ˜¯å¦å‡ºæ†
+		fin.open("g://exchangeFile/qiu1.txt");//è¯»å–çƒçš„åæ ‡
+		fout.open("g://exchangeFile/shi.txt");//å†™å…¥opencvæ˜¯å¦è¯†åˆ«
 		shuaxin--;
 		//log("chugan:%d", chugan);
 		//log("shuaxin:%d", shuaxin);
@@ -1095,24 +1168,24 @@ void HelloWorldScene::reset() {
 			fout2 << 0 << endl;
 			fout2 << "white" << endl;
 			fout2.close();
-			_player->setSpritePosition(ccp(0, 0));
+			_player->setSpritePosition(ccp(-30, 0));
 		}
 
 	}
 	else {
 
-		fin1.open("g://exchangeFile/gan.txt");//¶ÁÈ¡¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
-		fin.open("g://exchangeFile/qiu.txt");//¶ÁÈ¡ÇòµÄ×ø±ê
-		fout.open("g://exchangeFile/shi.txt");//Ğ´ÈëopencvÊÇ·ñÊ¶±ğ
+		fin1.open("g://exchangeFile/gan.txt");//è¯»å–æ†çš„æ–¹å‘å’Œæ˜¯å¦å‡ºæ†
+		fin.open("g://exchangeFile/qiu.txt");//è¯»å–çƒçš„åæ ‡
+		fout.open("g://exchangeFile/shi.txt");//å†™å…¥opencvæ˜¯å¦è¯†åˆ«
 
 	}
 	//log("chugan1:%d", chugan);
 
 	int x, x1, x2, y, y1, y2;
 	int playX, playY;
-	//fin1.open("g://exchangeFile/gan.txt");//¶ÁÈ¡¸ËµÄ·½ÏòºÍÊÇ·ñ³ö¸Ë
-	//fin.open("g://exchangeFile/qiu.txt");//¶ÁÈ¡ÇòµÄ×ø±ê
-	//fout.open("g://exchangeFile/shi.txt");//Ğ´ÈëopencvÊÇ·ñÊ¶±ğ
+	//fin1.open("g://exchangeFile/gan.txt");//è¯»å–æ†çš„æ–¹å‘å’Œæ˜¯å¦å‡ºæ†
+	//fin.open("g://exchangeFile/qiu.txt");//è¯»å–çƒçš„åæ ‡
+	//fout.open("g://exchangeFile/shi.txt");//å†™å…¥opencvæ˜¯å¦è¯†åˆ«
 	num = 0;
 	fin1 >> chugan;
 	fin1 >> x;
@@ -1123,7 +1196,7 @@ void HelloWorldScene::reset() {
 	fin1 >> y2;
 	fin1.close();
 
-	if (chugan)//Èç¹ûÊÇ³ö¸ËµÄÇé¿ö£¬Edison¶ËÍ£Ö¹Ê¶±ğ£¬·ÀÖ¹Ä£ÄâµÄÂ·ÏßÔì³ÉÊ¶±ğ¸ËµÄ²»×¼È·
+	if (chugan)//å¦‚æœæ˜¯å‡ºæ†çš„æƒ…å†µï¼ŒEdisonç«¯åœæ­¢è¯†åˆ«ï¼Œé˜²æ­¢æ¨¡æ‹Ÿçš„è·¯çº¿é€ æˆè¯†åˆ«æ†çš„ä¸å‡†ç¡®
 	{
 		fout << false << endl;
 	}
@@ -1167,7 +1240,7 @@ void HelloWorldScene::reset() {
 	{
 		ball = (Ball *)_balls->objectAtIndex(i);
 
-		ball->setSpritePosition(ccp(0, 0));
+		ball->setSpritePosition(ccp(-30, 0));
 		ball->getBody()->SetLinearVelocity(b2Vec2_zero);
 
 	}
@@ -1175,40 +1248,49 @@ void HelloWorldScene::reset() {
 
 	if (b2[0] != 0)
 	{
-		for (int i = 0, j = 0; i < num; i++, j++) {//¸ù¾İÕâ´Î¶ÁÈ¡µÄÇòµÄĞÅÏ¢£¬¸Ä±äÇòµÄÎ»ÖÃ
+		for (int i = 0, j = 0; i < num; i++, j++) {//æ ¹æ®è¿™æ¬¡è¯»å–çš„çƒçš„ä¿¡æ¯ï¼Œæ”¹å˜çƒçš„ä½ç½®
 			if (str[i] == "white"&&r1[i] > 0)
 			{
 				if (b2[i] < 410)
 				{
-					playX = b2[i] + create_weight;
 					if (b3[i] > 330)
 					{
+						playX = b2[i] + create_weight;
+
 						playY = 667 - (b3[i] + create_height);
 					}
 					else {
+						playX = b2[i] + create_weight01;
+
 						playY = 667 - (b3[i] + create_height01);
 					}
 
 				}
 				else if (b2[i] > 410 && b2[i] < 820)
 				{
-					playX = b2[i] + create_weight1;
 					if (b3[i] > 330)
 					{
+						playX = b2[i] + create_weight1;
+
 						playY = 667 - (b3[i] + create_height1);
 					}
 					else {
+						playX = b2[i] + create_weight11;
+
 						playY = 667 - (b3[i] + create_height11);
 					}
 				}
 				else if (b2[i] > 820 && b2[i] < 1366)
 				{
-					playX = b2[i] + create_weight2;
 					if (b3[i] > 330)
 					{
+						playX = b2[i] + create_weight2;
+
 						playY = 667 - (b3[i] + create_height2);
 					}
 					else {
+						playX = b2[i] + create_weight22;
+
 						playY = 667 - (b3[i] + create_height22);
 					}
 				}
@@ -1226,7 +1308,7 @@ void HelloWorldScene::reset() {
 						ball->setSpritePosition(ccp(b2[i] + create_weight, 667 - (b3[i] + create_height)));
 					}
 					else {
-						ball->setSpritePosition(ccp(b2[i] + create_weight, 667 - (b3[i] + create_height01)));
+						ball->setSpritePosition(ccp(b2[i] + create_weight01, 667 - (b3[i] + create_height01)));
 					}
 				}
 				else if (b2[i] > 410 && b2[i] < 820)
@@ -1236,7 +1318,7 @@ void HelloWorldScene::reset() {
 						ball->setSpritePosition(ccp(b2[i] + create_weight1, 667 - (b3[i] + create_height1)));
 					}
 					else {
-						ball->setSpritePosition(ccp(b2[i] + create_weight1, 667 - (b3[i] + create_height11)));
+						ball->setSpritePosition(ccp(b2[i] + create_weight11, 667 - (b3[i] + create_height11)));
 					}
 				}
 				else if (b2[i] > 820 && b2[i] < 1366)
@@ -1246,7 +1328,7 @@ void HelloWorldScene::reset() {
 						ball->setSpritePosition(ccp(b2[i] + create_weight2, 667 - (b3[i] + create_height2)));
 					}
 					else {
-						ball->setSpritePosition(ccp(b2[i] + create_weight2, 667 - (b3[i] + create_height22)));
+						ball->setSpritePosition(ccp(b2[i] + create_weight22, 667 - (b3[i] + create_height22)));
 					}
 				}
 
@@ -1259,13 +1341,13 @@ void HelloWorldScene::reset() {
 	x2 = x2;
 	y2 = 667 - y2;
 
-	if (chugan == 1 && (b2[0]) >= 0)//µ±Çò¸ËÖ¸Ïò°×ÇòÊ±chugan == 1
+	if (chugan == 1 && (b2[0]) >= 0)//å½“çƒæ†æŒ‡å‘ç™½çƒæ—¶chugan == 1
 	{
 		//log("setsettttttttt");
-		if (x2 >= playX&&y2 >= playY)//¸ù¾İÇò¸ËÔÚ°×ÇòµÄ²»Í¬Î»ÖÃ£¬ÉèÖÃ°×Çò³öÇòµÄ·½Ïò
+		if (x2 >= playX&&y2 >= playY)//æ ¹æ®çƒæ†åœ¨ç™½çƒçš„ä¸åŒä½ç½®ï¼Œè®¾ç½®ç™½çƒå‡ºçƒçš„æ–¹å‘
 		{
 
-			_player->getBody()->SetLinearVelocity(b2Vec2(ganx / 30, -gany / 30));//ÉèÖÃ°×Çò³öÇòµÄ·½Ïò
+			_player->getBody()->SetLinearVelocity(b2Vec2(ganx / 30, -gany / 30));//è®¾ç½®ç™½çƒå‡ºçƒçš„æ–¹å‘
 		}
 		if (x2 < playX&&y2 < playY)
 		{
