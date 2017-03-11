@@ -29,16 +29,16 @@ public class Checketriangle {
 		return result;
 	}
 	public static void main(String[] args) {
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("请输入三角形的三个边：");
-//		int a = sc.nextInt();
-//		int b = sc.nextInt();
-//		int c = sc.nextInt();
-//		
-//		Checketriangle triangle = new Checketriangle();
-//		triangle.Checke(a,b,c);
-//		
-//		System.out.println(triangle.getResult());
+		Scanner sc = new Scanner(System.in);
+		System.out.println("请输入三角形的三个边：");
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
+		
+		Checketriangle triangle = new Checketriangle();
+		triangle.Checke(a,b,c);
+		
+		System.out.println(triangle.getResult());
 	}
 	
 	
