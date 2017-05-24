@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须对应接口的路径，类似该xml配置文件是该接口的"实现类"-->
+<mapper namespace="com.ssm.dao.IUsersMapper">
+    <!-- 实体类对象和mysql表的对应关系 
+     private int uid,uage,uifdel;
+   private String uname,upwd,udate,utest;-->
+    <resultMap id="UserResults" type="com.ssm.entity.User">
+     <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />        
+     <result column="uage" property="uage" jdbcType="INTEGER" javaType="Integer" />
+     <result column="uifdel" property="uifdel" jdbcType="INTEGER" javaType="Integer" /> 
+     <result column="uname" property="uname" jdbcType="VARCHAR" javaType="string"/>  
+     <result column="upwd" property="upwd" jdbcType="VARCHAR" javaType="string"/>  
+     <result column="udate" property="udate" jdbcType="VARCHAR" javaType="string"/>
+     <result column="utest" property="utest" jdbcType="VARCHAR" javaType="string"/>             
+    </resultMap>      
+   
+  
+   <!-- public User SelectUserByLogin(String uname,String upwd); 
+   <select id="SelectUserByLogin" id属性一定要和接口名一致，相似的理解<select>是接口方法名对应的方法体
+   #{2}：就是赋值的第二个参数-->
+    <select id="SelectUserByLogin" resultMap="UserResults"
+     parameterType="String">
+      SELECT * from users where uname=#{0} and upwd=#{1};
+    </select>
+    <!-- 
+    <select id="SelectUserByLogin1" resultMap="UserResults"
+     parameterType="String">
+      SELECT * from users where uname=#{0} and upwd=#{1};
+    </select> -->
+     <select id="SelectUserAll" resultMap="UserResults">
+      SELECT * from users order by udate desc;
+    </select>
+    
+   
+</mapper>

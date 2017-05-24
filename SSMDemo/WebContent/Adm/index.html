@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Minimal 1.0 - Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+
+    <link rel="icon" type="image/ico" href="http://tattek.com/minimal/assets/images/favicon.ico" />
+    <!-- Bootstrap -->
+    <link href="assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap-checkbox.css">
+    <script src="js/jquery-1.10.2.min.js"></script> 
+    <link href="assets/css/login.css" rel="stylesheet">
+
+  </head>
+  <body class="bg-1">
+ 
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+      <!-- Make page fluid -->
+      <div class="row">
+        <!-- Page content -->
+        <div id="content" class="col-md-12 full-page login">
+
+
+          <div class="inside-block">
+            <img src="assets/images/logo-big.png" alt class="logo">
+            <h1><strong>Welcome</strong> Stranger</h1>
+            <h5>Minimal Admin Theme</h5>
+
+            <form id="form-signin" class="form-signin">
+              <section>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+                  <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                </div>
+                <div class="input-group">
+                  <input type="password" class="form-control" name="password" id="pwd" placeholder="Password">
+                  <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                </div>
+              </section>
+              <section class="controls">
+                <div class="checkbox check-transparent">
+                  <input type="checkbox" value="1" id="remember" checked>
+                  <label for="remember">Remember me</label>
+                </div>
+                <a href="#">Forget password?</a>
+              </section>
+              <section class="log-in">
+                <button class="btn btn-greensea" id="login" type="button">Log In</button>
+                <span>or</span>
+                <button class="btn btn-slategray">Create an account</button>
+              </section>
+            </form>
+          </div>
+
+
+        </div>
+        <!-- /Page content -->  
+      </div>
+    </div>
+    <!-- Wrap all page content end -->
+  </body>
+  <script type="text/javascript">
+  
+    $("#login").click(function(){
+      $.ajax({
+            url:"../usert/login.action",
+            method: "POST",
+            data: {"username":$("#username").val(),
+                "pwd":$("#pwd").val()},
+            dataType: "json",
+            success:function(data){
+                console.log("data:"+data.id);//ok
+                if(data.id!=0){
+					storeFunction(data.name+" : "+data.id);
+                 	console.log("success");  
+                 	location.href="myIndex.html";
+                }else{
+                    alert("用户名or密码错误!");
+                }
+            },
+            error:function(){
+                alert("error!");
+            }
+        });  
+    });
+    
+    function storeFunction(msg){
+    	//存储，IE6~7 cookie 其他浏览器HTML5本地存储
+    	alert("cl:"+msg);
+    	//判断当前浏览器是否支持HTML5，
+    	if (window.localStorage) {
+    		 //封装浏览器缓存 WebStrong，setItem类似setAttribute方法
+    	    localStorage.setItem("usermsg",msg);	
+    	} else {
+    		//封装Cookie
+    	    Cookie.write("usermsg",msg);	
+    	}
+    }
+  </script>
+</html>
+      
