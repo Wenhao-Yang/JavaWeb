@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Gupiao</title>
+<link href="http://hqres.eastmoney.com/EMQuote_Lib/css/qphf.css" rel="stylesheet" type="text/css" />
+<link href="http://hqres.eastmoney.com/EMQuote_A/img/flash/style.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
+<script type="text/javascript" src="http://hqres.eastmoney.com/EMQuote_A/eqjs/Base.js"></script>
+<script type="text/javascript" src="http://www.eastmoney.com/js/StockSuggest.js"></script>
+<script type="text/javascript" src="http://hqres.eastmoney.com/EMQuote_A/eqjs/flash/big.js"></script>
+<script src="http://hqres.eastmoney.com/EMQuote_Lib/js/qphf.js" type="text/javascript"></script>
+<base target="_blank" />
+<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+ <script type="text/javascript" src="js/lib/stock.js"></script> 
+<script type="text/javascript">
+eval('var hq_str_sz002024=null');
+		 	var data={};
+			 data.stockID="002024";
+			 data.stockType="sz";
+			 data.time=parseInt("1495421590");
+			 data.hq=eval("hq_str_sz002024");
+			 data.day="2017-05-23";
+			 data.isHqReload=eval("true");
+			 
+			 //菜单
+			 data.menu=[];
+			 
+			 data.menu.push({name:"minute",	title:"分时"});
+			 //data.menu.push({name:"dayK",	title:"日K"});
+			 //默认加载
+			 data.default="minute";
+$(document).ready(function(){
+	//
+	//stock.load(data);
+	var value_i="";
+	var pre_due = 0;
+	var pre_pri = 0;
+	var name = [];
+	var price = [];
+	var ntime = [];
+	var pre_value =[];
+	var now_i = 0;
+	var str0 = ["stitit","stime","stizxj","stizd","stizf"];
+	var str  = ["irba","irbb","irbc","irbd","irbe","irbf","irbg","irbh","irbi","irbj"];
+	var num  = [21,20,23,22,25,24,27,26,29,28];
+	var str1 = ["irda","irdb","irdc","irdd","irde","irdf","irdg","irdh","irdi","irdj"];
+	var num1 = [11,10,13,12,15,14,17,16,19,18];
+	var str2 = ["irea","ireb","irec","ired","iree","iref","ireg","ireh","irei","irej","irek","irel","irem","iren","ireo","irep"];
+	var str_c = ["stizxj","stizd","stizf","irba","irbc","irbe","irbg","irbi","irda","irdc","irde","irdg","irdi","irea","irec","ired"];
+	var num_c = [21,23,25,27,29,11,13,15,17,19];
+	var num2 = [];
+	function updata(){
+		//触发ajax异步交互servlet操作
+		$.ajax({
+			url:"usert",
+			method: "POST",
+			data: {},
+			cache: false,
+			dataType: "json",
+			success:function(data){
+				if(data){
+					
+					//name[now_i] = data[0]["name"][0];
+					console.log(data);
+					var z = data[0]["value"][3]-data[0]["value"][1];
+					var z_r = (data[0]["value"][3]-data[0]["value"][1])/data[0]["value"][1];
+					var value  = [data[0]["value"][0],data[0]["value"][30]+" "+data[0]["value"][31],data[0]["value"][3],z.toFixed(2),((z_r*100).toFixed(2))+ '%'];
+					var value1 = [data[0]["value"][3]-pre_pri,z,z_r];
+					for(var i = 0;i<10;i++)
+					{
+						value1.push(data[0]["value"][num_c[i]]);
+					}
+					value1.push(value1[0]);
+					value1.push(value1[1]);
+					value1.push(value1[2]);
+					//console.log(value1);
+					pre_value = value1;
+					//console.log(pre_value);
+					for(var i = 0;i<14;i++)
+					{
+						if(i!=1&&i!=2)
+						{
+							value1[i] = value1[i] - pre_value[i];
+						}
+					}
+					//console.log(value1);
+					pre_pri = data[0]["value"][3];
+					//console.log(value[0]);
+					document.getElementById("dimage").style.overflow="visible";
+					for(var i = 0;i<5;i++)
+					{
+						document.getElementById(str0[i]).innerHTML=value[i];
+					}
+					
+					for(var i = 0;i<10;i++)
+					{
+						document.getElementById(str[i]).innerHTML=data[0]["value"][num[i]];
+						document.getElementById(str1[i]).innerHTML=data[0]["value"][num1[i]];
+					}
+					document.getElementById(str2[0]).innerHTML=data[0]["value"][3];
+					//document.getElementById(str2[1]).innerHTML=data[0]["value"][3];
+					//console.log(z.toFixed(2));
+					document.getElementById(str2[2]).innerHTML=(z.toFixed(2));
+					//console.log(z_r.toFixed(2));
+					document.getElementById(str2[3]).innerHTML=((z_r*100).toFixed(2))+ '%' ;
+					document.getElementById(str2[4]).innerHTML=data[0]["value"][1];
+					document.getElementById(str2[5]).innerHTML=data[0]["value"][2];
+					document.getElementById(str2[6]).innerHTML=data[0]["value"][4];
+					document.getElementById(str2[7]).innerHTML=data[0]["value"][5];
+					if(pre_due==0)
+					{
+						document.getElementById(str2[8]).innerHTML=0;
+					}else
+					{
+						document.getElementById(str2[8]).innerHTML=((data[0]["value"][8]/100)-pre_due).toFixed(2);
+					}
+					pre_due = data[0]["value"][8]/100;
+					document.getElementById(str2[9]).innerHTML=(data[0]["value"][8]/100);
+					//console.log(str_c);
+					for(var i = 0;i<16;i++)
+					{
+						if(value1[i]>=0)
+						{
+							document.getElementById(str_c[i]).style.color ="Red";
+						}else
+						{
+							document.getElementById(str_c[i]).style.color ="Green";
+						}
+					}
+					name.push(data[0]["value"][0]);
+					price.push(data[0]["value"][3]);
+					ntime.push(data[0]["value"][30]+" "+data[0]["value"][31]);
+					value_i+="<tr><td>"+now_i+"</td><td>"+name[now_i]+"</td><td>"+price[now_i]+"</td><td>"+ntime[now_i]+"</td></tr>";			
+					//封装tbody
+					$("#data").html(value_i);
+					now_i++;
+					$("#randimg").attr('src',"http://image.sinajs.cn/newchart/min/n/sh601006.gif");
+					//document.getElementById(randimg).src="http://image.sinajs.cn/newchart/min/n/sh601006.gif"; 
+				}else{
+					alert("请求失败!");
+				}
+			},
+			error:function(){
+				alert("error111!");
+			}
+		});
+	}
+	setInterval(updata,3000);
+})
+	
+</script>
+</head>
+<body>
+
+
+
+<div class="qox">
+    <div class="space4" id="dimage" style="width: 600px;height:400px;float:left;" >
+    
+    <div id="main" style="width: 600px;height:400px;">
+             
+           </div>
+    </div>
+    <div class="fshbbox" style="float:left;">
+        <div class="fshbboxr">
+        
+            <div class="stitit" id="stitit">- -</div>
+             <div class="stitit" id="stime">- -</div>
+            <div class="stibi" id="stibi"><span id="stizxj" class="jssz">-</span><span id="stizd" class="jssz"><b></b>-</span><span id="stizf" class="jssz">-</span></div>
+            <div class="stiqc">
+                <div class="qctit">
+                    <ul id="tabview1">
+                        <li class="at">行情报价</li>
+                        
+                    </ul>
+                </div>
+                <div id="qctinfo">
+                    <div class="bxaox">
+                        <ul>
+                            <li><span class="qaa">卖一</span><span class="qab" id="irba">--</span><span class="qac" id="irbb">--</span></li>
+                            <li><span class="qaa">卖二</span><span class="qab" id="irbc">--</span><span class="qac" id="irbd">--</span></li>
+                            <li><span class="qaa">卖三</span><span class="qab" id="irbe">--</span><span class="qac" id="irbf">--</span></li>
+                            <li><span class="qaa">卖四</span><span class="qab" id="irbg">--</span><span class="qac" id="irbh">--</span></li>
+                            <li><span class="qaa">卖五</span><span class="qab" id="irbi">--</span><span class="qac" id="irbj">--</span></li>
+                        </ul>
+                    </div>
+                    <div class="bxaox">
+                        <ul>
+                            <li><span class="qaa">买一</span><span class="qab" id="irda">--</span><span class="qac" id="irdb">--</span></li>
+                            <li><span class="qaa">买二</span><span class="qab" id="irdc">--</span><span class="qac" id="irdd">--</span></li>
+                            <li><span class="qaa">买三</span><span class="qab" id="irde">--</span><span class="qac" id="irdf">--</span></li>
+                            <li><span class="qaa">买四</span><span class="qab" id="irdg">--</span><span class="qac" id="irdh">--</span></li>
+                            <li><span class="qaa">买五</span><span class="qab" id="irdi">--</span><span class="qac" id="irdj">--</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="display:none" id="myfavor">
+                    <div class="bxaox">
+                    </div>
+                </div>
+                <div style="display:none" id="latest">
+                    <div class="bxaox">
+                    </div>
+                </div>
+                <div class="bxaox">
+                    <ul>
+                        <li><span class="qba">最新：</span><span class="qbb" id="irea">-</span><span class="qbc">均价：</span><span class="qbd" id="ireb">-</span></li>
+                        <li><span class="qba">涨跌：</span><span class="qbb" id="irec">-</span><span class="qbc">涨幅：</span><span class="qbd" id="ired">-</span></li>
+                        <li><span class="qba">今开：</span><span class="qbb" id="iree">-</span><span class="qbc">昨收：</span><span class="qbd" id="iref">-</span></li>
+                        <li><span class="qba">最高：</span><span class="qbb" id="ireg">-</span><span class="qbc">最低：</span><span class="qbd" id="ireh">-</span></li>
+                        <li><span class="qba">现手：</span><span class="qbb" id="irei">-</span><span class="qbc">总手：</span><span class="qbd" id="irej">-</span></li>
+                        <!--<li><span class="qba">金额：</span><span class="qbb" id="irek">-</span><span class="qbc">量比：</span><span class="qbd" id="irel">-</span></li>
+                        <li><span class="qba">换手：</span><span class="qbb" id="irem">-</span><span class="qbc">市盈：</span><span class="qbd green" id="iren">-</span></li>
+                        <li><span class="qba">外盘：</span><span class="qbb red" id="ireo">-</span><span class="qbc">内盘：</span><span class="qbd green" id="irep">-</span></li>-->
+                    </ul>
+                </div>
+                
+            </div>
+            
+            <div class="stiqc">
+                <div class="qctit">
+                    <ul id="tabview2">
+                        <li class="at">逐笔</li>
+                    
+                    </ul>
+                </div>
+                <div class="f1info" id="f1info">
+                    <ul>
+                        <li class="head"><span class="qca">时间</span><span class="qcb">成交价</span><span class="qcc">成交量</span></li>
+                    </ul>
+                </div>
+                <div class="f1info"  style=" display:none"  id="bigorder"></div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+ 
+</script>
+</body>
+</html>

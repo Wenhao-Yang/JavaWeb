@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Gupiao</title>
+<link href="http://hqres.eastmoney.com/EMQuote_Lib/css/qphf.css" rel="stylesheet" type="text/css" />
+<link href="http://hqres.eastmoney.com/EMQuote_A/img/flash/style.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
+<script type="text/javascript" src="http://hqres.eastmoney.com/EMQuote_A/eqjs/Base.js"></script>
+<script type="text/javascript" src="http://www.eastmoney.com/js/StockSuggest.js"></script>
+<script type="text/javascript" src="http://hqres.eastmoney.com/EMQuote_A/eqjs/flash/big.js"></script>
+<script src="http://hqres.eastmoney.com/EMQuote_Lib/js/qphf.js" type="text/javascript"></script>
+<base target="_blank" />
+<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+ <script type="text/javascript" src="js/lib/stock.js"></script> 
+<script type="text/javascript">
+eval('var hq_str_sz002024=null');
+		 	var data={};
+			 data.stockID="002024";
+			 data.stockType="sz";
+			 data.time=parseInt("1495421590");
+			 data.hq=eval("hq_str_sz002024");
+			 data.day="2017-05-24";
+			 data.isHqReload=eval("true");
+			 
+			 //菜单
+			 data.menu=[];
+			 
+			 data.menu.push({name:"minute",	title:"分时"});
+			 //data.menu.push({name:"dayK",	title:"日K"});
+			 //默认加载
+			 data.default="minute";
+$(document).ready(function(){
+	//
+	stock.load(data);
+
+})
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
