@@ -10,6 +10,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.httpclient.HttpState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -141,6 +142,28 @@ public class UserController {
 			
 		return entity;
 	}
+	
+	@RequestMapping("/sinfo")
+	@ResponseBody
+	public List<Map<String, Object>> TestMethod(HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		
+		List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();
+		Map<String, Object> map=new HashMap<String, Object>();
+		
+		map.put("id", "100");
+		map.put("name","100");
+		map.put("pwd", "100");
+		
+		res.add(map);
+		System.out.println("put");
+		
+		return res;
+	}
+	
 	
 	@RequestMapping("/uploadFile")
 	@ResponseBody

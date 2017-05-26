@@ -57,8 +57,7 @@
             $('#dialog').fadeIn();
             setCenter("dialog");
         });
-        
-        
+            
         //关闭弹窗
         $('#closeBtn').click(function(){
             $('#dialogBg').fadeOut(300,function(){
@@ -79,6 +78,7 @@
             });
         });
     });
+    
     $(document).ready(function(){
         $("#btn-login").click(function(){
             $.ajax({
@@ -93,10 +93,11 @@
                     	$('#dialogBg').fadeOut(300,function(){
                             $('#dialog').fadeOut();
                         });
-                    	$("#inB").text("Hello-" + data.name + " !");
-           
-                    
-                        //location.href="http://localhost:8081/OADemo/main.html";
+                    	//#inB，upB隐藏，Userb显示
+                    	$("#inB").attr("style","display:none;");
+                    	$("#upB").attr("style","display:none;");
+                    	$("#userB").attr("style","display:block;");
+                    	$("#userB").text(data.name); 
                     }else{
                         alert("用户名or密码错误!");
                     }
@@ -106,7 +107,7 @@
                 }
             });
         });
-
+        
     });
 
   </script>
@@ -121,11 +122,11 @@
         	<h1><a href="#">Stocks.</a></h1>
             <div class="clear"></div>
             <div class="templatemo_smalltitle">These are available functions.</div>
-            <div>
-                <div class="userlog"><a class="userhref"  id="inB">LOGIN</a></div>
-                <div class="userlog"><a class="userhref"  id="upB">SIGN UP</a></div>
-                
-            </div>
+                <div class="userlogb">
+                	<div class="userlog" id="inB"><a class="userhref"  >LOGIN</a></div>
+                	<div class="userlog" id="upB"><a class="userhref"  >SIGN UP</a></div>
+                	<div class="userlog" id="userB" style="display: none;"><a class="userhref" ></a></div>	
+                </div>  
        </div>
     </div>
     
