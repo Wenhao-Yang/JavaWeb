@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/templatemo_misc.css">
    	<link type="text/css" rel="stylesheet" href="css/easy-responsive-tabs.css" />
@@ -20,97 +21,6 @@
 
 
     <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>  
-
-  <script type="text/javascript">
-    var w,h,className;
-    function getSrceenWH(){
-        w = $(window).width();
-        h = $(window).height();
-        $('#dialogBg').width(w).height(h);
-    }
-    
-    function setCenter(div){
-        var el = document.getElementById(div);
-        //获取元素自身的宽度
-        var L1 = el.offsetWidth;
-        //获取元素自身的高度
-        var H1 = el.offsetHeight;
-        //获取实际页面的left值。（页面宽度减去元素自身宽度/2）
-        var Left = (document.documentElement.clientWidth-L1)/2;
-        //获取实际页面的top值。（页面宽度减去元素自身高度/2）
-        var top = (document.documentElement.clientHeight-H1)/2;
-        el.style.left = Left+'px';
-        el.style.top = top+'px';
-    }
-
-    window.onresize = function(){  
-        getSrceenWH();
-    }  
-    $(window).resize();  
-
-    $(function(){
-        getSrceenWH();
-        
-        //显示弹框
-        $("#inB").click(function(){
-            $('#dialogBg').fadeIn(300);
-            $('#dialog').fadeIn();
-            setCenter("dialog");
-        });
-            
-        //关闭弹窗
-        $('#closeBtn').click(function(){
-            $('#dialogBg').fadeOut(300,function(){
-                $('#dialog').fadeOut();
-            });
-        });
-      //显示弹框
-        $("#upB").click(function(){
-            $('#dialogBg').fadeIn(300);
-            $('#dialogUp').fadeIn();
-            setCenter("dialogUp");
-        });
-        
-        //关闭弹窗
-        $('#closeBtnB').click(function(){
-            $('#dialogBg').fadeOut(300,function(){
-                $('#dialogUp').fadeOut();
-            });
-        });
-    });
-    
-    $(document).ready(function(){
-        $("#btn-login").click(function(){
-            $.ajax({
-                url:"usert/login.action",
-                method: "POST",
-                data: {"username":$("#username").val(),
-                    "pwd":$("#pwd").val()},
-                dataType: "json",
-                success:function(data){
-                    console.log("data:"+data.id);//ok
-                    if(data.id==1){
-                    	$('#dialogBg').fadeOut(300,function(){
-                            $('#dialog').fadeOut();
-                        });
-                    	//#inB，upB隐藏，Userb显示
-                    	$("#inB").attr("style","display:none;");
-                    	$("#upB").attr("style","display:none;");
-                    	$("#userB").attr("style","display:block;");
-                    	$("#userB").text(data.name); 
-                    }else{
-                        alert("用户名or密码错误!");
-                    }
-                },
-                error:function(){
-                    alert("error!");
-                }
-            });
-        });
-        
-    });
-
-  </script>
 
   </head>
   <body>
@@ -525,39 +435,129 @@
         	<a href="javascript:;" id="closeBtnB" class="closeBtn">×</a>
         </div>
         <form class="form-signin" action="index.html">
-        <div class="form-signin-heading text-center">
-            <div class="sign-title">Registration</div>
-        </div>
-        <div class="login-wrap">
-            <p>Enter your personal details below</p>
-            <input type="text" autofocus="" placeholder="Full Name" class="form-control">
-            <input type="text" autofocus="" placeholder="Passsword" class="form-control">
-            <input type="text" autofocus="" placeholder="Email" class="form-control">
-            <input type="text" autofocus="" placeholder="City/Town" class="form-control">
-            <div class="radios">
-                <label for="radio-01" class="label_radio col-lg-6 col-sm-6">
-                    <input type="radio" checked="" value="1" id="radio-01" name="sample-radio"> Men
-                </label>
-                <label for="radio-02" class="label_radio col-lg-6 col-sm-6">
-                    <input type="radio" value="1" id="radio-02" name="sample-radio"> Female
-                </label>
-            </div>
-
-            <p> Enter your account details below</p>
-            <input type="text" autofocus="" placeholder="User Name" class="form-control">
-            <input type="password" placeholder="Password" class="form-control">
-            <input type="password" placeholder="Re-type Password" class="form-control">
-            <button type="submit" class="btn btn-lg btn-login btn-block">
-                <i class="fa fa-check"></i>
-            </button>
-
-
-        </div>
-
-    </form>
+	        <div class="form-signin-heading text-center">
+	            <div class="sign-title">Registration</div>
+	        </div>
+	        <div class="login-wrap">
+	            <p>Enter your personal details below</p>
+	            <input type="text" autofocus="" placeholder="Full Name" class="form-control">
+	            <input type="text" autofocus="" placeholder="Passsword" class="form-control">
+	            <input type="text" autofocus="" placeholder="Email" class="form-control">
+	            <input type="text" autofocus="" placeholder="City/Town" class="form-control">
+	            <div class="radios">
+	                <label for="radio-01" class="label_radio col-lg-6 col-sm-6">
+	                    <input type="radio" checked="" value="1" id="radio-01" name="sample-radio"> Men
+	                </label>
+	                <label for="radio-02" class="label_radio col-lg-6 col-sm-6">
+	                    <input type="radio" value="1" id="radio-02" name="sample-radio"> Female
+	                </label>
+	            </div>
+	
+	            <p> Enter your account details below</p>
+	            <input type="text" autofocus="" placeholder="User Name" class="form-control">
+	            <input type="password" placeholder="Password" class="form-control">
+	            <input type="password" placeholder="Re-type Password" class="form-control">
+	            <button type="submit" class="btn btn-lg btn-login btn-block">
+	                <i class="fa fa-check"></i>
+	            </button>
+	
+	
+	        </div>
+		</form>
     </div>
     
     <!-- logo end -->  
+    
+    <script type="text/javascript">
+	    var w,h,className;
+	    function getSrceenWH(){
+	        w = $(window).width();
+	        h = $(window).height();
+	        $('#dialogBg').width(w).height(h);
+	    }
+	    
+	    function setCenter(div){
+	        var el = document.getElementById(div);
+	        //获取元素自身的宽度
+	        var L1 = el.offsetWidth;
+	        //获取元素自身的高度
+	        var H1 = el.offsetHeight;
+	        //获取实际页面的left值。（页面宽度减去元素自身宽度/2）
+	        var Left = (document.documentElement.clientWidth-L1)/2;
+	        //获取实际页面的top值。（页面宽度减去元素自身高度/2）
+	        var top = (document.documentElement.clientHeight-H1)/2;
+	        el.style.left = Left+'px';
+	        el.style.top = top+'px';
+	    }
+	
+	    window.onresize = function(){  
+	        getSrceenWH();
+	    }  
+	    $(window).resize();  
+	
+	    $(function(){
+	        getSrceenWH();
+	        
+	        //显示弹框
+	        $("#inB").click(function(){
+	            $('#dialogBg').fadeIn(300);
+	            $('#dialog').fadeIn();
+	            setCenter("dialog");
+	        });
+	            
+	        //关闭弹窗
+	        $('#closeBtn').click(function(){
+	            $('#dialogBg').fadeOut(300,function(){
+	                $('#dialog').fadeOut();
+	            });
+	        });
+	      //显示弹框
+	        $("#upB").click(function(){
+	            $('#dialogBg').fadeIn(300);
+	            $('#dialogUp').fadeIn();
+	            setCenter("dialogUp");
+	        });
+	        
+	        //关闭弹窗
+	        $('#closeBtnB').click(function(){
+	            $('#dialogBg').fadeOut(300,function(){
+	                $('#dialogUp').fadeOut();
+	            });
+	        });
+	    });
+	    
+	    $(document).ready(function(){
+	        $("#btn-login").click(function(){
+	            $.ajax({
+	                url:"usert/login.action",
+	                method: "POST",
+	                data: {"username":$("#username").val(),
+	                    "pwd":$("#pwd").val()},
+	                dataType: "json",
+	                success:function(data){
+	                    console.log("data:"+data.id);//ok
+	                    if(data.id==1){
+	                    	$('#dialogBg').fadeOut(300,function(){
+	                            $('#dialog').fadeOut();
+	                        });
+	                    	//#inB，upB隐藏，Userb显示
+	                    	$("#inB").attr("style","display:none;");
+	                    	$("#upB").attr("style","display:none;");
+	                    	$("#userB").attr("style","display:block;");
+	                    	$("#userB").text(data.name); 
+	                    }else{
+	                        alert("用户名or密码错误!");
+	                    }
+	                },
+	                error:function(){
+	                    alert("error!");
+	                }
+	            });
+	        });
+	        
+	    });
+  </script>
+   
    <script type="text/javascript">
     $(document).ready(function () {
         $('#horizontalTab').easyResponsiveTabs({

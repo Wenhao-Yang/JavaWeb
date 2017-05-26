@@ -8,7 +8,7 @@ package com.ssm.entity;
  */
 public class User {
    private int uid,uage,uifdel;
-   private String uname,upwd,udate,utest;
+   private String uname,gender,upwd,udate,utest;
    
    public User(){}
    public User(int uid,int uage,int uifdel,String uname,String upwd,String udate,String utest){
@@ -61,6 +61,18 @@ public class User {
 	}
 	public void setUtest(String utest) {
 		this.utest = utest;
+	}
+	/**
+	 * @return the gender
+	 */
+	public String getGender() {
+		return gender;
+	}
+	/**
+	 * @param gender the gender to set
+	 */
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
    
 }

@@ -109,16 +109,21 @@ public class UserController {
 		Map<String, Object> map=null;
 		
 //<div class='btn btn-primary' data-toggle='modal' data-target='#addModal'>Edit</div>
+		System.out.println("search all user");
 		
 		for (User user : listUser) {
 			map=new HashMap<String, Object>();
 			map.put("id", user.getUid());
 			map.put("name",user.getUname());
 			map.put("pwd", user.getUpwd());
-
-
+			//超链a 是json数据被异步显示到页面中，添加title属性值是该条记录的users主键，每一条记录的title值是不同的
+			map.put("edit", "<a href='javascript:void(0);' class='btn btn-info  btn-sm' title='"
+			        +user.getUid()+"' id='editUserBt'>Edit</a>");
+			map.put("del", "<a href='javascript:void(0);' class='btn btn-danger btn-sm'  title='"+user.getUid()+"' id='remove-all'>Delete</a>");
+			
 			res.add(map);
 		}
+		
 		return res;
 	}
 	@RequestMapping("/download")
