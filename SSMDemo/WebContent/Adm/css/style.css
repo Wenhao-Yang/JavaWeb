@@ -1,0 +1,83 @@
+<!--
+	**Adm的css文件 
+-->
+
+div.userlogb{
+	margin-right:15px;
+}
+div.userlog {
+	display:block;
+	padding: 0px;
+    background: #FFD700;
+    margin:0 10px 10px 10px;
+    text-align: center;
+    width: 80px;
+    height:40px;
+    float: right;
+    right: 30px;
+    vertical-align:middle;
+}
+.userlog a{
+	vertical-align:middle;
+}
+.sign-title{
+    font-size: 12%;
+    margin: 0;
+    padding: 15px 15px;
+    color: #000;
+    position: relative;
+    float: center;
+    text-align: center;
+}
+#dialogBg{
+    width:100%;height:100%;
+    background-color:#000000;
+    opacity:.8;filter:alpha(opacity=60);
+    position:fixed;top:0;left:0;
+    z-index:9999;
+    display:none;
+}
+
+#dialogEdit{ 
+    max-width: 380px;
+    width: 45%; height: 75%; 
+     display: none; 
+    background: #FFFFFF; position: fixed; 
+    top: 20%; left: 25%; z-index: 10000; 
+    border: 1px solid #ccc; border-radius: 10px; 
+    -webkit-border-radius: 10px; 
+    box-shadow: 3px 2px 4px rgba(0,0,0,0.2); 
+    -webkit-box-shadow: 3px 2px 4px rgba(0,0,0,0.2); 
+}
+
+form.form-signin{
+	width:80%;
+	margin-left:10%;
+	margin-bottom:10%;
+}
+
+input.form-control{
+	margin-bottom: 10px;
+}
+.closeBtn{
+    float: right;
+    font-size: 32px;
+    right: 10px;
+    top: 10px;
+    color: #b5b5b5;
+
+}
+.subBtn{
+    width: 100%;
+    background: #6bc5a4;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-family: 'Open Sans', sans-serif;
+    margin: 20px 0 5px;
+    padding: 5px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    font-size: 30px;
+}

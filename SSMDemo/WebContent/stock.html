@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>股票</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0" />
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<meta name="MobileOptimized" content="320">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="yes" name="apple-touch-fullscreen">
+	<meta name="viewport" content="width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link type="text/css" rel="stylesheet" href="css/style1.css"/>
+    <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="js/lib/stock.js"></script>  	  	
+	<script type="text/javascript">
+	        function GetQueryString(name) { 
+	            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i"); 
+	            var r = window.location.search.substr(1).match(reg); 
+	            if (r!=null) 
+	            	return (r[2]); 
+	            return null; 
+	        } 
+			eval('var hq_str_sz002024=null');
+		 	var data={};
+		 	var sid = GetQueryString("sid");
+		 	var date = GetQueryString("date");
+
+		 	
+			data.stockID=sid.substr(-6);
+			data.stockType=sid.substr(0, 2).toLowerCase();
+			data.time=parseInt("1495421590");
+			data.hq=eval("hq_str_sz002024");
+			var str1 = "hq_str_"+sid.substr(0, 2).toLowerCase()+sid.substr(-6);
+			
+			//data.hq=eval("hq_str_sh600010");
+			data.hq=str1;
+			data.day=date.substr(0,10);
+			data.isHqReload=eval("true");
+			
+			 //菜单
+			data.menu=[];
+			 
+			data.menu.push({name:"minute",	title:"分时"});
+			 //data.menu.push({name:"dayK",	title:"日K"});
+			 //默认加载
+		    data.default="minute";
+            $(document).ready(function(){
+	             stock.load(data);
+           })
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
