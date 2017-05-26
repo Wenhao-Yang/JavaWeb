@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+  <head>
+    <title>Stock</title>
+    <meta name="description" content="" />
+    <meta name="author" content="templatemo">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/templatemo_misc.css">
+   	<link type="text/css" rel="stylesheet" href="css/easy-responsive-tabs.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <link href="css/templatemo_style.css" rel="stylesheet"> 
+        
+	<script src="js/jquery-1.10.2.min.js"></script> 
+	<script src="js/jquery.lightbox.js"></script>
+	<script src="js/templatemo_custom.js"></script>
+    <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+
+
+    <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>  
+
+  <script type="text/javascript">
+    var w,h,className;
+    function getSrceenWH(){
+        w = $(window).width();
+        h = $(window).height();
+        $('#dialogBg').width(w).height(h);
+    }
+    
+    function setCenter(div){
+        var el = document.getElementById(div);
+        //获取元素自身的宽度
+        var L1 = el.offsetWidth;
+        //获取元素自身的高度
+        var H1 = el.offsetHeight;
+        //获取实际页面的left值。（页面宽度减去元素自身宽度/2）
+        var Left = (document.documentElement.clientWidth-L1)/2;
+        //获取实际页面的top值。（页面宽度减去元素自身高度/2）
+        var top = (document.documentElement.clientHeight-H1)/2;
+        el.style.left = Left+'px';
+        el.style.top = top+'px';
+    }
+
+    window.onresize = function(){  
+        getSrceenWH();
+    }  
+    $(window).resize();  
+
+    $(function(){
+        getSrceenWH();
+        
+        //显示弹框
+        $("#inB").click(function(){
+            $('#dialogBg').fadeIn(300);
+            $('#dialog').fadeIn();
+            setCenter("dialog");
+        });
+        
+        
+        //关闭弹窗
+        $('#closeBtn').click(function(){
+            $('#dialogBg').fadeOut(300,function(){
+                $('#dialog').fadeOut();
+            });
+        });
+      //显示弹框
+        $("#upB").click(function(){
+            $('#dialogBg').fadeIn(300);
+            $('#dialogUp').fadeIn();
+            setCenter("dialogUp");
+        });
+        
+        //关闭弹窗
+        $('#closeBtnB').click(function(){
+            $('#dialogBg').fadeOut(300,function(){
+                $('#dialogUp').fadeOut();
+            });
+        });
+    });
+    $(document).ready(function(){
+        $("#btn-login").click(function(){
+            $.ajax({
+                url:"usert/login.action",
+                method: "POST",
+                data: {"username":$("#username").val(),
+                    "pwd":$("#pwd").val()},
+                dataType: "json",
+                success:function(data){
+                    console.log("data:"+data.id);//ok
+                    if(data.id==1){
+                    	$('#dialogBg').fadeOut(300,function(){
+                            $('#dialog').fadeOut();
+                        });
+                    	$("#inB").text("Hello-" + data.name + " !");
+                    	$("#inB").attr("style","display:none");
+                    	$("#upB").attr("style","display:none");
+                    
+                        //location.href="http://localhost:8081/OADemo/main.html";
+                    }else{
+                        alert("用户名or密码错误!");
+                    }
+                },
+                error:function(){
+                    alert("error!");
+                }
+            });
+        });
+
+    });
+
+  </script>
+
+  </head>
+  <body>
+    	<!-- logo start -->
+   
+    <div id="pre" >
+    <div class="logocontainer">
+    	<div class="row">
+        	<h1><a href="#">Stocks.</a></h1>
+            <div class="clear"></div>
+            <div class="templatemo_smalltitle">国内一流股票交易平台$_$.</div>
+            <div>
+                <div class="userlog"><a class="userhref"  id="inB">LOGIN</a></div>
+                <div class="userlog"><a class="userhref"  id="upB">SIGN UP</a></div>
+                
+            </div>
+       </div>
+    </div>
+    
+    <!-- logo end -->    
+   <div id="menu-container" class="main_menu">
+   <!-- homepage start -->
+    <div class="content homepage" id="menu-1">
+  	<div class="container">
+          	<div class="col-md-3 col-sm-6 templatemo_leftgap">
+            	<div class="templatemo_mainservice templatemo_botgap">
+                	<div class="templatemo_link"><a class="show-2 templatemo_page2" href="#">Products</a></div>
+                	
+                </div>
+                <div class="templatemo_mainimg"><img src="images/templatemo_home1.jpg" alt="home img 01"></div>
+            </div>
+            <div class="col-md-3 col-sm-6 templatemo_leftgap">
+            	<div class="templatemo_mainimg templatemo_botgap templatemo_portfotopgap"><img src="images/templatemo_home2.jpg" alt="home img 02"></div>
+                <div class="templatemo_mainportfolio">
+                      <div class="templatemo_link"><a class="show-3 templatemo_page3" href="#">Investment</a></div>
+                	                   
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 templatemo_leftgap">
+            	<div class="templatemo_maintesti templatemo_botgap templatemo_topgap">
+                	<div class="templatemo_link"><a class="show-4 templatemo_page4" href="#">Prediction</a></div>
+                </div>
+                <div class="templatemo_mainimg"><img src="images/templatemo_home3.jpg" alt="home img 03"></div>
+            </div>
+            <div class="col-md-3 col-sm-6 templatemo_leftgap">
+            	<div class="templatemo_mainimg templatemo_botgap templatemo_topgap">
+             	   <img src="images/templatemo_home4.jpg" alt="home img 04">
+                </div>
+                <div class="templatemo_mainabout templatemo_botgap">
+                	<div class="templatemo_link"><a class="show-5 templatemo_page5" href="#">About Us</a></div>
+                </div>
+                <div class="templatemo_maincontact">
+                	<div class="templatemo_link"><a class="show-6 templatemo_page6" href="#">Contact</a></div>
+                </div>
+            </div>
+    </div>
+    
+   </div>
+    <!-- homepage end -->
+    <!-- portfilio start -->
+    <div class="portfolio" id="menu-3" style="display: none;" >
+    	<div class="container">
+          	<div class="col-md-3 col-sm-6 templatemo_leftgap">
+       	      <div class="templatemo_insideportfolio templatemo_botgap">
+               	  <div class="templatemo_portfoliotext">
+                	<h2>Portfolio</h2>
+                    <div class="clear"></div>
+                    Suspendisse </div>
+              </div>
+            	<div class="templatemo_portfolioback">
+                	<div class="templatemo_link"><a class="show-1 templatemo_homeportfolio" href="#">Go Back</a></div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6 templatemo_leftgap">
+                        <div class="templatemo_botgap templatemo_portfotopgap gallery-item">
+							<img src="images/portfolio/templatemo_portfolio01.jpg" alt="gallery 1">
+							<div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio01.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+						</div>				
+                <div class="templatemo_botgap templatemo_topgap gallery-item">
+             	   <img src="images/portfolio/templatemo_portfolio02.jpg" alt="gallery 2">
+                   <div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio02.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+                </div>
+                <div class="templatemo_botgap templatemo_topgap gallery-item">
+             	   <img src="images/portfolio/templatemo_portfolio03.jpg" alt="gallery 3">
+                   <div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio03.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 templatemo_leftgap">
+				<div class="templatemo_botgap templatemo_topgap gallery-item">
+             	  	 <img src="images/portfolio/templatemo_portfolio04.jpg" alt="gallery 4">
+                     <div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio04.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+                </div>
+                <div class="templatemo_botgap templatemo_topgap gallery-item">
+             	   <img src="images/portfolio/templatemo_portfolio05.jpg" alt="gallery 5">
+                   <div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio05.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+                </div>
+                <div class="templatemo_botgap templatemo_topgap gallery-item">
+             	   <img src="images/portfolio/templatemo_portfolio06.jpg" alt="gallery 6">
+                   <div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio06.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 templatemo_leftgap">
+				<div class="templatemo_botgap templatemo_topgap gallery-item">
+             	  	 <img src="images/portfolio/templatemo_portfolio07.jpg" alt="gallery 7">
+                     <div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio07.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+                </div>
+                <div class="templatemo_botgap templatemo_topgap gallery-item">
+             	   <img src="images/portfolio/templatemo_portfolio08.jpg" alt="gallery 8">
+                   <div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio08.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+                </div>
+                <div class="templatemo_botgap templatemo_topgap gallery-item">
+             	   <img src="images/portfolio/templatemo_portfolio09.jpg" alt="gallery 9">
+                   <div class="overlay">
+								<a href="images/portfolio/templatemo_portfolio09.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
+							</div>
+                </div>
+            </div>
+    </div>
+    </div>
+	 <!-- portfolio end -->
+	<!-- testimonial start -->
+    <div class="content testimonial" id="menu-4">
+    		    	<div class="container">
+        	<div class="row templatemo_bordergapborder">
+            <!--vertical Tabs-->
+      		<div id="cmt">
+            <div class="col-md-3 col-sm-12 templatemo_leftgap_about">
+            <ul class="resp-tabs-list templatemo_testitab">
+                <li>Testimonials</li>
+                <li>Special Awards</li>
+                <li>Recognitions</li>
+            </ul>
+            <div class="templatemo_aboutlinkwrapper">
+     		<div class="templatemo_link"><a class="show-1 templatemo_hometestimonial" href="index.html">Go Back</a></div>
+            </div>
+            </div>
+            <div class="resp-tabs-container templatemo_testicontainer">
+                <div>
+                	<div class="templatemo_col50 templatemo_rightgap_about">
+                    	<div class="templatemo_graybg templatemo_botgap">
+                         <div class="templatemo_frame">
+                    	<h2>Testimonials</h2>
+                    	<p>
+                    	</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="templatemo_col50 templatemo_leftgap templatemo_botgap"><img src="images/templatemo_testimonial1.jpg" alt="testimonial image"></div>
+                </div>
+                <div>
+                	<div class="templatemo_col50 templatemo_rightgap_about">
+                    	<div class="templatemo_graybg templatemo_botgap">
+                        <div class="templatemo_frame">
+                    	<h2>Special Awards</h2>
+                    	<p>
+                    	</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="templatemo_col50 templatemo_leftgap templatemo_botgap"><img src="images/templatemo_testimonial2.jpg" alt="testimonial image"></div>
+                </div>
+                <div>
+                	<div class="templatemo_col50 templatemo_rightgap_about">
+                    	<div class="templatemo_graybg templatemo_botgap">
+                        <div class="templatemo_frame">
+                    	<h2>Recognitions</h2>
+                    	<p>
+                    	</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="templatemo_col50 templatemo_leftgap templatemo_botgap"><img src="images/templatemo_testimonial3.jpg" alt="testimonial image"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 templatemo_leftgap templatemo_aboutlinkwrapper1">
+                	<div class="templatemo_aboutback templatemo_botgap">
+                	<div class="templatemo_link"><a class="show-1 templatemo_hometestimonial" href="#">Go Back</a></div>
+                </div>
+                </div>
+    </div>
+            </div>
+
+    </div>
+	 <!-- testimonial end -->
+     <!-- about start -->
+    <div class="content about" id="menu-5">
+    	<div class="container">
+        	<div class="row templatemo_bordergapborder">
+            <!--vertical Tabs-->
+      		<div id="ab">
+            <div class="col-md-3 col-sm-12 templatemo_leftgap_about">
+            <ul class="resp-tabs-list templatemo_tab">
+                <li>Our Team</li>
+                <li>Our History</li>
+                <li>Our Vision</li>
+            </ul>
+            <div class="templatemo_aboutlinkwrapper">
+     		<div class="templatemo_link"><a class="show-1 templatemo_homeabout" href="#">Go Back</a></div>
+            </div>
+            </div>
+            <div class="resp-tabs-container templatemo_aboutcontainer">
+                <div>
+                	<div class="templatemo_col50 templatemo_rightgap_about">
+                    	<div class="templatemo_graybg templatemo_botgap">
+                         <div class="templatemo_frame">
+                    	<h2>Our Team</h2>
+                    	<p>
+                    	</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="templatemo_col50 templatemo_leftgap templatemo_botgap"><img src="images/templatemo_about.jpg" alt="about image"></div>
+                </div>
+                <div>
+                	<div class="templatemo_col50 templatemo_rightgap_about">
+                    	<div class="templatemo_graybg templatemo_botgap">
+                        <div class="templatemo_frame">
+                    	<h2>Our History</h2>
+                    	<p>
+                    	</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="templatemo_col50 templatemo_leftgap templatemo_botgap"><img src="images/templatemo_team.jpg" alt="history image"></div>
+                </div>
+                <div>
+                	<div class="templatemo_col50 templatemo_rightgap_about">
+                    	<div class="templatemo_graybg templatemo_botgap">
+                        <div class="templatemo_frame">
+                    	<h2>Our Vision</h2>
+                    	<p>
+                    	</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="templatemo_col50 templatemo_leftgap templatemo_botgap"><img src="images/templatemo_vision.jpg" alt="vision image"></div>
+                </div>
+            </div>
+        </div>
+			<div class="col-sm-12 templatemo_leftgap templatemo_aboutlinkwrapper1">
+                	<div class="templatemo_aboutback templatemo_botgap">
+                	<div class="templatemo_link"><a class="show-1 templatemo_homeabout" href="#">Go Back</a></div>
+                </div>
+                </div>
+    </div>
+            </div>
+    </div>
+    <!-- about end -->
+    <!-- contact start -->
+    <div class="content contact" id="menu-6">
+    	<div class="container">
+        	<div class="row templatemo_bordergapborder">
+            	<div class="col-md-3 col-sm-12 templatemo_leftgap">
+                	<div class="templatemo_mainimg templatemo_botgap"><img src="images/templatemo_contact1.jpg" alt="contact image"></div>
+                    <div class="templatemo_maincontact templatemo_botgap">
+                	<div class="templatemo_linkcontact"><a class="show-1 templatemo_homecontact" href="#">Go Back</a></div>
+                </div>
+                </div>
+                
+                <div class="templatemo_col37 col-sm-12 templatemo_leftgap">
+                	<div class="templatemo_graybg templatemo_paddinggap">
+                	<h2>Contact Us</h2>
+                    <div class="clear"></div>
+                    	<form role="form">
+                          <div class="templatemo_form">
+                            <input name="fullname" type="text" class="form-control" id="fullname" placeholder="Your Name" maxlength="40">
+                          </div>
+                          <div class="templatemo_form">
+                            <input name="email" type="text" class="form-control" id="email" placeholder="Your Email" maxlength="40">
+                          </div>
+                           <div class="templatemo_form">
+                            <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject" maxlength="60">
+                          </div>
+                          <div class="templatemo_form">
+                              <textarea name="message" class="form-control" id="message" placeholder="Your Message..."></textarea>
+                          </div>
+                          <div class="templatemo_form"><button type="button" class="btn btn-primary">Send</button></div>
+            			</form>
+               	  </div>
+              </div>
+                <div class="templatemo_col37 col-sm-12 templatemo_leftgap templatemo_topgap">
+                	<div class="templatemo_graybg templatemo_paddinggap">
+                    	<h2>Our Location</h2>
+                        <div class="clear"></div>
+                        <div class="templatemo_contactmap">
+		    					<div id="templatemo_map"></div>                        
+        		        </div>
+                        <div class="templatemo_address">
+                         	
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        <!-- contact end --> 
+    <!--services start -->
+   <div class="content services" id="menu-2">
+		<div class="container">
+        	<div class="row templatemo_bordergapborder">
+            	<div class="col-md-3 col-sm-12 templatemo_leftgap">
+                	<div class="templatemo_mainimg templatemo_botgap"><img src="images/templatemo_service1.jpg" alt="service image"></div>
+                    <div class="templatemo_mainservice templatemo_botgap">
+                	<div class="templatemo_linkservice"><a class="show-1 templatemo_homeservice" href="#">Go Back</a></div>
+                </div>
+                </div>
+                
+                <div class="templatemo_col37 col-sm-12 templatemo_leftgap">
+                	<div class="templatemo_graybg">
+                    <div class="templatemo_frame">
+                	<h2>股票代码                                   股票名称→</h2>
+                    <div class="clear"></div>
+                    <p>
+
+SH600000  浦发银行<br/>
+SH600004  白云机场<br/>
+SH600005  武钢股份<br/>
+SH600006  东风汽车<br/>
+SH600007  中国国贸<br/>
+SH600008  首创股份<br/>
+SH600009  上海机场<br/>
+SH600010  包钢股份<br/>
+SH600011  华能国际<br/>
+SH600012  皖通高速<br/>
+SH600015  华夏银行<br/>
+SH600016  民生银行<br/>
+SH600017  日照港<br/>
+SH600018  上港集团<br/>
+SH600019  宝钢股份<br/>
+SH600020  中原高速<br/>
+SH600021  上海电力<br/>
+SH600022  山东钢铁<br/>
+SH600023  浙能电力<br/>
+SH600026  中海发展<br/>
+SH600027  华电国际<br/>
+SH600028  中国石化<br/>
+SH600029  南方航空<br/>
+SH600030  中信证券<br/>
+SH600031  三一重工<br/>
+SH600033  福建高速<br/>
+SH600035  楚天高速<br/>
+SH600036  招商银行<br/>
+SH600037  歌华有线<br/>
+SH600038  中直股份<br/>
+SH600039  四川路桥<br/>
+SH600048  保利地产<br/>
+SH600050  中国联通<br/>
+SH600051  宁波联合<br/>
+SH600052  浙江广厦<br/>
+SH600053  九鼎投资<br/>
+SH600054  黄山旅游<br/>
+SH600055  华润万东<br/>
+SH600056  中国医药<br/>
+SH600057  象屿股份<br/>
+SH600058  五矿发展<br/>
+SH600059  古越龙山<br/>
+SH600060  海信电器<br/>
+SH600061  国投安信<br/>
+SH600062  华润双鹤<br/>
+SH600063  皖维高新<br/>
+SH600064  南京高科<br/>
+SH600066  宇通客车<br/>
+SH600067  冠城大通<br/>
+SH600068  葛洲坝<br/>
+SH600069  银鸽投资<br/>
+SH600070  浙江富润<br/>
+SH600071  凤凰光学<br/>
+SH600072  钢构工程<br/>
+SH600073  上海梅林<br/>
+SH600074  保千里<br/>
+SH600075  新疆天业<br/>
+SH600076  康欣新材<br/>
+SH600077  宋都股份<br/>
+SH600078  澄星股份<br/>
+SH600079  人福医药<br/>
+SH600080  金花股份<br/>
+SH600081  东风科技<br/>
+SH600082  海泰发展<br/>
+SH600083  博信股份<br/>
+SH600084  中葡股份<br/>
+SH600085  同仁堂<br/>
+SH600086  东方金钰<br/>
+SH600088  中视传媒<br/>
+SH600089  特变电工<br/>
+SH600090  同济堂<br/>
+SH600093  禾嘉股份<br/>
+SH600094  大名城<br/>
+SH600095  哈高科<br/>
+SH600096  云天化<br/>
+SH600097  开创国际<br/>
+SH600098  广州发展<br/>
+SH600099  林海股份<br/>
+SH600100  同方股份<br/>
+SH600101  明星电力<br/>
+SH600103  青山纸业<br/>
+SH600104  上汽集团<br/>
+SH600105  永鼎股份<br/>
+SH600106  重庆路桥<br/>
+SH600107  美尔雅<br/>
+SH600108  亚盛集团<br/>
+SH600109  国金证券<br/>
+SH600110  诺德股份<br/>
+SH600111  北方稀土<br/>
+SH600112  天成控股<br/>
+SH600113  浙江东日<br/>
+SH600114  东睦股份<br/>
+SH600115  东方航空<br/>
+SH600116  三峡水利<br/>
+SH600117  西宁特钢<br/>
+SH600118  中国卫星<br/>
+SH600119  长江投资<br/>
+SH600120  浙江东方<br/>
+                  </p>
+                    </div>
+               	  </div>
+              </div>
+                <div class="templatemo_col37 col-sm-12 templatemo_leftgap templatemo_topgap">
+                	<div class="clear"></div>
+                        <form role="form">
+                          <div class="templatemo_form">
+                            <input name="message" type="text" class="form-control" id="sid" placeholder="股票ID" maxlength="40">
+                          </div>
+                          
+
+                          <div class="templatemo_form"><button type="button" class="btn btn-primary" id="send1">查询</button></div>
+                        </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+     </div>
+	    
+    <!-- services end -->	
+
+	
+    
+    </div>
+    
+    	<!-- logo start -->
+    <div class="logocontainer">
+    	<div class="row">
+            <div class="templatemo_footer">Stock</div>
+       </div>
+    </div>
+    </div>
+
+    <div id="dialogBg"></div>
+    <div id="dialog" class="animated" class="dialog">
+    	<div class="dialogTop">
+        	<a href="javascript:;" id="closeBtn" class="closeBtn">×</a>
+        </div>
+        <form class="form-signin">
+        	<div class="sign-title">SIGN IN</div>
+            <div class="login-wrap">
+            	<input type="text" class="form-control" id="username" placeholder="User ID" autofocus>
+            	<input type="password" class="form-control" id="pwd" placeholder="Password">
+
+            	<button id="btn-login" type="button" class="subBtn">
+            		<i class="fa fa-check"></i>
+            	</button>
+                <div class="registration">Not a member yet?
+                	<a class="" href="registration.html">Signup</a>
+                </div>
+                <label class="checkbox">
+                	<input type="checkbox" value="remember-me"> Remember me
+                    <span class="pull-right">
+                    	<a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+					</span>
+                </label>
+
+            </div>
+
+                <!-- Modal -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Forgot Password ?</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Enter your e-mail address below to reset your password.</p>
+                                <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                                <button class="btn btn-primary" type="button">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal -->
+    	</form>        
+    </div>
+        
+    <div id="dialogUp" class="animated" class="dialog">
+    	<div class="dialogTop">
+        	<a href="javascript:;" id="closeBtnB" class="closeBtn">×</a>
+        </div>
+        <form class="form-signin" action="index.html">
+        <div class="form-signin-heading text-center">
+            <div class="sign-title">Registration</div>
+        </div>
+        <div class="login-wrap">
+            <p>Enter your personal details below</p>
+            <input type="text" autofocus="" placeholder="Full Name" class="form-control">
+            <input type="text" autofocus="" placeholder="Passsword" class="form-control">
+            <input type="text" autofocus="" placeholder="Email" class="form-control">
+            <input type="text" autofocus="" placeholder="City/Town" class="form-control">
+            <div class="radios">
+                <label for="radio-01" class="label_radio col-lg-6 col-sm-6">
+                    <input type="radio" checked="" value="1" id="radio-01" name="sample-radio"> NAN
+                </label>
+                <label for="radio-02" class="label_radio col-lg-6 col-sm-6">
+                    <input type="radio" value="1" id="radio-02" name="sample-radio"> Female
+                </label>
+            </div>
+
+            <p> Enter your account details below</p>
+            <input type="text" autofocus="" placeholder="User Name" class="form-control">
+            <input type="password" placeholder="Password" class="form-control">
+            <input type="password" placeholder="Re-type Password" class="form-control">
+            <button type="submit" class="btn btn-lg btn-login btn-block">
+                <i class="fa fa-check"></i>
+            </button>
+
+
+        </div>
+
+    </form>
+    </div>
+    
+    <!-- logo end -->  
+   <script type="text/javascript">
+   function getNowFormatDate() {
+       var date = new Date();
+       var seperator1 = "-";
+       var seperator2 = ":";
+       var month = date.getMonth() + 1;
+       var strDate = date.getDate();
+       if (month >= 1 && month <= 9) {
+           month = "0" + month;
+       }
+       if (strDate >= 0 && strDate <= 9) {
+           strDate = "0" + strDate;
+       }
+       var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+               + " " + date.getHours() + seperator2 + date.getMinutes()
+               + seperator2 + date.getSeconds();
+       return currentdate;
+  }
+  document.getElementById("send1").onclick = function() {//正确  
+      var data = 1;
+      var date = getNowFormatDate();
+      var sid = document.getElementById("sid").value;
+      //var sname = document.getElementById("sname").value;
+      if(sid.length==8)
+      {
+       alert("即将查询股票代码："+sid);
+       window.location.href='stock.html?sid='+sid+'&date='+date;
+
+      }
+   
+   }
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+            closed: 'accordion', // Start closed if in accordion view
+            activate: function(event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#tabInfo');
+                var $name = $('span', $info);
+
+                $name.text($tab.text());
+
+                $info.show();
+				
+            }
+        });
+
+        $('#ab').easyResponsiveTabs({
+            type: 'vertical',
+            width: 'auto',
+            fit: true,
+        });
+		
+
+		$('#cmt').easyResponsiveTabs({
+            type: 'vertical',
+            width: 'auto',
+            fit: true,
+        });
+    });
+</script>
+<!-- templatemo 405 matrix -->
+  </body>
+</html>
