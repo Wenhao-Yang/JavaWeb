@@ -1,10 +1,13 @@
 package com.ssm.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
@@ -126,26 +129,89 @@ public class UserController {
 		
 		return res;
 	}
+//	@RequestMapping("/download1")
+//	@ResponseBody
+//	public ResponseEntity<byte []> DownloadImag(@RequestParam("logo") String logo) throws IOException{
+//		String path="C:/Users/WILLIAM/Desktop/H.W/img/" + logo;
+//		System.out.println("download file-"+path);
+//		File file = new File(path);
+//		
+//		HttpHeaders http=new HttpHeaders();
+//		InputStream is= new FileInputStream(file);
+//		
+//		byte[] by=new byte[is.available()];
+//			
+//		is.read(by);
+//			
+//		http.add("Context-Dispostion", "attchementheaderValue);filename="+file.getName());
+//		HttpStatus status=HttpStatus.OK;
+//		http.add("Context-Dispostion", "attchementheaderValue);filename="+file.getName());
+//		ResponseEntity<byte []> entity = new ResponseEntity<byte[]>(by,http,status);
+//			
+//		return entity;
+//	}
+	
 	@RequestMapping("/download")
 	@ResponseBody
-	public ResponseEntity<byte []> DownloadImag(@RequestParam("logo") String logo) throws IOException{
-		System.out.println("imag"+logo);
-		String path="C:/Users/WILLIAM/Desktop" + logo;
-		File file = new File(path);
+	public ResponseEntity<byte []> DownloadImg1(@RequestParam("logo")String logo,
+			HttpServletRequest request,	HttpServletResponse response)
+			throws Exception{
+		System.out.println("图片:"+logo);
+		//创建路径，创建File对象操作
+//		String path="E:/Android/images/"+logo;
+		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
+		//设置返回的二进制文件流，不是网页
+		response.setContentType("application/x-msdownload");
+		//ulogo是赋值下载图片的图片名称 包含扩展名
+//		String logo=request.getParameter("ulogo");	        
+//	    System.out.println("image:"+logo);	       
+	    response.setHeader("Content-Disposition", "attachment;filename="+java.net.URLEncoder.encode(logo,"utf-8"));
+	        //获取下载文件的真实路径
+	    String filename="C:/Users/WILLIAM/Desktop/H.W/img/"+logo;//+filename	          
+	          //创建文件输入流
+	    FileInputStream fis=new FileInputStream(filename);
+	        //创建缓冲输入流
+	    BufferedInputStream bis=new BufferedInputStream(fis);
+	        //获取响应的输出流
+	    OutputStream  os=response.getOutputStream();
+	        //创建缓冲输出流
+	    BufferedOutputStream bos=new BufferedOutputStream(os);	          
+	        //把输入流的数据写入到输出流
+	    byte[] b=new byte[1024];
+	    int len=0;
+	    while((len=bis.read(b))!=-1){
+	          bos.write(b, 0, len);
+	    }
+	    bos.close();
+	    bis.close();
+		return null;
+	}
+	
+	@RequestMapping("/searchObject")
+	@ResponseBody
+	public List<Map<String, Object>> FindObjectToAndroid(HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");		
+		List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();	
+		Map<String, Object> map=null;
+		List<User> listUser=this.userMapper.SelectUserAll();
 		
-		HttpHeaders http=new HttpHeaders();
-		InputStream is= new FileInputStream(file);
-		
-		byte[] by=new byte[is.available()];
+		for (User user : listUser) {
+			map=new HashMap<String, Object>();
+			map.put("id", user.getUid());
+			map.put("name",user.getUname());
+			map.put("pwd", user.getUpwd());
+			map.put("date", user.getUdate());
+			map.put("logo", "u"+user.getUid()+".gif");
+			map.put("context", user.getContext());
 			
-		is.read(by);
-			
-		http.add("Context-Dispostion", "attchementheaderValue);filename="+file.getName());
-		HttpStatus status=HttpStatus.OK;
-		http.add("Context-Dispostion", "attchementheaderValue);filename="+file.getName());
-		ResponseEntity<byte []> entity = new ResponseEntity<byte[]>(by,http,status);
-			
-		return entity;
+			res.add(map);
+		}
+		System.out.println(res);
+		return res;
 	}
 	
 	@RequestMapping("/sinfo")

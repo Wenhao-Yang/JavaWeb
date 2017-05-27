@@ -7,18 +7,18 @@ package com.ssm.entity;
  *
  */
 public class User {
-   private int uid,uage,uifdel;
-   private String uname,gender,upwd,udate,utest;
+   private int uid,uage,money;
+   private String uname,gender,upwd,udate,context;
    
    public User(){}
-   public User(int uid,int uage,int uifdel,String uname,String upwd,String udate,String utest){
+   public User(int uid,int uage,int money,String uname,String upwd,String udate,String context){
 	   this.uid=uid;
-	   this.udate=udate;
 	   this.uage=uage;
-	   this.uifdel=uifdel;
+	   this.money=money;
 	   this.uname=uname;
 	   this.upwd=upwd;
-	   this.utest=utest;
+	   this.udate=udate;
+	   this.context=context;
    }
 	public int getUid() {
 		return uid;
@@ -31,12 +31,6 @@ public class User {
 	}
 	public void setUage(int uage) {
 		this.uage = uage;
-	}
-	public int getUifdel() {
-		return uifdel;
-	}
-	public void setUifdel(int uifdel) {
-		this.uifdel = uifdel;
 	}
 	public String getUname() {
 		return uname;
@@ -56,23 +50,29 @@ public class User {
 	public void setUdate(String udate) {
 		this.udate = udate;
 	}
-	public String getUtest() {
-		return utest;
-	}
-	public void setUtest(String utest) {
-		this.utest = utest;
-	}
-	/**
-	 * @return the gender
-	 */
+
 	public String getGender() {
 		return gender;
 	}
-	/**
-	 * @param gender the gender to set
-	 */
+
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
    
 }
