@@ -1,0 +1,53 @@
+/* this is for investment page in index.html*/
+
+#stockInfo {
+	width:100%;
+	height:185px;	
+}
+
+.stockTransaction {
+	width:75%;
+	padding: 0px 10px;
+	position: relative;
+	display:block;
+}
+
+#stockTrend {
+	height:260px;
+	width:75%;
+} 
+
+#stockDetails{
+
+}
+#stockDetails div {
+	background-color: rgb(51, 51, 51);
+}
+#transactionDetails {
+	height:189px;
+	background:#ffffff;
+	right: 0;
+}
+
+#operateMenu{
+	width:20%;
+	float:left;
+	position:relative;
+}
+#buyAndSell{
+	width:25%;
+	float:left;
+	position:relative;
+	padding-right:20px;
+	padding-left:20px;
+}
+#transactionRecord{
+	width:55%;
+	float:left;
+	position:relative;
+}
+
+
+
+
+

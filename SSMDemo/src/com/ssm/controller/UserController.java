@@ -50,8 +50,8 @@ public class UserController {
 		this.userMapper = userMapper;
 	}
 	//@ResponseBody  -->  jackson jar
-	//作用把繁琐的list map集合相互的映射，转换为了ajax需要的json
 	
+	//用户登录
 	@RequestMapping("/login")
 	@ResponseBody  
 	public Map<String, Object> UsersLogin(HttpServletRequest request,
@@ -76,6 +76,7 @@ public class UserController {
 		return map;
 	}
 	
+	//安卓登录
 	@RequestMapping("/loginAndroid")
 	@ResponseBody  
 	public String AndroidLogin(HttpServletRequest request, HttpServletResponse response,@RequestParam("username")String usn,
@@ -99,7 +100,7 @@ public class UserController {
 		return map.toString();
 	}
 	
-	//该方法请求的url: http://127..../SSMdemo/usert/searchUser.action
+	//查找所有用户
 	@RequestMapping("/searchUser")
 	@ResponseBody
 	public List<Map<String, Object>> FindUsersAll(HttpServletRequest request,
@@ -111,7 +112,6 @@ public class UserController {
 		List<User> listUser=this.userMapper.SelectUserAll();
 		Map<String, Object> map=null;
 		
-//<div class='btn btn-primary' data-toggle='modal' data-target='#addModal'>Edit</div>
 		System.out.println("search all user");
 		
 		for (User user : listUser) {
@@ -122,40 +122,66 @@ public class UserController {
 			//超链a 是json数据被异步显示到页面中，添加title属性值是该条记录的users主键，每一条记录的title值是不同的
 			map.put("edit", "<a href='javascript:void(0);' class='btn btn-info  btn-sm' title='"
 			        +user.getUid()+"' id='editUserBt'>Edit</a>");
-			map.put("del", "<a href='javascript:void(0);' class='btn btn-danger btn-sm'  title='"+user.getUid()+"' id='remove-all'>Delete</a>");
+			map.put("del", "<a href='javascript:void(0);' class='btn btn-danger btn-sm'  title='"+user.getUid()+"' id='deleteUserBtn'>Delete</a>");
 			
 			res.add(map);
 		}
 		
 		return res;
 	}
-//	@RequestMapping("/download1")
-//	@ResponseBody
-//	public ResponseEntity<byte []> DownloadImag(@RequestParam("logo") String logo) throws IOException{
-//		String path="C:/Users/WILLIAM/Desktop/H.W/img/" + logo;
-//		System.out.println("download file-"+path);
-//		File file = new File(path);
-//		
-//		HttpHeaders http=new HttpHeaders();
-//		InputStream is= new FileInputStream(file);
-//		
-//		byte[] by=new byte[is.available()];
-//			
-//		is.read(by);
-//			
-//		http.add("Context-Dispostion", "attchementheaderValue);filename="+file.getName());
-//		HttpStatus status=HttpStatus.OK;
-//		http.add("Context-Dispostion", "attchementheaderValue);filename="+file.getName());
-//		ResponseEntity<byte []> entity = new ResponseEntity<byte[]>(by,http,status);
-//			
-//		return entity;
-//	}
 	
+	//用户注册
+	@RequestMapping("/regist")
+	@ResponseBody
+	public String RegistUsers(HttpServletRequest request,
+			HttpServletResponse response,@ModelAttribute("users")User user) 
+					throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		
+		System.out.println("注册用户：" + user.getUname()+" / "+user.getUpwd()+
+				" / "+user.getGender()+" / "+user.getAge());
+		
+		return userMapper.InsertUser(user)>0?"success":"error";
+	}
+	
+	//用户信息修改
+	@RequestMapping("/userUpdate")
+	@ResponseBody
+	public String UpdateUsers(HttpServletRequest request,
+			HttpServletResponse response,@ModelAttribute("users")User users) 
+					throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		
+		System.out.println("修改用户:"+users.getUname()+" / "+users.getUpwd()
+							+ " / " + users.getAge()+ " / " +users.getContext()+  " //  "+users.getUid());
+		
+		return userMapper.UpdateUser(users)>0?"success":"error";
+	}
+	
+	//删除用户
+	@RequestMapping("/DeleteUser")
+	@ResponseBody
+	public String DeleteUsers(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("uid")int uid) 
+					throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		
+		System.out.println("删除用户--"+uid);
+		
+		return userMapper.DeleteUser(uid)>0?"success":"error";
+	}
+	
+	//下载文件
 	@RequestMapping("/download")
 	@ResponseBody
 	public ResponseEntity<byte []> DownloadImg1(@RequestParam("logo")String logo,
-			HttpServletRequest request,	HttpServletResponse response)
-			throws Exception{
+			HttpServletRequest request,	HttpServletResponse response)throws Exception{
 		System.out.println("图片:"+logo);
 		//创建路径，创建File对象操作
 //		String path="E:/Android/images/"+logo;
@@ -188,6 +214,7 @@ public class UserController {
 		return null;
 	}
 	
+	//查找用户
 	@RequestMapping("/searchObject")
 	@ResponseBody
 	public List<Map<String, Object>> FindObjectToAndroid(HttpServletRequest request,
@@ -235,7 +262,35 @@ public class UserController {
 		return res;
 	}
 	
+	//用户信息查询
+	@RequestMapping("/userEntity")
+	@ResponseBody  
+	public Map<String, Object> UserEntity(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("uid")int uid)
+					throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		System.out.println(uid+"  //  ");		
+
+		Map<String, Object> map=new HashMap<String, Object>();
+		User user=userMapper.SelectUserByUid(uid);	
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		if(user!=null){
+			System.out.println(user.getUid()+"  +");
+			
+			map.put("id", user.getUid());
+			map.put("name",user.getUname());
+			map.put("pwd",user.getUpwd());
+			map.put("age",user.getAge());
+			map.put("gender",user.getGender());
+			map.put("context", user.getContext());
+		}
+		return map;
+	}
 	
+	//上传
 	@RequestMapping("/uploadFile")
 	@ResponseBody
 	public String uploadFile(@RequestParam("file")MultipartFile file, 
@@ -253,16 +308,21 @@ public class UserController {
 							 request.getServerName()  + ":" +
 				             request.getServerPort() +
 				             request.getContextPath();
-		
-//		System.out.println("path:"+request.getRequestURL());
-//		System.out.println("path1:"+request.getRequestURI());
-//		String pa=request.getServletPath();
-//		System.out.println("path2:"+pa);
-//		System.out.println("path2: "+pa.substring(pa.lastIndexOf("/")+1,pa.indexOf(".action")));
-//		System.out.println("path3:"+request.getQueryString());
 
 		return "success";
 	}
+	
+	//买卖股票
+	@RequestMapping("/buyStocks")
+	@ResponseBody
+	public String buyStocks(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("uid")int uid) {
+
+
+		return "success";
+	}
+	
+}
 	
 	
 	

@@ -8,7 +8,7 @@
     <link rel="icon" type="image/ico" href="http://tattek.com/minimal/assets/images/favicon.ico" />
     <!-- Bootstrap -->
     <link href="assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/vendor/animate/animate.css">
     <link type="text/css" rel="stylesheet" media="all" href="assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
     <link rel="stylesheet" href="assets/js/vendor/videobackground/css/jquery.videobackground.css">
@@ -666,7 +666,7 @@
                   <div class="tile-header">
                     <h1><strong>全部</strong>用户信息</h1>
                     <div class="controls">
-                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                      <a href="tables.html" class="refresh"><i class="fa fa-refresh"></i></a>
                       <a href="#" class="remove"><i class="fa fa-times"></i></a>
                     </div>
                   </div>
@@ -680,12 +680,8 @@
 							data-url="../usert/searchUser.action"  
 				       		data-page-list="[5, 10, 15]"
 				       		data-toggle="table"
-				       		data-search="true"    
-				       		data-show-toggle="true"
-				 	   		data-show-export="true"
 				       		data-pagination="true" 
 					   		data-click-to-select="true"	
-					   		data-show-columns="true"
 				        	data-side-pagination="client">
                       <thead>
                         <tr>
@@ -1708,32 +1704,28 @@
     <div id="dialogBg"></div>
     <div id="dialogEdit" class="animated" class="dialog" style="display:none;">
     	<div class="dialogTop">
-        	<a href="javascript:;" id="closeBtnB" class="closeBtn">×</a>
+        	<a href="javascript:;" id="closeBtn" class="closeBtn">×</a>
         </div>
-        <form class="form-signin" action="index.html">
+        <form class="form-signin" id="formUser">
 	        <div class="form-signin-heading text-center">
 	            <div class="sign-title">Registration</div>
 	        </div>
-	        <div class="login-wrap">
-	            <p>Enter your personal details below</p>
-	            <input type="text" autofocus="" placeholder="Full Name" class="form-control">
-	            <input type="text" autofocus="" placeholder="Passsword" class="form-control">
-	            <input type="text" autofocus="" placeholder="Email" class="form-control">
-	            <input type="text" autofocus="" placeholder="City/Town" class="form-control">
+	        <div class="login-wrap" id="dname">
+	            <p>Edit account details below</p>
+	            <input type="text" autofocus="" id="uid" class="form-control" readonly="true" name="uid">
+	            <input type="text" autofocus="" id="uname" class="form-control" name="uname">
+	            <input type="text" autofocus="" id="upwd" class="form-control" name="upwd">
+	            <input type="text" autofocus="" id="age" class="form-control" name="age">
+	            <input type="text" autofocus="" id="context" class="form-control" name="context">
 	            <div class="radios">
 	                <label for="radio-01" class="label_radio col-lg-6 col-sm-6">
-	                    <input type="radio" checked="" value="1" id="Men" name="gender"> Men
+	                    <input type="radio" checked="" value="男" id="Men" name="gender"> Men
 	                </label>
 	                <label for="radio-02" class="label_radio col-lg-6 col-sm-6">
-	                    <input type="radio" value="1" id="Woman" name="gender"> Female
+	                    <input type="radio"  value="女" id="Woman" name="gender"> Female
 	                </label>
 	            </div>
-	
-	            <p> Enter your account details below</p>
-	            <input type="text" autofocus="" placeholder="User Name" class="form-control">
-	            <input type="password" placeholder="Password" class="form-control">
-	            <input type="password" placeholder="Re-type Password" class="form-control">
-	            <button type="submit" class="btn btn-lg btn-login btn-block">
+	            <button type="button" id="editSubBtn" class="btn btn-lg btn-login btn-block">
 	                <i class="fa fa-check"></i>
 	            </button>
 	
@@ -1773,7 +1765,7 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="assets/js/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&skin=sons-of-obsidian"></script>
+<!--     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&skin=sons-of-obsidian"></script> -->
     <script type="text/javascript" src="assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
@@ -1813,20 +1805,47 @@
     
     getSrceenWH();
     
+    $('#closeBtn').click(function(){
+        $('#dialogBg').fadeOut(300,function(){
+            $('#dialogEdit').fadeOut();
+        });
+    });
+    
+    $('#editSubBtn').click(function() {
+		var uid=$(this).attr("title");
+		
+		$.ajax({
+     		url: "../usert/userUpdate.action",    //请求的url地址，获取全部roles职务的名称
+     	    dataType: "json",   //返回的异步数据格式为不能json，是文本格式
+     	    data:$('#formUser').serialize(),
+     	    type: "post",   //请求方式，默认post	
+     	   	success:function(data) {		
+	     	   	if(data=="success"){
+		     	   	$('#dialogBg').fadeOut(300,function(){
+		                $('#dialogEdit').fadeOut();
+		            });
+					alert("update users success");
+					
+				}else{
+					alert("update users error");
+				}
+     	    },		   
+     	    error:function() {
+     	        alert("异常");
+     	    }
+     	});
+		
+	})
+    
     $(document).on('click','#editUserBt',function(){
 		 //alert(345);
 		 //获取动态title属性的值
 		 var uid=$(this).attr("title");
 		// alert("uid : "+uid);	 
 
-		//弹出修改信息面板
-		 $('#dialogBg').fadeIn(300);
-         $('#dialogEdit').fadeIn();
-         setCenter("dialogEdit");
-         
          //填入数据到修改表
          $.ajax({
-     		url: "usert/userEntity.action",    //请求的url地址，获取全部roles职务的名称
+     		url: "../usert/userEntity.action",    //请求的url地址，获取全部roles职务的名称
      	    dataType: "json",   //返回的异步数据格式为不能json，是文本格式
      	    //async: true, //请求是否异步，默认为异步，这也是ajax重要特性
      	    //alert("curr"+curr),
@@ -1835,25 +1854,28 @@
      	    //成功获取异步提交的参数执行的方法，req是返回的异步数据，类型是非常不固定的
      	    //该json数据封装给id 为"tb"的标签内
      	   	 success:function(data) {		
-     	   	//document.getElementById("userid").value="xxx"; 
-     			$("#exampleInputEmail2").val(data.name);
-     	   		$("#exampleInputPassword2").val(data.pwd);
-     	   		$("#exampleInputText2").val(data.age);		   		
-     	   		$("#userid").val(data.id);//
-     	   		//1.data.list  2.data.list[i].id==data.udid  
-     	   		var op="";
-     	   		$.each(data.list,function(i){
-     	   			//如果当前遍历的部门记录主键did值和当前要修改用户的外键值一致
-     	   			if(data.list[i].id==data.udid){
-     	   				op+="<option selected='selected' value='"+data.list[i].id+
-     	   			     "'>"+data.list[i].dname+"</option>";
-     	   			}else{
-     	   				op+="<option value='"+data.list[i].id+
-     	   			     "'>"+data.list[i].dname+"</option>";
-     	   			}	   			
-     	   		});
-     	   	 //<select id="dname" class="form-control m-bot15">
-     	   		$("#dname").html(op);
+     	   	//document.getElementById("userid").value="xxx";  	   
+	            
+     	   		//弹出修改信息面板
+				 $('#dialogBg').fadeIn(300);
+		         $('#dialogEdit').fadeIn();
+		         setCenter("dialogEdit");
+		        
+		        $("#uid").val(data.id);
+     			$("#uname").val(data.name);
+     	   		$("#upwd").val(data.pwd);
+     	   		$("#age").val(data.age);		   		
+     	   		$("#context").val(data.context);
+				
+     	   		if(data.gender=="男"){
+     	   			$('#Men').attr("checked","checked");
+     	   			$('#Women').removeAttr("checked");
+     	   		}else{
+     	   			$('#Men').removeAttr("checked");
+     	   			$('#Women').attr("checked","checked");
+     	   		}	   			
+     	   		
+
      	    },		   
      	    error:function() {
      	        //请求出错处理
@@ -1861,7 +1883,37 @@
      	    }
      	});
          
+       
          
+	});
+	
+	$(document).on('click','#deleteUserBtn',function(){
+
+		 //获取动态title属性的值
+		 var uid=$(this).attr("title");
+
+        //填入数据到修改表
+        $.ajax({
+    		url: "../usert/DeleteUser.action",    //请求的url地址，获取全部roles职务的名称
+    	    dataType: "json",   //返回的异步数据格式为不能json，是文本格式
+    	    data: {"uid":uid},//需要传递给servlet的uid主键值
+    	    type: "post",   //请求方式，默认post	
+    	   	success:function(data) {		
+    	   		if(data=="success"){
+					alert("delete users success");
+					location.href="tables.html";
+					
+				}else{
+					alert("delete users error");
+				}
+    	   		
+    	    },		   
+    	    error:function() {
+    	        //请求出错处理
+    	        alert("运行异常a");
+    	    }
+    	});
+
 	});
     </script>
 

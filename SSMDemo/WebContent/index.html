@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/templatemo_misc.css">
    	<link type="text/css" rel="stylesheet" href="css/easy-responsive-tabs.css" />
     <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <link type="text/css" rel="stylesheet" href="css/investPage.css" />
     <link href="css/templatemo_style.css" rel="stylesheet"> 
         
 	<script src="js/jquery-1.10.2.min.js"></script> 
@@ -119,73 +120,37 @@
        	      <div class="templatemo_insideportfolio templatemo_botgap">
                	  <div class="templatemo_portfoliotext">
                 	<h2>Portfolio</h2>
+                	
                     <div class="clear"></div>
-                    Suspendisse condimentum metus neque, at adipiscing metus venenatis eu. Mauris sit amet erat laoreet, ullamcorper justo sit amet, vehicula purus. Nulla sagittis pulvinar erat, sit amet venenatis lacus fringilla vitae.</div>
+                    	股票信息	
+                  </div>
               </div>
             	<div class="templatemo_portfolioback">
                 	<div class="templatemo_link"><a class="show-1 templatemo_homeportfolio" href="#">Go Back</a></div>
                 </div>
                 
             </div>
-            <div class="col-md-3 col-sm-6 templatemo_leftgap">
-                        <div class="templatemo_botgap templatemo_portfotopgap gallery-item">
-							<img src="images/portfolio/templatemo_portfolio01.jpg" alt="gallery 1">
+
+             <div class="col-md-3 col-sm-6 templatemo_leftgap" id="stockTrend">
+                        <div class="templatemo_insideportfolio templatemo_botgap" >
+							<img src="images/portfolio/1.png" alt="gallery 1">
 							<div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio01.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
 							</div>
-						</div>				
-                <div class="templatemo_botgap templatemo_topgap gallery-item">
-             	   <img src="images/portfolio/templatemo_portfolio02.jpg" alt="gallery 2">
-                   <div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio02.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
-							</div>
+						</div>	
+				<div class="templatemo_portfolioback" id="stockDetails">			
+					<div class="templatemo_botgap templatemo_topgap gallery-item" id="operateMenu">
+	             	   <img src="images/portfolio/2.png" alt="gallery 2">
+	                </div>
+	                
+	                <div class="templatemo_botgap templatemo_topgap gallery-item" id="buyAndSell">
+	             	    <img src="images/portfolio/3.png" alt="gallery 2">
+	                </div>
+	                <div class="templatemo_botgap templatemo_topgap gallery-item" id="transactionRecord">
+	             	   <img src="images/portfolio/4.png" alt="gallery 2">
+	                </div>
+	               
                 </div>
-                <div class="templatemo_botgap templatemo_topgap gallery-item">
-             	   <img src="images/portfolio/templatemo_portfolio03.jpg" alt="gallery 3">
-                   <div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio03.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
-							</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 templatemo_leftgap">
-				<div class="templatemo_botgap templatemo_topgap gallery-item">
-             	  	 <img src="images/portfolio/templatemo_portfolio04.jpg" alt="gallery 4">
-                     <div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio04.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
-							</div>
-                </div>
-                <div class="templatemo_botgap templatemo_topgap gallery-item">
-             	   <img src="images/portfolio/templatemo_portfolio05.jpg" alt="gallery 5">
-                   <div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio05.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
-							</div>
-                </div>
-                <div class="templatemo_botgap templatemo_topgap gallery-item">
-             	   <img src="images/portfolio/templatemo_portfolio06.jpg" alt="gallery 6">
-                   <div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio06.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
-							</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 templatemo_leftgap">
-				<div class="templatemo_botgap templatemo_topgap gallery-item">
-             	  	 <img src="images/portfolio/templatemo_portfolio07.jpg" alt="gallery 7">
-                     <div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio07.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
-							</div>
-                </div>
-                <div class="templatemo_botgap templatemo_topgap gallery-item">
-             	   <img src="images/portfolio/templatemo_portfolio08.jpg" alt="gallery 8">
-                   <div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio08.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
-							</div>
-                </div>
-                <div class="templatemo_botgap templatemo_topgap gallery-item">
-             	   <img src="images/portfolio/templatemo_portfolio09.jpg" alt="gallery 9">
-                   <div class="overlay">
-								<a href="images/portfolio/templatemo_portfolio09.jpg" data-rel="lightbox" class="fa fa-arrows-alt"></a>
-							</div>
-                </div>
+                
             </div>
     </div>
     </div>
@@ -434,30 +399,28 @@
     	<div class="dialogTop">
         	<a href="javascript:;" id="closeBtnB" class="closeBtn">×</a>
         </div>
-        <form class="form-signin" action="index.html">
+        <form class="form-signin" id="form-signup">
 	        <div class="form-signin-heading text-center">
 	            <div class="sign-title">Registration</div>
 	        </div>
 	        <div class="login-wrap">
-	            <p>Enter your personal details below</p>
-	            <input type="text" autofocus="" placeholder="Full Name" class="form-control">
-	            <input type="text" autofocus="" placeholder="Passsword" class="form-control">
-	            <input type="text" autofocus="" placeholder="Email" class="form-control">
-	            <input type="text" autofocus="" placeholder="City/Town" class="form-control">
+	            
+	            <p> Enter your account details below</p>
+	            <input name="uname" type="text" autofocus="" placeholder="User Name" class="form-control">
+	            <input name="upwd" type="password" placeholder="Password" class="form-control">
+	            <input type="password" placeholder="Re-type Password" class="form-control">            
+	            <input name="age" type="number" autofocus="" placeholder="Age" class="form-control">
+	            
 	            <div class="radios">
 	                <label for="radio-01" class="label_radio col-lg-6 col-sm-6">
-	                    <input type="radio" checked="" value="1" id="radio-01" name="sample-radio"> Men
+	                    <input type="radio" checked="" value="男" id="radio-01" name="gender"> Men
 	                </label>
 	                <label for="radio-02" class="label_radio col-lg-6 col-sm-6">
-	                    <input type="radio" value="1" id="radio-02" name="sample-radio"> Female
+	                    <input type="radio" value="女" id="radio-02" name="gender"> Female
 	                </label>
 	            </div>
-	
-	            <p> Enter your account details below</p>
-	            <input type="text" autofocus="" placeholder="User Name" class="form-control">
-	            <input type="password" placeholder="Password" class="form-control">
-	            <input type="password" placeholder="Re-type Password" class="form-control">
-	            <button type="submit" class="btn btn-lg btn-login btn-block">
+	            
+	            <button type="button" class="btn btn-lg btn-login btn-block" id="regSubmit">
 	                <i class="fa fa-check"></i>
 	            </button>
 	
@@ -548,6 +511,39 @@
 	                    }else{
 	                        alert("用户名or密码错误!");
 	                    }
+	                },
+	                error:function(){
+	                    alert("error!");
+	                }
+	            });
+	        });
+	        
+	        $("#regSubmit").click(function(){
+	            $.ajax({
+	                url:"usert/regist.action",
+	                method: "POST",
+	                data: $('#form-signup').serialize(),
+	                dataType: "json",
+	                success:function(data){
+	                	console.log($('#form-signup').serialize());
+	                    console.log("data:");//ok
+	                    if(data=="success"){
+	    					alert("regist users success");
+	    					//location.href="http://localhost:8081/SSMDemo/userinfo.html?msg="+data;
+	    					
+	    					$('#dialogBg').fadeOut(300,function(){
+	                            $('#dialogUp').fadeOut();
+	                        });
+	                    	//#inB，upB隐藏，Userb显示
+	                    	$("#inB").attr("style","display:none;");
+	                    	$("#upB").attr("style","display:none;");
+// 	                    	$("#userB").attr("style","display:block;");
+// 	                    	$("#userB").text(data.name); 
+
+	    				}else{
+	    					alert("regist users error");
+	    				}
+	                    
 	                },
 	                error:function(){
 	                    alert("error!");

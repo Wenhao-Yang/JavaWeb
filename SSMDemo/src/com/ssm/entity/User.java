@@ -7,31 +7,34 @@ package com.ssm.entity;
  *
  */
 public class User {
-   private int uid,uage,money;
+   private int uid,age,money;
    private String uname,gender,upwd,udate,context;
    
    public User(){}
-   public User(int uid,int uage,int money,String uname,String upwd,String udate,String context){
+   public User(int uid,int age,int money,String uname,String upwd,String udate,String context){
 	   this.uid=uid;
-	   this.uage=uage;
+	   this.age=age;
 	   this.money=money;
 	   this.uname=uname;
 	   this.upwd=upwd;
 	   this.udate=udate;
 	   this.context=context;
    }
+   
 	public int getUid() {
 		return uid;
 	}
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
-	public int getUage() {
-		return uage;
+
+	public int getAge() {
+		return age;
 	}
-	public void setUage(int uage) {
-		this.uage = uage;
+	public void setAge(int age) {
+		this.age = age;
 	}
+	
 	public String getUname() {
 		return uname;
 	}
