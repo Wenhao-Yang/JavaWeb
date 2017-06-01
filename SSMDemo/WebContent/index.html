@@ -499,7 +499,7 @@
 	                dataType: "json",
 	                success:function(data){
 	                    console.log("data:"+data.id);//ok
-	                    if(data.id==1){
+	                    if(data.id!=0){
 	                    	$('#dialogBg').fadeOut(300,function(){
 	                            $('#dialog').fadeOut();
 	                        });
@@ -535,8 +535,8 @@
 	                            $('#dialogUp').fadeOut();
 	                        });
 	                    	//#inB，upB隐藏，Userb显示
-	                    	$("#inB").attr("style","display:none;");
-	                    	$("#upB").attr("style","display:none;");
+//	                    	$("#inB").attr("style","display:none;");
+//	                    	$("#upB").attr("style","display:none;");
 // 	                    	$("#userB").attr("style","display:block;");
 // 	                    	$("#userB").text(data.name); 
 
