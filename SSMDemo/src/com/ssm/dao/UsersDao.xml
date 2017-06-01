@@ -4,16 +4,18 @@
 <!-- namespace必须对应接口的路径，类似该xml配置文件是该接口的"实现类"-->
 <mapper namespace="com.ssm.dao.IUsersMapper">
     <!-- 实体类对象和mysql表的对应关系 
-     private int uid,uage,uifdel;
-   private String uname,upwd,udate,utest;-->
+     private int uid,uage,money;
+   private String uname,upwd,udate,context;-->
+   
     <resultMap id="UserResults" type="com.ssm.entity.User">
      <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />        
      <result column="uage" property="uage" jdbcType="INTEGER" javaType="Integer" />
-     <result column="uifdel" property="uifdel" jdbcType="INTEGER" javaType="Integer" /> 
-     <result column="uname" property="uname" jdbcType="VARCHAR" javaType="string"/>  
+     <result column="money" property="money" jdbcType="INTEGER" javaType="Integer" /> 
+     <result column="uname" property="uname" jdbcType="VARCHAR" javaType="string"/> 
+     <result column="gender" property="gender" jdbcType="VARCHAR" javaType="string"/> 
      <result column="upwd" property="upwd" jdbcType="VARCHAR" javaType="string"/>  
      <result column="udate" property="udate" jdbcType="VARCHAR" javaType="string"/>
-     <result column="utest" property="utest" jdbcType="VARCHAR" javaType="string"/>             
+     <result column="context" property="context" jdbcType="VARCHAR" javaType="string"/>             
     </resultMap>      
    
   
@@ -29,9 +31,24 @@
      parameterType="String">
       SELECT * from users where uname=#{0} and upwd=#{1};
     </select> -->
-     <select id="SelectUserAll" resultMap="UserResults">
-      SELECT * from users order by udate desc;
+    <select id="SelectUserAll" resultMap="UserResults">
+    	SELECT * from users order by udate desc;
     </select>
+    <select id="SelectUserByUid" resultMap="UserResults">
+    	SELECT * FROM users where uid=#{0};
+    </select>
+    <insert id="InsertUser" parameterType="com.ssm.entity.User">
+    	INSERT INTO users(uname,upwd,gender,age,money,udate,context) 
+    	VALUES(#{uname},#{upwd},#{gender},#{age},400000,NOW(),"");
+    </insert>
+    
+    <update id="UpdateUser" parameterType="com.ssm.entity.User">
+    	UPDATE users SET age=#{age},udate=now(),uname=#{uname}, upwd=#{upwd},context=#{context} WHERE uid=#{uid}
+    </update>
+    <delete id="DeleteUser" >
+    	DELETE FROM users where uid=#{0};
+    </delete>
+    
     
    
 </mapper>

@@ -3,6 +3,7 @@ package com.ssm.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public interface IUsersMapper {
 //	public List<User> SelectUserByLogin1(String uname,String upwd);
 	//返回的集合的size()是1
 //	public User SelectUserByObject(User user);
-//	public User SelectUserByUid(int uid);
+	public User SelectUserByUid(int uid);
 //	//return json
 	public List<User> SelectUserAll();
 //	//根据角色名称查询对应user集合记录
@@ -32,7 +33,9 @@ public interface IUsersMapper {
 //	//return Roloes
 //	public Roles SelectRolesByrid(Integer rid);
 //	public List<Roles> SelectRolesAll();
-//	public int InsertUser(User user);
+	public int InsertUser(User user);
+	public int UpdateUser(User user);
+	public int DeleteUser(int uid);
 //	public int InsertUsers(List<User> listuser);
 //	public List<Roles> SearchRolUser();
 }

@@ -48,9 +48,23 @@ h1, h2, h3, h4, h5 {
 hr {
     border-color: #ddd;
 }
-
-div.userlog{
-    text-align: right;
+div.userlogb{
+	margin-right:15px;
+}
+div.userlog {
+	display:block;
+	padding: 0px;
+    background: #FFD700;
+    margin:0 10px 10px 10px;
+    text-align: center;
+    width: 80px;
+    height:40px;
+    float: right;
+    right: 30px;
+    vertical-align:middle;
+}
+.userlog a{
+	vertical-align:middle;
 }
 .sign-title{
     font-size: 12%;

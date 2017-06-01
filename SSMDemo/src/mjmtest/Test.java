@@ -1,4 +1,8 @@
 package mjmtest;
+<<<<<<< HEAD
+=======
+import mjmtest.Test;
+>>>>>>> ywh
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -52,15 +56,22 @@ public class Test {
         String result = "";
         try {
         	URL realUrl = new URL(url);
+<<<<<<< HEAD
             // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
             URLConnection conn = realUrl.openConnection();
             // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôÐÔ
+=======
+            // ï¿½ò¿ªºï¿½URLÖ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            URLConnection conn = realUrl.openConnection();
+            // ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+>>>>>>> ywh
             conn.setRequestProperty("Accept-Charset", "utf-8");
             conn.setRequestProperty("contentType", "utf-8");
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+<<<<<<< HEAD
             // ·¢ËÍPOSTÇëÇó±ØÐëÉèÖÃÈçÏÂÁ½ÐÐ
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -71,6 +82,18 @@ public class Test {
             // flushÊä³öÁ÷µÄ»º³å
             out.flush();
             // ¶¨ÒåBufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
+=======
+            // ï¿½ï¿½ï¿½ï¿½POSTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            // ï¿½ï¿½È¡URLConnectionï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            out = new PrintWriter(conn.getOutputStream());
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            out.print(param);
+            // flushï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½
+            out.flush();
+            // ï¿½ï¿½ï¿½ï¿½BufferedReaderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡URLï¿½ï¿½ï¿½ï¿½Ó¦
+>>>>>>> ywh
             in = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
             String line;
@@ -78,10 +101,17 @@ public class Test {
                 result += line;
             }
         } catch (Exception e) {
+<<<<<<< HEAD
             System.out.println("·¢ËÍ POST ÇëÇó³öÏÖÒì³££¡"+e);
             e.printStackTrace();
         }
         //Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊä³öÁ÷¡¢ÊäÈëÁ÷
+=======
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ POST ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½"+e);
+            e.printStackTrace();
+        }
+        //Ê¹ï¿½ï¿½finallyï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+>>>>>>> ywh
         finally{
             try{
                 if(out!=null){
