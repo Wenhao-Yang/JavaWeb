@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ssm.dao.IStocksMapper;
 import com.ssm.dao.IUsersMapper;
 import com.ssm.entity.User;
 import com.sun.corba.se.impl.ior.GenericIdentifiable;
@@ -43,8 +44,9 @@ import jdk.internal.org.xml.sax.InputSource;
 @Controller
 @RequestMapping("/usert")
 public class UserController {
-	//调用UserMapp接口操作的功能
+	//调用Mapper接口操作的功能
 	IUsersMapper userMapper=null;
+	
 	public IUsersMapper getUserMapper() {
 		return userMapper;
 	}

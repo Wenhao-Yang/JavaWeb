@@ -3,9 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须对应接口的路径，类似该xml配置文件是该接口的"实现类"-->
 <mapper namespace="com.ssm.dao.IUsersMapper">
-    <!-- 实体类对象和mysql表的对应关系 
-     private int uid,uage,money;
-   private String uname,upwd,udate,context;-->
    
     <resultMap id="UserResults" type="com.ssm.entity.User">
      <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />        
@@ -18,7 +15,6 @@
      <result column="context" property="context" jdbcType="VARCHAR" javaType="string"/>             
     </resultMap>      
    
-  
    <!-- public User SelectUserByLogin(String uname,String upwd); 
    <select id="SelectUserByLogin" id属性一定要和接口名一致，相似的理解<select>是接口方法名对应的方法体
    #{2}：就是赋值的第二个参数-->
@@ -48,7 +44,5 @@
     <delete id="DeleteUser" >
     	DELETE FROM users where uid=#{0};
     </delete>
-    
-    
-   
+
 </mapper>

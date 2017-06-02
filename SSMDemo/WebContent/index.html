@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/templatemo_misc.css">
    	<link type="text/css" rel="stylesheet" href="css/easy-responsive-tabs.css" />
     <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <link type="text/css" rel="stylesheet" href="css/style1.css" />
     <link type="text/css" rel="stylesheet" href="css/investPage.css" />
     <link href="css/templatemo_style.css" rel="stylesheet"> 
         
@@ -24,17 +25,16 @@
 
   </head>
   <body>
-    	<!-- logo start -->
-   
-    <div id="pre" >
+    <!-- logo start -->
+   s
     <div class="logocontainer">
     	<div class="row">
         	<h1><a href="#">Stocks.</a></h1>
             <div class="clear"></div>
             <div class="templatemo_smalltitle">国内一流股票交易平台$_$.</div>
                 <div class="userlogb">
-                	<div class="userlog" id="inB"><a class="userhref"  >LOGIN</a></div>
-                	<div class="userlog" id="upB"><a class="userhref"  >SIGN UP</a></div>
+                	<div class="userlog" id="inB"><a class="userhref"  >登录</a></div>
+                	<div class="userlog" id="upB"><a class="userhref"  >注册</a></div>
                 	<div class="userlog" id="userB" style="display: none;"><a class="userhref" ></a></div>	
                 </div>  
        </div>
@@ -47,7 +47,7 @@
   	<div class="container">
           	<div class="col-md-3 col-sm-6 templatemo_leftgap">
             	<div class="templatemo_mainservice templatemo_botgap">
-                	<div class="templatemo_link"><a class="show-2 templatemo_page2" href="#">Products</a></div>
+                	<div class="templatemo_link"><a class="show-2 templatemo_page2" href="#">股票信息</a></div>
                 	
                 </div>
                 <div class="templatemo_mainimg"><img src="images/templatemo_home1.jpg" alt="home img 01"></div>
@@ -55,13 +55,13 @@
             <div class="col-md-3 col-sm-6 templatemo_leftgap">
             	<div class="templatemo_mainimg templatemo_botgap templatemo_portfotopgap"><img src="images/templatemo_home2.jpg" alt="home img 02"></div>
                 <div class="templatemo_mainportfolio">
-                      <div class="templatemo_link"><a class="show-3 templatemo_page3" href="#">Investment</a></div>
+                      <div class="templatemo_link"><a class="show-3 templatemo_page3" href="#">模拟交易</a></div>
                 	                   
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 templatemo_leftgap">
             	<div class="templatemo_maintesti templatemo_botgap templatemo_topgap">
-                	<div class="templatemo_link"><a class="show-4 templatemo_page4" href="#">Prediction</a></div>
+                	<div class="templatemo_link"><a class="show-4 templatemo_page4" href="#">趋势预测</a></div>
                 </div>
                 <div class="templatemo_mainimg"><img src="images/templatemo_home3.jpg" alt="home img 03"></div>
             </div>
@@ -70,10 +70,10 @@
              	   <img src="images/templatemo_home4.jpg" alt="home img 04">
                 </div>
                 <div class="templatemo_mainabout templatemo_botgap">
-                	<div class="templatemo_link"><a class="show-5 templatemo_page5" href="#">About Us</a></div>
+                	<div class="templatemo_link"><a class="show-5 templatemo_page5" href="#">关于我们</a></div>
                 </div>
                 <div class="templatemo_maincontact">
-                	<div class="templatemo_link"><a class="show-6 templatemo_page6" href="#">Contact</a></div>
+                	<div class="templatemo_link"><a class="show-6 templatemo_page6" href="#">联系我们</a></div>
                 </div>
             </div>
     </div>
@@ -85,132 +85,42 @@
 		<div class="container">
         	<div class="row templatemo_bordergapborder">
             	<div class="col-md-3 col-sm-12 templatemo_leftgap">
-                	<div class="templatemo_mainimg templatemo_botgap"><img src="images/templatemo_service1.jpg" alt="service image"></div>
+                	<div class="templatemo_mainimg templatemo_botgap  pre-scrollable" style="overflow:auto">
+                		<table class="table table-bordered scrolltable"
+		                    id="stock-dynamic-table"
+							data-url="stockt/searchStock.action"  
+				       		data-page-list="[5, 10]"
+				       		data-toggle="table"
+					   		data-click-to-select="true">
+                      		<thead style="overflow=auto;">
+                        	<tr>
+					            <th data-field="sid">股票代码</th>
+					            <th data-field="sname">股票名称</th>
+					        </tr>
+	                      	</thead>
+                    	</table>
+                	</div>
                     <div class="templatemo_mainservice templatemo_botgap">
-                	<div class="templatemo_linkservice"><a class="show-1 templatemo_homeservice" href="#">Go Back</a></div>
-                </div>
+                		<div class="templatemo_linkservice">
+                			<a class="show-1 templatemo_homeservice" href="#">返回</a>
+                		</div>
+                	</div>
                 </div>
                 
                 <div class="templatemo_col37 col-sm-12 templatemo_leftgap">
-                	<div class="templatemo_graybg">
-                    <div class="templatemo_frame">
-                	<h2>股票代码                                   股票名称→</h2>
-                    <div class="clear"></div>
-                    <p>
-
-						SH600000  浦发银行<br/>
-						SH600004  白云机场<br/>
-						SH600005  武钢股份<br/>
-						SH600006  东风汽车<br/>
-						SH600007  中国国贸<br/>
-						SH600008  首创股份<br/>
-						SH600009  上海机场<br/>
-						SH600010  包钢股份<br/>
-						SH600011  华能国际<br/>
-						SH600012  皖通高速<br/>
-						SH600015  华夏银行<br/>
-						SH600016  民生银行<br/>
-						SH600017  日照港<br/>
-						SH600018  上港集团<br/>
-						SH600019  宝钢股份<br/>
-						SH600020  中原高速<br/>
-						SH600021  上海电力<br/>
-						SH600022  山东钢铁<br/>
-						SH600023  浙能电力<br/>
-						SH600026  中海发展<br/>
-						SH600027  华电国际<br/>
-						SH600028  中国石化<br/>
-						SH600029  南方航空<br/>
-						SH600030  中信证券<br/>
-						SH600031  三一重工<br/>
-						SH600033  福建高速<br/>
-						SH600035  楚天高速<br/>
-						SH600036  招商银行<br/>
-						SH600037  歌华有线<br/>
-						SH600038  中直股份<br/>
-						SH600039  四川路桥<br/>
-						SH600048  保利地产<br/>
-						SH600050  中国联通<br/>
-						SH600051  宁波联合<br/>
-						SH600052  浙江广厦<br/>
-						SH600053  九鼎投资<br/>
-						SH600054  黄山旅游<br/>
-						SH600055  华润万东<br/>
-						SH600056  中国医药<br/>
-						SH600057  象屿股份<br/>
-						SH600058  五矿发展<br/>
-						SH600059  古越龙山<br/>
-						SH600060  海信电器<br/>
-						SH600061  国投安信<br/>
-						SH600062  华润双鹤<br/>
-						SH600063  皖维高新<br/>
-						SH600064  南京高科<br/>
-						SH600066  宇通客车<br/>
-						SH600067  冠城大通<br/>
-						SH600068  葛洲坝<br/>
-						SH600069  银鸽投资<br/>
-						SH600070  浙江富润<br/>
-						SH600071  凤凰光学<br/>
-						SH600072  钢构工程<br/>
-						SH600073  上海梅林<br/>
-						SH600074  保千里<br/>
-						SH600075  新疆天业<br/>
-						SH600076  康欣新材<br/>
-						SH600077  宋都股份<br/>
-						SH600078  澄星股份<br/>
-						SH600079  人福医药<br/>
-						SH600080  金花股份<br/>
-						SH600081  东风科技<br/>
-						SH600082  海泰发展<br/>
-						SH600083  博信股份<br/>
-						SH600084  中葡股份<br/>
-						SH600085  同仁堂<br/>
-						SH600086  东方金钰<br/>
-						SH600088  中视传媒<br/>
-						SH600089  特变电工<br/>
-						SH600090  同济堂<br/>
-						SH600093  禾嘉股份<br/>
-						SH600094  大名城<br/>
-						SH600095  哈高科<br/>
-						SH600096  云天化<br/>
-						SH600097  开创国际<br/>
-						SH600098  广州发展<br/>
-						SH600099  林海股份<br/>
-						SH600100  同方股份<br/>
-						SH600101  明星电力<br/>
-						SH600103  青山纸业<br/>
-						SH600104  上汽集团<br/>
-						SH600105  永鼎股份<br/>
-						SH600106  重庆路桥<br/>
-						SH600107  美尔雅<br/>
-						SH600108  亚盛集团<br/>
-						SH600109  国金证券<br/>
-						SH600110  诺德股份<br/>
-						SH600111  北方稀土<br/>
-						SH600112  天成控股<br/>
-						SH600113  浙江东日<br/>
-						SH600114  东睦股份<br/>
-						SH600115  东方航空<br/>
-						SH600116  三峡水利<br/>
-						SH600117  西宁特钢<br/>
-						SH600118  中国卫星<br/>
-						SH600119  长江投资<br/>
-						SH600120  浙江东方<br/>
-                  </p>
-                    </div>
+                	<div class="templatemo_graybg" id="templatemo_graybg">
+	                    <div class="templatemo_frame">
+		                	
+		                    <div class="clear"></div>
+		                    <input id="sid" value="" style="display:none"/>
+		                    <div id="stockTrendMap">
+		                    	<button type="button" class="btn-primary" id="checkBig">查看大图</button><button type="button" class="btn-primary" id="checkK">查看k线图</button>
+		                    
+		                    </div>
+	                    </div>
                	  </div>
               </div>
-                <div class="templatemo_col37 col-sm-12 templatemo_leftgap templatemo_topgap">
-                	<div class="clear"></div>
-                        <form role="form">
-                          <div class="templatemo_form">
-                            <input name="message" type="text" class="form-control" id="sid" placeholder="股票ID" maxlength="40">
-                          </div>
-                          
-
-                          <div class="templatemo_form"><button type="button" class="btn btn-primary" id="send1">查询</button></div>
-                        </form>
-                  </div>
+                
                 </div>
             </div>
         </div>
@@ -223,14 +133,14 @@
           	<div class="col-md-3 col-sm-6 templatemo_leftgap">
        	      <div class="templatemo_insideportfolio templatemo_botgap">
                	  <div class="templatemo_portfoliotext">
-                	<h2>Portfolio</h2>
+                	<h2>股票信息</h2>
                 	
                     <div class="clear"></div>
-                    	股票信息	
+                    	
                   </div>
               </div>
             	<div class="templatemo_portfolioback">
-                	<div class="templatemo_link"><a class="show-1 templatemo_homeportfolio" href="#">Go Back</a></div>
+                	<div class="templatemo_link"><a class="show-1 templatemo_homeportfolio" href="#">返回</a></div>
                 </div>
                 
             </div>
@@ -243,7 +153,11 @@
 						</div>	
 				<div class="templatemo_portfolioback" id="stockDetails">			
 					<div class="templatemo_botgap templatemo_topgap gallery-item" id="operateMenu">
-	             	   <img src="images/portfolio/2.png" alt="gallery 2">
+	             	   <select id="saleType">
+						  <option value ="volvo">买入</option>
+						  <option value ="saab">卖出</option>
+						  <option value="opel">查询</option>
+						</select>
 	                </div>
 	                
 	                <div class="templatemo_botgap templatemo_topgap gallery-item" id="buyAndSell">
@@ -272,7 +186,7 @@
                 <li>Recognitions</li>
             </ul>
             <div class="templatemo_aboutlinkwrapper">
-     		<div class="templatemo_link"><a class="show-1 templatemo_hometestimonial" href="index.html">Go Back</a></div>
+     		<div class="templatemo_link"><a class="show-1 templatemo_hometestimonial" href="index.html">返回</a></div>
             </div>
             </div>
             <div class="resp-tabs-container templatemo_testicontainer">
@@ -447,7 +361,6 @@
             <div class="templatemo_footer">Copyright 2084 Company Name</div>
        </div>
     </div>
-    </div>
 
     <div id="dialogBg"></div>
     <div id="dialog" class="animated" class="dialog">
@@ -455,21 +368,21 @@
         	<a href="javascript:;" id="closeBtn" class="closeBtn">×</a>
         </div>
         <form class="form-signin">
-        	<div class="sign-title">SIGN IN</div>
+        	<div class="sign-title">登录</div>
             <div class="login-wrap">
             	<input type="text" class="form-control" id="username" placeholder="User ID" autofocus>
             	<input type="password" class="form-control" id="pwd" placeholder="Password">
 
-            	<button id="btn-login" type="button" class="subBtn">
+            	<button id="btn-login" type="button" class="btn btn-lg btn-login btn-block">
             		<i class="fa fa-check"></i>
             	</button>
                 <div class="registration">Not a member yet?
-                	<a class="" href="registration.html">Signup</a>
+                	<a class="" href="registration.html">注册</a>
                 </div>
                 <label class="checkbox">
                 	<input type="checkbox" value="remember-me"> Remember me
                     <span class="pull-right">
-                    	<a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+                    	<a data-toggle="modal" href="#myModal"> 忘记密码?</a>
 					</span>
                 </label>
 
@@ -505,7 +418,7 @@
         </div>
         <form class="form-signin" id="form-signup">
 	        <div class="form-signin-heading text-center">
-	            <div class="sign-title">Registration</div>
+	            <div class="sign-title">注册</div>
 	        </div>
 	        <div class="login-wrap">
 	            
@@ -553,48 +466,7 @@
 	               + seperator2 + date.getSeconds();
 	       return currentdate;
 	  }
-	  document.getElementById("send1").onclick = function() {//正确  
-	      var data = 1;
-	      var date = getNowFormatDate();
-	      var sid = document.getElementById("sid").value;
-	      //var sname = document.getElementById("sname").value;
-	      if(sid.length==8)
-	      {
-	       alert("即将查询股票代码："+sid);
-	       window.location.href='stock.html?sid='+sid+'&date='+date;
-	      }
-	   
-	   }
-	    $(document).ready(function () {
-	        $('#horizontalTab').easyResponsiveTabs({
-	            type: 'default', //Types: default, vertical, accordion
-	            width: 'auto', //auto or any width like 600px
-	            fit: true, // 100% fit in a container
-	            closed: 'accordion', // Start closed if in accordion view
-	            activate: function(event) { // Callback function if tab is switched
-	                var $tab = $(this);
-	                var $info = $('#tabInfo');
-	                var $name = $('span', $info);
-	
-	                $name.text($tab.text());
-	
-	                $info.show();		
-	            }
-	        });
-	
-	        $('#ab').easyResponsiveTabs({
-	            type: 'vertical',
-	            width: 'auto',
-	            fit: true,
-	        });
-			
-	
-			$('#cmt').easyResponsiveTabs({
-	            type: 'vertical',
-	            width: 'auto',
-	            fit: true,
-	        });
-	    });
+
 	</script>
     
     <script type="text/javascript">
@@ -714,44 +586,112 @@
 	                    alert("error!");
 	                }
 	            });
-	        });
+	        }); 
 	        
+
 	    });
+	    
   </script>
-   
-   <script type="text/javascript">
-    $(document).ready(function () {
-        $('#horizontalTab').easyResponsiveTabs({
-            type: 'default', //Types: default, vertical, accordion
-            width: 'auto', //auto or any width like 600px
-            fit: true, // 100% fit in a container
-            closed: 'accordion', // Start closed if in accordion view
-            activate: function(event) { // Callback function if tab is switched
-                var $tab = $(this);
-                var $info = $('#tabInfo');
-                var $name = $('span', $info);
-
-                $name.text($tab.text());
-
-                $info.show();
-				
-            }
-        });
-
-        $('#ab').easyResponsiveTabs({
-            type: 'vertical',
-            width: 'auto',
-            fit: true,
-        });
-		
-
-		$('#cmt').easyResponsiveTabs({
-            type: 'vertical',
-            width: 'auto',
-            fit: true,
-        });
-    });
-</script>
+  
 <!-- templatemo 405 matrix -->
+
+	<!--dynamic table-->
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/modernizr.min.js"></script>
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/bootstrap-table.js"></script>  
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/bootstrap-table-zh-CN.js"></script>
+	<script src="js/tableExport.js"></script>
+	<script type="text/javascript" language="javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+	<!--dynamic table initialization -->
+	<script src="js/dynamic_table_init.js"></script>
+	<--! 绘制走势图 -->
+	<script type="text/javascript" src="js/mystock.js"></script>
+	<script type="text/javascript">
+	   $(function() {
+		   $('#stock-dynamic-table').bootstrapTable({  
+		    	  onClickRow: function (row, $element) { 
+		    		$element.css("background-color", "green");
+		    	    alert(row[0]);
+		    	  },  
+		    });
+	   });
+	</script>
+	<script type="text/javascript">
+	        function GetQueryString(name) { 
+	            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i"); 
+	            var r = window.location.search.substr(1).match(reg); 
+	            if (r!=null) 
+	            	return (r[2]); 
+	            return null; 
+	        } 
+			eval('var hq_str_sz002024=null');
+		 	var data={};
+
+			data.stockID="603999";
+			$('#sid').attr("value",data.stockID);
+			data.stockType="sh";
+			data.time=parseInt("1495421590");
+			data.hq=eval("hq_str_sz002024");
+			var str1 = "hq_str_sh603999";
+			
+			data.hq=str1;
+			data.day=getNowFormatDate().substr(0,10);//date.substr(0,10);
+			data.isHqReload=eval("true");
+			
+			 //菜单
+			data.menu=[];
+			 
+			data.menu.push({name:"minute",	title:"分时"});
+			 //data.menu.push({name:"dayK",	title:"日K"});
+			 //默认加载
+		    data.default="minute";
+		    stock.load(data);
+
+		    $('#stock-dynamic-table').bootstrapTable({
+		    	onClickRow: function (row, $element, field) {
+		    		data.stockID=row.sid;
+		    		$('#sid').attr("value",data.stockID);
+					data.time=parseInt("1495421590");
+					var str1 = "hq_str_sh"+data.stockID;
+
+					data.hq=str1;
+					data.day=getNowFormatDate().substr(0,10);
+					data.isHqReload=eval("true");
+
+					data.menu=[];	 
+					data.menu.push({name:"minute",	title:"分时"});
+					//data.menu.push({name:"dayK",	title:"日K"});
+					//默认加载
+				    data.default="minute";
+				    stock.load(data);
+				    $("#loading").attr("style","display:none");
+		        }
+		    });
+		    
+		    $('#checkBig').on('click',function () {
+	        	console.log("查看大图！");
+	  	      	var date = getNowFormatDate();
+	  	      	var sid = document.getElementById("sid").value;
+	  	      	//跳转到大图网页
+	  	       	window.location.href='stock.html?sid=sh'+sid+'&date='+date;
+			});
+	        
+			$('#checkK').click(function () {
+				console.log("查看k线图！");
+				var sid = document.getElementById("sid").value;
+	  	      	//跳转到K线图网页
+	  	       	//window.location.href='stock.html?sid=sh'+sid+'&date='+date;
+			});
+
+
+	
+</script>
+	  
   </body>
+  
 </html>

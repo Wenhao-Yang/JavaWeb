@@ -9,6 +9,9 @@ Author: ThemeBucket
 @import url('jquery-ui-1.10.3.css');
 @import url('../fonts/css/font-awesome.min.css');
 
+*{
+	font-family: 'Microsoft YaHei';
+}
 body {
     background: #424f63;
     font-family: 'Open Sans', sans-serif;
@@ -16,6 +19,13 @@ body {
     line-height: 20px;
     overflow-x: hidden;
     font-size: 14px;
+}
+#menu-container{
+	height:70%;
+}
+
+#stock-dynamic-table{
+	background:#CCCCCC;
 }
 
 input, select, textarea {
@@ -54,17 +64,19 @@ div.userlogb{
 div.userlog {
 	display:block;
 	padding: 0px;
-    background: #FFD700;
-    margin:0 10px 10px 10px;
+    background: #CDB38B;
+    margin:10px 10px 10px 10px;
     text-align: center;
     width: 80px;
     height:40px;
+    line-height:40px;
     float: right;
     right: 30px;
     vertical-align:middle;
 }
+
 .userlog a{
-	vertical-align:middle;
+	margin:auto;
 }
 .sign-title{
     font-size: 12%;
@@ -88,7 +100,7 @@ div.userlog {
     max-width: 380px;
     width: 45%; 
     height: 60%; 
-    display: none; 
+    display: none;
     background: #FFFFFF; position: fixed; 
     top: 20%; left: 25%; z-index: 10000; 
     border: 1px solid #ccc; border-radius: 10px; 
@@ -107,8 +119,12 @@ div.userlog {
     box-shadow: 3px 2px 4px rgba(0,0,0,0.2); 
     -webkit-box-shadow: 3px 2px 4px rgba(0,0,0,0.2); 
 }
+#inB a{
+	vertical-align: middle;
+}
 
 form.form-signin{
+	line-height:100px;
 	width:80%;
 	margin-left:10%;
 	margin-bottom:10%;
@@ -127,7 +143,7 @@ input.form-control{
 }
 .subBtn{
     width: 100%;
-    background: #6bc5a4;
+    background: #DDDDDD;
     color: #fff;
     text-transform: uppercase;
     font-weight: normal;
@@ -138,6 +154,34 @@ input.form-control{
     -moz-transition: all 0.3s;
     transition: all 0.3s;
     font-size: 30px;
+}
+.pagination{
+	margin:0;
+	
+} 
+.pagination-details{
+	margin:0;
+}
+#stock-dynamic-table{
+	height:310px;
+}
+#stock-dynamic-table tbody{
+	 max-height:260px;
+	 overflow-y: scroll; 
+}
+#templatemo_graybg{
+	width:800px;
+	height:500px;
+}
+.btn-primary{
+	float:left;
+	position:relative;
+	left:20px;
+	margin-right:15px;
+	z-index:50;
+}
+#saleType{
+	width:100%;
 }
 
 /*-------------------------------

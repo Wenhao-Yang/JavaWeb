@@ -52,25 +52,25 @@ public class Test {
         String result = "";
         try {
         	URL realUrl = new URL(url);
-            // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
+            // æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
             URLConnection conn = realUrl.openConnection();
-            // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
+            // è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
             conn.setRequestProperty("Accept-Charset", "utf-8");
             conn.setRequestProperty("contentType", "utf-8");
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            // ·¢ËÍPOSTÇëÇó±ØĞëÉèÖÃÈçÏÂÁ½ĞĞ
+            // å‘é€POSTè¯·æ±‚å¿…é¡»è®¾ç½®å¦‚ä¸‹ä¸¤è¡Œ
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            // »ñÈ¡URLConnection¶ÔÏó¶ÔÓ¦µÄÊä³öÁ÷
+            // è·å–URLConnectionå¯¹è±¡å¯¹åº”çš„è¾“å‡ºæµ
             out = new PrintWriter(conn.getOutputStream());
-            // ·¢ËÍÇëÇó²ÎÊı
+            // å‘é€è¯·æ±‚å‚æ•°
             out.print(param);
-            // flushÊä³öÁ÷µÄ»º³å
+            // flushè¾“å‡ºæµçš„ç¼“å†²
             out.flush();
-            // ¶¨ÒåBufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
+            // å®šä¹‰BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
             in = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
             String line;
@@ -78,10 +78,10 @@ public class Test {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("·¢ËÍ POST ÇëÇó³öÏÖÒì³££¡"+e);
+            System.out.println("å‘é€ POST è¯·æ±‚å‡ºç°å¼‚å¸¸ï¼\n"+e);
             e.printStackTrace();
         }
-        //Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊä³öÁ÷¡¢ÊäÈëÁ÷
+        //ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å‡ºæµã€è¾“å…¥æµ
         finally{
             try{
                 if(out!=null){
