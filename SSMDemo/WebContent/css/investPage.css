@@ -13,15 +13,12 @@
 }
 
 #stockTrend {
-	height:260px;
+	height:482px;;
 	width:75%;
 } 
 
-#stockDetails{
-
-}
 #stockDetails div {
-	background-color: rgb(51, 51, 51);
+	background-color: #FFFFFF;
 }
 #transactionDetails {
 	height:189px;
@@ -29,22 +26,64 @@
 	right: 0;
 }
 
-#operateMenu{
-	width:20%;
-	float:left;
-	position:relative;
-}
-#buyAndSell{
-	width:25%;
-	float:left;
-	position:relative;
-	padding-right:12px;
-	padding-left:12px;
-}
 #transactionRecord{
-	width:55%;
+	width:75%;
 	float:left;
 	position:relative;
+}
+#saleType{
+	width:50%;
+}
+.investBlock{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.investLabel{
+	width:40%;
+	float:left;
+}
+input.investInput{
+	width:50%;
+}
+.investBtn{
+	min-width:20px;
+	width:20%;
+	margin-right:10px;
+	margin-bottom:10px;
+}
+.inputBlock{
+	float:left;
+	padding-top:20px;
+	padding-left:20px;
+	padding-right:20px;
+	margin-right:15px;
+	margin-bottom:15px;
+	background:#993333;
+}
+
+div#buyAndSell{
+	width:45%;
+	height:316px;
+}
+
+div#userMoney{
+	float:right;
+	width:50%;
+	height:316px;
+}
+div#recordDetails{
+	width:98.5%;
+	height:150px;
+}
+
+#user-money-table{
+	position:absolute;
+	width:45%;
+	float:right;
+}
+#user-record-table{
+	width:100%;
+	font-size:10px;
 }
 
 

@@ -81,30 +81,6 @@ public class UserController {
 		return map;
 	}
 	
-	//安卓登录
-	@RequestMapping("/loginAndroid")
-	@ResponseBody  
-	public String AndroidLogin(HttpServletRequest request, HttpServletResponse response,@RequestParam("username")String usn,
-			@RequestParam("pwd")String pwd) throws UnsupportedEncodingException{
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		
-		Map<String, Object> map=new HashMap<String, Object>();
-		User user=userMapper.SelectUserByLogin(usn, pwd);
-		
-		if(user!=null){
-			System.out.println(user.getUid()+"  +");
-			
-			map.put("id", user.getUid());
-			map.put("name",user.getUname());
-		}
-		else{
-			map.put("id", 0);
-		}			
-		return map.toString();
-	}
-	
 	//查找所有用户
 	@RequestMapping("/searchUser")
 	@ResponseBody
@@ -256,7 +232,6 @@ public class UserController {
 	
 		Test my=new Test();
 		
-		
 		String sr=my.sendPost("http://jieone.com/demo/stock/data/stock.php?callback=jQuery17206472256606980518_1495438225734&Action=minute&stockID="+sid+"&stockType="+stype, "");
 		String[] astr1 = sr.split(",");
 		int ii=0;
@@ -299,8 +274,6 @@ public class UserController {
         //System.out.println(strc);
         //System.out.println("strc");
         return strc;
-		//return r_str[0];
-		//return "aaaa";
 	}
 	
 	//用户信息查询
@@ -358,10 +331,97 @@ public class UserController {
 	@ResponseBody
 	public String buyStocks(HttpServletRequest request,
 			HttpServletResponse response,@RequestParam("uid")int uid) {
-
-
 		return "success";
 	}
+	
+	@RequestMapping("/kinfo")
+	@ResponseBody  
+	public List<List<String>> Kinfo(HttpServletRequest request, HttpServletResponse response,@RequestParam("code")int code,
+			@RequestParam("start")int start,@RequestParam("end")int end) throws UnsupportedEncodingException{
+		int iStockCode = code,iCurStart=start, iCurEnd=end;
+		String strUrl = null;
+		String str;
+		if (iStockCode>=600000)
+		{
+			str = String.format("http://quotes.money.163.com/service/chddata.html?code=0%06d&start=%d&end=%d&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;VOTURNOVER;VATURNOVER", iStockCode, iCurStart, iCurEnd);
+
+		}
+		else
+		{
+			str = String.format("http://quotes.money.163.com/service/chddata.html?code=1%06d&start=%d&end=%d&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;VOTURNOVER;VATURNOVER", iStockCode, iCurStart, iCurEnd);
+		}
+		//System.out.println(str);
+		Test my=new Test();
+		String sr=my.sendPost(str, "");
+		String[] k_str = sr.split(",");
+		
+		String[] k_str1 = new String[10000];;
+		int j=0;
+		//System.out.println(sr);
+		for(int i =0,o=0;i<k_str.length;i++)
+		{
+			j++;
+			if(j==10)
+			{
+				if(i==k_str.length-1)
+				{	
+					k_str1[o] =k_str[i];
+					
+					o++;
+					j=1;
+				}else{
+					String s1 = k_str[i].substring(k_str[i].length()-10,k_str[i].length());
+					String s2 = k_str[i].substring(0,k_str[i].length()-10);
+					//System.out.println(i);
+					//System.out.println(s1);
+					k_str1[o] = s2;
+					o++;
+					//System.out.println(s2);
+					k_str1[o] = s1;
+					o++;
+					j=1;
+				}
+				
+			}else{
+				if(j==2)
+				{
+					k_str1[o] =k_str[i];
+				}else{
+					k_str1[o] = k_str[i];
+				}
+				
+				o++;
+			}
+			//System.out.println(k_str[i]);
+		}
+		System.out.println(k_str1.length);
+		int l=k_str.length/9;
+		List<List<String>> arr_str = new ArrayList<List<String>>();
+		
+		for(int i =1,x=0,y=0;i<k_str.length/9;i++)
+		{
+			List<String> arr_str1 = new ArrayList<String>();
+			for(int o=0;o<10;o++)
+			{
+				arr_str1.add(k_str1[i*10+o]);
+			}
+			arr_str.add(arr_str1);
+			//System.out.println(k_str1[i]);
+			//arr_str[o] = arr_str[o]+
+			//System.out.println(i);
+		}
+		//System.out.println(k_str.length/9*10);
+//		for(int i =0;i<1;i++)
+//		{
+//			for(int o =0;o<10;o++)
+//			{
+//				System.out.println(arr_str[i][o]);
+//			}
+//		}
+		 //System.out.println(Arrays.deepToString(arr_str));
+		return arr_str;
+	}
+
 	
 
 	

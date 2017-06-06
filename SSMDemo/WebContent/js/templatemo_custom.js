@@ -35,10 +35,16 @@ jQuery(document).ready(function($){
 		return false;
 	});
 
-	$(".main_menu a.templatemo_page3").click(function(){    
-    $('#menu-container .homepage').fadeOut(1000, function(){
-        $('#menu-container .portfolio').fadeIn(1000);
-	    });
+	$(".main_menu a.templatemo_page3").click(function(){
+		if ($('#inB').css("display")=='none' ){
+			$('#menu-container .homepage').fadeOut(1000, function(){
+		        $('#menu-container .portfolio').fadeIn(1000);
+			});
+		}
+		else{
+			alert("请登录！");
+		}
+	    
 		return false;
 	});
 	

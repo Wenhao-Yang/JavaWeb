@@ -24,6 +24,9 @@ body {
 	height:70%;
 }
 
+div.main{
+	float:center;
+}
 #stock-dynamic-table{
 	background:#CCCCCC;
 }
@@ -180,13 +183,12 @@ input.form-control{
 	margin-right:15px;
 	z-index:50;
 }
-#saleType{
-	width:100%;
-}
+
 
 /*-------------------------------
             LOGIN STYLES
 -------------------------------*/
+
 
 /*---------------------------------
             LEFT SIDE
