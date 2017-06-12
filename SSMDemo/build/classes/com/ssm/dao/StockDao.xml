@@ -13,6 +13,13 @@
     <select id="SelectStockAll" resultMap="StockResults">
       SELECT * from stock order by sid desc;
     </select>
+	<select id="SelectStockBySid" resultMap="StockResults">
+      SELECT * FROM stock WHERE sid=#{sid};
+    </select> 
+    <insert id="BuyStocks" parameterType="com.ssm.entity.Bill">
+      INSERT INTO bill(uid,sid,balance,abalance,cost,date) 
+      VALUES (#{uid},#{sid},#{balance},#{balance},#{cost},NOW());	
+    </insert> 
    
 <!--     <select id="SelectUserAll" resultMap="UserResults"> -->
 <!--     	SELECT * from users order by udate desc; -->

@@ -14,18 +14,21 @@
     <link type="text/css" rel="stylesheet" href="css/style1.css" />
     <link type="text/css" rel="stylesheet" href="css/investPage.css" />
     <link href="css/templatemo_style.css" rel="stylesheet"> 
-        
+    <script type="text/javascript" src="js/cookie.js"></script>    
 	<script src="js/jquery-1.10.2.min.js"></script> 
-	<script src="js/jquery.lightbox.js"></script>
-	<script src="js/templatemo_custom.js"></script>
-    <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
-
-    <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>  
-
+	<script>
+        var _hmt = _hmt || [];
+       (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1aac8652db3ac89e637f2b39cbcbb97c";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
   </head>
   <body>
     <!-- logo start -->
-   s
+
     <div class="logocontainer">
     	<div class="row">
         	<h1><a href="#">Stocks.</a></h1>
@@ -34,7 +37,21 @@
                 <div class="userlogb">
                 	<div class="userlog" id="inB"><a class="userhref"  >登录</a></div>
                 	<div class="userlog" id="upB"><a class="userhref"  >注册</a></div>
-                	<div class="userlog" id="userB" style="display: none;"><a class="userhref" ></a></div>	
+                	<div class="userlog" id="userB" style="display: none;">
+                		<div class="menu_list">
+							<ul>
+								<li class="">
+									<a id="userhref" class="fuMenu"></a>
+									<div class="div1">
+										<p class="zcd" id="zcd1">个人信息</p>
+										<p class="zcd" id="zcd2">**</p>
+										<p class="zcd" id="logout">登出</p>
+									</div>
+								</li>
+							</ul>
+					</div>
+                		
+                	</div>	
                 </div>  
        </div>
     </div>
@@ -46,7 +63,10 @@
   	<div class="container">
           	<div class="col-md-3 col-sm-6 templatemo_leftgap">
             	<div class="templatemo_mainservice templatemo_botgap">
-                	<div class="templatemo_link"><a class="show-2 templatemo_page2" href="#">股票信息</a></div>
+                	<div class="templatemo_link">
+                		<a class="show-2 templatemo_page2" href="#">股票信息</a>
+                		
+                	</div>
                 	
                 </div>
                 <div class="templatemo_mainimg"><img src="images/templatemo_home1.jpg" alt="home img 01"></div>
@@ -93,7 +113,7 @@
 					   		data-click-to-select="true">
                       		<thead style="overflow=auto;">
                         	<tr>
-					            <th data-field="sid">股票代码</th>
+					            <th data-field="sid" data-sortable="true">股票代码</th>
 					            <th data-field="sname">股票名称</th>
 					        </tr>
 	                      	</thead>
@@ -134,8 +154,39 @@
        	      <div class="templatemo_insideportfolio templatemo_botgap">
                	  <div class="templatemo_portfoliotext">
                 	<h2>股票信息</h2>
+                	<div class="infoBlock">
+			             <label class=""infoLabel"">卖五：</label><input class="infoInput" id="sellFiv"/><input class="infoInput" id="numOfSellFiv"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class=""infoLabel"">卖四：</label><input class="infoInput" id="sellFou"/><input class="infoInput" id="numOfSellFou"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class=""infoLabel"">卖三：</label><input class="infoInput" id="sellThr"/><input class="infoInput" id="numOfSellThr"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class=""infoLabel"">卖二：</label><input class="infoInput" id="sellSec"/><input class="infoInput" id="numOfSellSec"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class=""infoLabel"">卖一：</label><input class="infoInput" id="sellFir"/><input class="infoInput" id="numOfSellFir"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class=""infoLabel"">买一：</label><input class="infoInput" id="buyFir"/><input class="infoInput" id="numOfBuyFir"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class=""infoLabel"">买二：</label><input class="infoInput" id="buySec"/><input class="infoInput" id="numOfBuySec"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class=""infoLabel"">买三：</label><input class="infoInput" id="buyThr"/><input class="infoInput" id="numOfBuyThr"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class=""infoLabel"">买四：</label><input class="infoInput" id="buyFou"/><input class="infoInput" id="numOfBuyFou"/></br>
+			        </div>
+			        <div class="infoBlock">
+			             <label class="infoLabel">买五：</label><input class="infoInput" id="buyFiv"/><input class="infoInput" id="numOfBuyFiv"/></br>
+			        </div>
                 	
-                    <div class="clear"></div>
+			       
+			             
                     	
                   </div>
               </div>
@@ -147,59 +198,67 @@
 
              <div class="col-md-3 col-sm-6 templatemo_leftgap" id="stockTrend">
                         <div class="inputBlock" id="buyAndSell">
-                        	<select id="saleType" class="investBlock">
-							  <option value ="volvo">买入</option>
-							  <option value ="saab">卖出</option>
-							  <option value="opel">查询</option>
-							</select>
-							</br>
-		             		<div class="investBlock">
-		             			<label class="investLabel">证券代码：</label><input class="investInput" /></br>
-		             		</div>
-							<div class="investBlock">
-		             			<label class="investLabel">证券名称：</label><input class="investInput" /></br>
-		             		</div>
-		             		<div class="investBlock">
-		             			<label class="investLabel">卖出价格：</label><input class="investInput" /></br>
-		             		</div>
-		             		<div class="investBlock">
-		             			<label class="investLabel">可用余额：</label><input class="investInput" /></br>
-		             		</div>
-		             		<div class="investBlock">
-		             			<label class="investLabel">卖出数量：</label><input class="investInput" /></br>
-		             		</div>
-
-			             	<button class="investBtn">重填</button><button class="investBtn">卖出</button><button class="investBtn">刷新</button>
+                        	<form id="BuySellForm">
+								<select id="saleType" class="investBlock">
+								  <option value ="buy">买入</option>
+								  <option value ="sell">卖出</option>
+<!-- 								  <option value="search">查询</option> -->
+								</select>
+								</br>
+								<div class="investBlock" style="display:none;">
+			             			<input class="investInput" id="uidInput" name="uid"/></br>
+			             		</div>
+			             		<div class="investBlock">
+			             			<label class="investLabel">证券代码：</label><input class="investInput" id="inputSid" name="sid"/></br>
+			             		</div>
+								<div class="investBlock">
+			             			<label class="investLabel">证券名称：</label><input class="investInput" id="inputSname" readonly="true"/></br>
+			             		</div>
+			             		<div class="investBlock">
+			             			<label class="investLabel" id="sellOrBuyPrice">买入价格：</label><input class="investInput" id="price" name="cost"/></br>
+			             		</div>
+			             		<div class="investBlock">
+			             			<label class="investLabel" id="accessNumber">可买(股)：</label><input class="investInput" readonly="true" /></br>
+			             		</div>
+			             		<div class="investBlock">
+			             			<label class="investLabel" id="sellOrBuyNumber">买入数量：</label><input class="investInput" id="number" name="balance"/></br>
+			             		</div>
+	
+				             	                       		
+                        	</form>  
+                        	<button class="investBtn" id="removeContent">重填</button>
+				            <button class="investBtn" id="buyOrSellBtn">买入</button>            	
                         </div>
-						<div class="inputBlock" id="userMoney">					
+						<div class="inputBlock pre-scrollable" id="userMoney">					
 							<table class="table table-bordered scrolltable"
-				                    id="user-money-table">
+				                    id="user-money-table"
+				                    data-show-refresh="true" >
 	                      		<thead style="overflow=auto;">
 	                        	<tr>
-						            <th data-field="sid">可用金额</th>
-						            <th data-field="sname">冻结金额</th>
-						            <th data-field="sname">股票市值</th>
-						            <th data-field="sname">总资产    </th>
+						            <th data-field="money">可用金额</th>
+						            <th data-field="fValueOfStock">冻结金额</th>
+						            <th data-field="valueOfStock">股票市值</th>
+						            <th data-field="count">总资产    </th>
 						        </tr>
 		                      	</thead>
                     		</table>
                     	</div>
-                    	<div class="inputBlock recordDetails" id="recordDetails">
+                    	<div class="inputBlock recordDetails pre-scrollable" id="recordDetails">
                     		<table class="table table-bordered scrolltable"
-				                    id="user-record-table">
+				                    id="user-record-table"
+				                    url="usert/userBalance.action?uid=13"
+				                    data-show-refresh="true" >
 	                      		<thead style="overflow=auto;">
 	                        	<tr>
 						            <th data-field="sid">证券代码</th>
-						            <th data-field="sname">证券名称</th>
-						            <th data-field="sname">股票金额</th>
-						            <th data-field="sname">可用余额</th>
-						            <th data-field="sname">冻结数量</th>
-						            <th data-field="sname">盈亏金额</th>
-						            <th data-field="sname">成本价格</th>
-						            <th data-field="sname">盈亏比率</th>
-						            <th data-field="sname">股东账户</th>
-						            <th data-field="sname">可用余额</th>
-						            <th data-field="sname">实际数量</th>
+						            <th data-field="stock.sname">证券名称</th>
+						            <th data-field="balance">股票金额</th>
+						            <th data-field="abalance">可用余额</th>
+						            <th data-field="unbalance">冻结数量</th>
+						            <th data-field="profit">盈亏金额</th>
+						            <th data-field="cost">成本价格</th>
+						            <th data-field="profitrate">盈亏比率</th>
+						            <th data-field="uid">股东账户</th>
 						        </tr>
 		                      	</thead>
                     		</table>
@@ -415,7 +474,7 @@
             		<i class="fa fa-check"></i>
             	</button>
                 <div class="registration">Not a member yet?
-                	<a class="" href="registration.html">注册</a>
+                	<a class="" >注册</a>
                 </div>
                 <label class="checkbox">
                 	<input type="checkbox" value="remember-me"> Remember me
@@ -484,8 +543,11 @@
 		</form>
     </div>
     
-    <!-- logo end -->  
+    <!-- logo end --> 
     
+    <!-- 个人菜单 -->
+    <script type="text/javascript" src="js/menu.js"></script>
+
     <script type="text/javascript">
 	   function getNowFormatDate() {
 	       var date = new Date();
@@ -504,9 +566,9 @@
 	               + seperator2 + date.getSeconds();
 	       return currentdate;
 	  }
-
 	</script>
-    
+	
+    <!-- 登录事件 -->
     <script type="text/javascript">
 	    var w,h,className;
 	    function getSrceenWH(){
@@ -564,8 +626,18 @@
 	            });
 	        });
 	    });
+	    	   
 	    
 	    $(document).ready(function(){
+	    	var uname=getCookie('uname');
+	    	
+	    	if (uname!=null){
+	    		$("#inB").attr("style","display:none;");
+            	$("#upB").attr("style","display:none;");
+            	$("#userB").attr("style","display:block;");
+            	$("#userhref").text(uname); 
+	    	}
+	    	
 	        $("#btn-login").click(function(){
 	            $.ajax({
 	                url:"usert/login.action",
@@ -583,7 +655,9 @@
 	                    	$("#inB").attr("style","display:none;");
 	                    	$("#upB").attr("style","display:none;");
 	                    	$("#userB").attr("style","display:block;");
-	                    	$("#userB").text(data.name); 
+	                    	$("#userhref").text(data.name); 
+	                    	setCookie('uname',data.name,50);
+	                    	setCookie('uid',data.id,50);
 	                    }else{
 	                        alert("用户名or密码错误!");
 	                    }
@@ -594,6 +668,37 @@
 	            });
 	        });
 	        
+	        $("#logout").click(function(){
+	            $.ajax({
+	                url:"usert/logout.action",
+	                method: "POST",
+	                data: {"username":getCookie('uname')},
+	                dataType: "json",
+	                success:function(data){     
+	                    if(data=="success"){
+	                    	alert("登出成功！");//ok
+	                    	
+	                    	$("#inB").attr("style","display:block;");
+	                    	$("#upB").attr("style","display:block;");
+	                    	$("#userB").attr("style","display:none;");
+	                    	
+	                    	$(".menu_list ul li").children(".div1")
+	                    	.animate({
+	    						height: 'hide'
+	    					}, 100)
+	    					.end().siblings().find(".div1").hide(100);
+	                    	setCookie('uname',"",-2);
+	                    	setCookie("uid", "", -2);s
+	                    }else{
+	                        alert("失败!");
+	                    }
+	                },
+	                error:function(){
+	                    alert("error!");
+	                }
+	            });
+	        });
+   
 	        $("#regSubmit").click(function(){
 	            $.ajax({
 	                url:"usert/regist.action",
@@ -605,16 +710,10 @@
 	                    console.log("data:");//ok
 	                    if(data=="success"){
 	    					alert("regist users success");
-	    					//location.href="http://localhost:8081/SSMDemo/userinfo.html?msg="+data;
-	    					
+
 	    					$('#dialogBg').fadeOut(300,function(){
 	                            $('#dialogUp').fadeOut();
 	                        });
-	                    	//#inB，upB隐藏，Userb显示
-//	                    	$("#inB").attr("style","display:none;");
-//	                    	$("#upB").attr("style","display:none;");
-// 	                    	$("#userB").attr("style","display:block;");
-// 	                    	$("#userB").text(data.name); 
 	    				}else{
 	    					alert("regist users error");
 	    				}
@@ -626,6 +725,58 @@
 	            });
 	        }); 
 	        
+// 	        $('#buyOrSellBtn').on('click',function () {
+// 	        	console.log("查看大图！");
+// 	  	      	//var date = getNowFormatDate();
+// 	  	      	//var sid = document.getElementById("sid").value;
+// 	  	      	//跳转到大图网页
+// 	  	       	//window.location.href='stock1.html?sid=sh'+sid+'&date='+date;
+// 			});
+			$('#removeContent').click(function(){
+				$('input.investInput').val(""); 
+				$('input.infoInput').val(""); 
+			});
+			$('#buyOrSellBtn').click(function(){
+				console.log($('#BuySellForm').serialize());
+				if($("#saleType").val()=="buy"){
+					$.ajax({
+		                url:"billt/buyStock.action",
+		                method: "POST",
+		                data: $('#BuySellForm').serialize(),
+		                dataType: "json",
+		                success:function(data){
+		                	if(data=="success"){
+		                		alert("购买成功！");
+		                	}
+		                	else{
+		                		alert("购买失败！");
+		                	}	                    
+		                },
+		                error:function(){
+		                    //alert("error!");
+		                }
+		            });
+				}
+				else if ($("#saleType").val()=="sell") {
+					$.ajax({
+		                url:"billt/sellStock.action",
+		                method: "POST",
+		                data: $('#BuySellForm').serialize(),
+		                dataType: "json",
+		                success:function(data){
+		                	if(data=="success"){
+		                		alert("卖出成功！");
+		                	}
+		                	else{
+		                		alert("卖出失败！");
+		                	}	                    
+		                },
+		                error:function(){
+		                    //alert("error!");
+		                }
+					});
+				}
+			});
 
 	    });
 	    
@@ -643,13 +794,14 @@
 	<script src="js/bootstrap-table-export.js"></script>
 	<script src="js/bootstrap-table-zh-CN.js"></script>
 	<script src="js/tableExport.js"></script>
-	<script type="text/javascript" language="javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
 	<!--dynamic table initialization -->
 	<script src="js/dynamic_table_init.js"></script>
-	<--! 绘制走势图 -->
+	<!-- 绘制走势图 -->
 	<script type="text/javascript" src="js/mystock.js"></script>
-
+	<script src="js/jquery.lightbox.js"></script>
+	<script src="js/templatemo_custom.js"></script>
 	<script type="text/javascript">
 		function fix(num, length) {
 		  return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
@@ -683,7 +835,10 @@
 			 //data.menu.push({name:"dayK",	title:"日K"});
 			 //默认加载
 		    data.default="minute";
-		    stock.load(data);
+			$('.templatemo_page2').click(function(){
+				stock.load(data);
+			});
+		    //stock.load(data);
 
 		    $('#stock-dynamic-table').bootstrapTable({
 		    	onClickRow: function (row, $element, field) {
@@ -725,7 +880,74 @@
 	  	      	//跳转到K线图网页
 	  	       	window.location.href='kkk.html?code='+sid+'&s_date=20170101&e_date='+e_date+'&sname='+sname;
 			});
-
+			$('#inputSid').blur(function(){
+				$.ajax({
+	                url:"stockt/searchStockBySid.action",
+	                method: "POST",
+	                data: {"sid":$(this).val()},
+	                dataType: "json",
+	                success:function(data){
+	                	console.log(data);
+	                	$('#inputSname').val(data.sname);
+	                	
+	                	$('#sellFiv').val(data.priOfSellFiv);
+	                	$('#sellFou').val(data.priOfSellFou);
+	                	$('#sellThr').val(data.priOfSellThr);
+	                	$('#sellSec').val(data.priOfSellSec);
+	                	$('#sellFir').val(data.priOfSellFir);
+	                	$('#buyFiv').val(data.priOfBuyFiv);
+	                	$('#buyFou').val(data.priOfBuyFou);
+	                	$('#buyThr').val(data.priOfBuyThr);
+	                	$('#buySec').val(data.priOfBuySec);
+	                	$('#buyFir').val(data.priOfBuyFir);
+	                	
+	                	$('#numOfSellFiv').val(data.numOfSellFiv);
+	                	$('#numOfSellFou').val(data.numOfSellFou);
+	                	$('#numOfSellThr').val(data.numOfSellThr);
+	                	$('#numOfSellSec').val(data.numOfSellSec);
+	                	$('#numOfSellFir').val(data.numOfSellFir);
+	                	$('#numOfBuyFiv').val(data.numOfBuyFiv);
+	                	$('#numOfBuyFou').val(data.numOfBuyFou);
+	                	$('#numOfBuyThr').val(data.numOfBuyThr);
+	                	$('#numOfBuySec').val(data.numOfBuySec);
+	                	$('#numOfBuyFir').val(data.numOfBuyFir);
+	                	
+						//获取返回的股票的参数
+	                    
+	                },
+	                error:function(){
+	                    alert("error!");
+	                }
+	            });
+			});
+			
+			$("#saleType").change(function(){
+			    var opt=$("#saleType").val();
+			    if(opt=="buy"){
+			    	alert("buy stock");
+			    	$('#sellOrBuyPrice').html("买入价格：");
+			    	$('#sellOrBuyNumber').html("买入数量：");
+			    	$('#accessNumber').html("可买(股)：");
+			    	$('#buyOrSellBtn').html("买入");
+			    	$('#buyAndSell').attr("style","display:block;");
+			    	$('#userMoney').attr("style","width:50%;");
+			    }
+			    else if(opt=="sell"){
+			    	alert("sell stock");
+			    	$('#sellOrBuyPrice').html("卖出价格：");
+			    	$('#sellOrBuyNumber').html("卖出数量：");
+			    	$('#accessNumber').html("可用余额：");
+			    	$('#buyOrSellBtn').html("卖出");
+			    	$('#buyAndSell').attr("style","display:block;");
+			    	$('#userMoney').attr("style","width:50%;");
+			    }
+			    else if(opt=="search"){
+			    	alert("search stock");
+// 			    	$('#buyAndSell').attr("style","display:none;");
+// 			    	$('#userMoney').attr("style","width:98.5%;");
+			    }
+			});
+			
 
 	
 </script>

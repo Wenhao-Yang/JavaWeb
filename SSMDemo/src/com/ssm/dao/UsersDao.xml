@@ -5,15 +5,16 @@
 <mapper namespace="com.ssm.dao.IUsersMapper">
    
     <resultMap id="UserResults" type="com.ssm.entity.User">
-     <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />        
-     <result column="uage" property="uage" jdbcType="INTEGER" javaType="Integer" />
-     <result column="money" property="money" jdbcType="INTEGER" javaType="Integer" /> 
-     <result column="uname" property="uname" jdbcType="VARCHAR" javaType="string"/> 
-     <result column="gender" property="gender" jdbcType="VARCHAR" javaType="string"/> 
-     <result column="upwd" property="upwd" jdbcType="VARCHAR" javaType="string"/>  
-     <result column="udate" property="udate" jdbcType="VARCHAR" javaType="string"/>
-     <result column="context" property="context" jdbcType="VARCHAR" javaType="string"/>             
-    </resultMap>      
+	     <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />        
+	     <result column="uage" property="uage" jdbcType="INTEGER" javaType="Integer" />
+	     <result column="money" property="money" jdbcType="INTEGER" javaType="Integer" /> 
+	     <result column="uname" property="uname" jdbcType="VARCHAR" javaType="string"/> 
+	     <result column="gender" property="gender" jdbcType="VARCHAR" javaType="string"/> 
+	     <result column="upwd" property="upwd" jdbcType="VARCHAR" javaType="string"/>  
+	     <result column="udate" property="udate" jdbcType="VARCHAR" javaType="string"/>
+	     <result column="context" property="context" jdbcType="VARCHAR" javaType="string"/>             
+    </resultMap>    
+    
    
    <!-- public User SelectUserByLogin(String uname,String upwd); 
    <select id="SelectUserByLogin" id属性一定要和接口名一致，相似的理解<select>是接口方法名对应的方法体
@@ -28,21 +29,35 @@
       SELECT * from users where uname=#{0} and upwd=#{1};
     </select> -->
     <select id="SelectUserAll" resultMap="UserResults">
-    	SELECT * from users order by udate desc;
+    	SELECT * from users order by udate asc;
     </select>
     <select id="SelectUserByUid" resultMap="UserResults">
     	SELECT * FROM users where uid=#{0};
     </select>
+    
     <insert id="InsertUser" parameterType="com.ssm.entity.User">
-    	INSERT INTO users(uname,upwd,gender,age,money,udate,context) 
-    	VALUES(#{uname},#{upwd},#{gender},#{age},400000,NOW(),"");
+    	INSERT INTO users(uname,upwd,gender,age,money,udate,context,degree,online) 
+    	VALUES(#{uname},#{upwd},#{gender},#{age},400000,NOW(),"","0","0");
     </insert>
     
     <update id="UpdateUser" parameterType="com.ssm.entity.User">
-    	UPDATE users SET age=#{age},udate=now(),uname=#{uname}, upwd=#{upwd},context=#{context} WHERE uid=#{uid}
+    	UPDATE users 
+    	SET age=#{age},udate=now(),uname=#{uname}, upwd=#{upwd},context=#{context},degree=#{degree},online=#{online} 
+    	WHERE uid=#{uid}
     </update>
     <delete id="DeleteUser" >
     	DELETE FROM users where uid=#{0};
     </delete>
-
+    <update id="ChangeOnline" >
+        UPDATE users SET online="1" WHERE uid=#{uid};
+    </update>
+    <update id="ChangeOnline1" >
+        UPDATE users SET online="0" WHERE uid=#{uid};
+    </update>
+    
+    <update id="UpdateUserByLogout" parameterType="String">
+        UPDATE users SET online="0" WHERE uname=#{name};
+    </update>
+    
+    
 </mapper>

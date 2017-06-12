@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import javax.servlet.ServletException;
@@ -31,10 +34,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ssm.dao.IBillsMapper;
 import com.ssm.dao.IStocksMapper;
 import com.ssm.dao.IUsersMapper;
+import com.ssm.entity.Bcount;
+import com.ssm.entity.Bhistory;
+import com.ssm.entity.Bill;
 import com.ssm.entity.User;
 import com.sun.corba.se.impl.ior.GenericIdentifiable;
+import com.sun.swing.internal.plaf.basic.resources.basic_it;
 
 import jdk.internal.org.xml.sax.InputSource;
 //Springmvc核心调用的类对象，而且springIOC核心@注入的类对象，核心的调用mybaits操作数据库 类对象
@@ -46,6 +54,7 @@ import jdk.internal.org.xml.sax.InputSource;
 public class UserController {
 	//调用Mapper接口操作的功能
 	IUsersMapper userMapper=null;
+	IBillsMapper billMapper=null;
 	
 	public IUsersMapper getUserMapper() {
 		return userMapper;
@@ -53,6 +62,14 @@ public class UserController {
 	@Autowired
 	public void setUserMapper(@Qualifier("usersModel")IUsersMapper userMapper) {
 		this.userMapper = userMapper;
+	}
+	
+	public IBillsMapper getBillMapper() {
+		return billMapper;
+	}
+	@Autowired
+	public void setBillMapper(@Qualifier("billsModel")IBillsMapper billMapper) {
+		this.billMapper = billMapper;
 	}
 	//@ResponseBody  -->  jackson jar
 	
@@ -65,13 +82,12 @@ public class UserController {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		System.out.println(usn+"  //  "+pwd);		
+		System.out.println("用户： "+ usn+"  密码：  "+pwd);		
 
 		Map<String, Object> map=new HashMap<String, Object>();
 		User user=userMapper.SelectUserByLogin(usn, pwd);		
-		if(user!=null){
-			System.out.println("服务器接受成功！");
-			
+		if(user!=null && userMapper.ChangeOnline(user.getUid())>0){
+			System.out.println("登录成功！");
 			map.put("id", user.getUid());
 			map.put("name",user.getUname()); 
 		}
@@ -79,6 +95,19 @@ public class UserController {
 			map.put("id", 0);
 		}
 		return map;
+	}
+	
+	//用户登出
+	@RequestMapping("/logout")
+	@ResponseBody  
+	public String UsersLogout(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("username")String usn) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		System.out.println(usn+" 登出！ ");		
+		
+		return userMapper.UpdateUserByLogout(usn)>0?"success":"error";
 	}
 	
 	//查找所有用户
@@ -121,8 +150,8 @@ public class UserController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		
-		System.out.println("注册用户：" + user.getUname()+" / "+user.getUpwd()+
-				" / "+user.getGender()+" / "+user.getAge());
+		System.out.println("注册用户：" + user.getUname()+" - "+user.getUpwd()+
+				" - "+user.getGender()+" - "+user.getAge());
 		
 		return userMapper.InsertUser(user)>0?"success":"error";
 	}
@@ -137,8 +166,8 @@ public class UserController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		
-		System.out.println("修改用户:"+users.getUname()+" / "+users.getUpwd()
-							+ " / " + users.getAge()+ " / " +users.getContext()+  " //  "+users.getUid());
+		System.out.println("修改用户:"+users.getUname()+" - "+users.getUpwd()
+							+ " - " + users.getAge()+ " - " +users.getContext()+  " --  "+users.getUid());
 		
 		return userMapper.UpdateUser(users)>0?"success":"error";
 	}
@@ -153,7 +182,7 @@ public class UserController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		
-		System.out.println("删除用户--"+uid);
+		System.out.println("删除用户-uid-"+uid);
 		
 		return userMapper.DeleteUser(uid)>0?"success":"error";
 	}
@@ -261,7 +290,7 @@ public class UserController {
         			strr = astr1[i];
         		}else{
         			strr = strr+','+astr1[i];
-       		}
+        		}
         	}
             //System.out.println(sourceStrArray[i]);
         	ii++;
@@ -290,7 +319,6 @@ public class UserController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		User user=userMapper.SelectUserByUid(uid);	
 		
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		if(user!=null){
 			System.out.println(user.getUid()+"  +");
 			
@@ -303,6 +331,57 @@ public class UserController {
 		}
 		return map;
 	}
+	
+	//用户余额查询
+	@RequestMapping("/userBalance")
+	@ResponseBody  
+	public List<Map<String, Object>> SearchUserBalance(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("uid")int uid)
+					throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		System.out.println("返回用户  --  "+uid+"的余额信息");		
+
+		Map<String, Object> map=new HashMap<String, Object>();
+		List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();
+		User user=this.userMapper.SelectUserByUid(uid);	
+		List<Bill> userbill=this.billMapper.SearchBillByUid(uid);
+		
+		if(user!=null && userbill!=null){
+			System.out.println("用户信息获取成功！");
+			
+			
+			double valueOfStock=0;
+			double aValueOfStock=0;
+					
+			Test my=new Test();
+			String sr;
+			
+			
+			for(Bill bill: userbill){
+				
+				sr=my.sendPost("http://hq.sinajs.cn/list=sh"+bill.getSid(), "");
+				String[] astr1 = sr.split("\"");
+				sr=astr1[1];
+				String[] resultStr=sr.split(",");
+	
+				aValueOfStock+=bill.getAbalance()*Double.valueOf(resultStr[3]);
+				valueOfStock+=bill.getBalance()*Double.valueOf(resultStr[3]);
+			}	
+			DecimalFormat df = new DecimalFormat( "#,##0.00");
+			
+			System.out.println(valueOfStock);
+			map.put("money", df.format(user.getMoney()));
+			map.put("valueOfStock",df.format(valueOfStock));
+			map.put("fValueOfStock",df.format(valueOfStock-aValueOfStock));
+			map.put("count", df.format(user.getMoney()+valueOfStock));
+			
+			res.add(map);
+		}
+		return res;
+	}
+	
 	
 	//上传
 	@RequestMapping("/uploadFile")
@@ -326,25 +405,20 @@ public class UserController {
 		return "success";
 	}
 	
-	//买卖股票
-	@RequestMapping("/buyStocks")
-	@ResponseBody
-	public String buyStocks(HttpServletRequest request,
-			HttpServletResponse response,@RequestParam("uid")int uid) {
-		return "success";
-	}
 	
 	@RequestMapping("/kinfo")
 	@ResponseBody  
 	public List<List<String>> Kinfo(HttpServletRequest request, HttpServletResponse response,@RequestParam("code")int code,
 			@RequestParam("start")int start,@RequestParam("end")int end) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
 		int iStockCode = code,iCurStart=start, iCurEnd=end;
 		String strUrl = null;
 		String str;
 		if (iStockCode>=600000)
 		{
 			str = String.format("http://quotes.money.163.com/service/chddata.html?code=0%06d&start=%d&end=%d&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;VOTURNOVER;VATURNOVER", iStockCode, iCurStart, iCurEnd);
-
 		}
 		else
 		{
@@ -411,16 +485,91 @@ public class UserController {
 			//System.out.println(i);
 		}
 		//System.out.println(k_str.length/9*10);
-//		for(int i =0;i<1;i++)
-//		{
-//			for(int o =0;o<10;o++)
-//			{
-//				System.out.println(arr_str[i][o]);
-//			}
-//		}
-		 //System.out.println(Arrays.deepToString(arr_str));
+
 		return arr_str;
 	}
+	
+	//查找活跃用户
+			@RequestMapping("/activityUser")
+			@ResponseBody
+			public List<Map<String, Object>> FindActivityUser(HttpServletRequest request,
+					HttpServletResponse response) throws UnsupportedEncodingException{
+				request.setCharacterEncoding("UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("application/json");
+				List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();
+				List<Bcount> list = this.billMapper.SelectBillNum();
+				Map<String, Object> map=null;
+				//System.out.println(map1);
+				for (Bcount b : list) {
+					map=new HashMap<String, Object>();
+					map.put("id", b.getUid());
+					map.put("count", b.getCount());
+					map.put("uname", b.getUname());
+					map.put("online",b.getOnline() );
+					res.add(map);
+				}
+				return res;
+			}
+				
+	//查找活跃用户
+	@RequestMapping("/successUser")
+	@ResponseBody
+	public List<Map<String, Object>> FindSuccessUser(HttpServletRequest request,
+					HttpServletResponse response) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		DecimalFormat    df   = new DecimalFormat("######0.00"); 
+		List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();
+		List<Bhistory> list = this.billMapper.SelectHistory();
+		Map<String, Object> map=null;
+		//System.out.println(map1);
+		int i=0;
+		//int num_s=0;
+		for (Bhistory b : list) {
+			if(i==0)
+			{
+				map=new HashMap<String, Object>();
+				map.put("id", b.getUid());
+				map.put("total", b.getTotal());
+				//num_s = b.getTotal();
+				map.put("uname", b.getUname());
+				map.put("state",b.getState() );
+				i++;
+			}else{
+				double num_s = b.getTotal();
+				double num_f = (Integer) map.get("total");
+				double suc = num_s/(num_s + num_f);
+				int ttotal = (int) (num_s+num_f);
+				map.put("total", ttotal);
+				map.put("roit",df.format(suc*100));
+				System.out.println(df.format(suc*100));
+				i=0;
+				res.add(map);
+			}	
+		}
+		return res;
+	}
+	@RequestMapping("/changeonline")
+	@ResponseBody  
+	public boolean ChangeOnline(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("uid")int uid) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");	
+				
+		int user=userMapper.ChangeOnline1(uid);
+		if(user==1)
+		{
+			return true;
+		}else{
+			return false;
+		}
+				
+	}
+	
+
 
 	
 

@@ -22,6 +22,7 @@ public interface IUsersMapper {
 	//4个方法，1体现出两个表操作一个接口的性能  2为SpringMVC异步json操作，返回json 3 登陆
 	//查询单个User对象，适合于登陆,欢迎登陆   院长  jerry
 	public User SelectUserByLogin(String uname,String upwd);
+	public int UpdateUserByLogout(String uname);
 //	public List<User> SelectUserByLogin1(String uname,String upwd);
 	//返回的集合的size()是1
 //	public User SelectUserByObject(User user);
@@ -36,6 +37,10 @@ public interface IUsersMapper {
 	public int InsertUser(User user);
 	public int UpdateUser(User user);
 	public int DeleteUser(int uid);
+	public int ChangeOnline(int uid);
+	public int ChangeOnline1(int uid);
+	public Map<String, String> SearchUserBalance(int uid);
+	//public int SelectUserOnline(int uid);
 //	public int InsertUsers(List<User> listuser);
 //	public List<Roles> SearchRolUser();
 }

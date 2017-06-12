@@ -11,4 +11,6 @@ import com.ssm.entity.Stock;
 public interface IStocksMapper {
 	
 	public List<Stock> SelectStockAll();
+	public Stock SelectStockBySid(int sid);
+	
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须对应接口的路径，类似该xml配置文件是该接口的"实现类"-->
+
+<mapper namespace="com.ssm.dao.IBillsMapper">
+   
+    <resultMap id="BillResults" type="com.ssm.entity.Bill">
+	    <result column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />        
+	    <result column="sid" property="sid" jdbcType="INTEGER" javaType="Integer" />
+	    <result column="balance" property="balance" jdbcType="INTEGER" javaType="Integer" />
+	    <result column="abalance" property="abalance" jdbcType="INTEGER" javaType="Integer" />
+	    <result column="cost" property="cost" jdbcType="DOUBLE" javaType="double" />
+	    <result column="date" property="date" jdbcType="VARCHAR" javaType="string" />          
+    </resultMap>      
+   
+    <resultMap type="com.ssm.entity.Bill" id="UserCurrentResult" autoMapping="true">
+    	<result column="sid" property="sid" jdbcType="INTEGER" javaType="Integer" />
+    	<result column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />
+    	<result column="balance" property="balance" jdbcType="INTEGER" javaType="Integer" />
+    	<result column="abalance" property="abalance" jdbcType="INTEGER" javaType="Integer" />
+    	<result column="cost" property="cost" jdbcType="DOUBLE" javaType="double" />	
+    	<collection   property="stock" javaType="com.ssm.entity.Stock">
+    		<result column="sid" property="sid" jdbcType="INTEGER" javaType="Integer" />
+    		<result column="sname" property="sname" jdbcType="VARCHAR" javaType="string"/>
+    	</collection>
+    </resultMap>
+    
+    <resultMap id="BillCount" type="com.ssm.entity.Bcount">
+	    <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />  
+	    <result column="uname" property="uname" jdbcType="VARCHAR" javaType="string"/>   
+	    <result column="online" property="online" jdbcType="INTEGER" javaType="Integer" />    
+	    <result column="count" property="count" jdbcType="INTEGER" javaType="Integer" />    
+    </resultMap>
+    <resultMap id="BillHistory" type="com.ssm.entity.Bhistory">
+	    <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />  
+	    <result column="uname" property="uname" jdbcType="VARCHAR" javaType="string"/>   
+	    <result column="total" property="total" jdbcType="INTEGER" javaType="Integer" />    
+	    <result column="state" property="state" jdbcType="INTEGER" javaType="Integer" />    
+    </resultMap>
+    <resultMap id="HistoryStock" type="com.ssm.entity.HisStock">
+	    <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />  
+	    <result column="sid" property="sid" jdbcType="INTEGER" javaType="Integer" />  
+	    <result column="num" property="num" jdbcType="INTEGER" javaType="Integer" />    
+	    <result column="state" property="state" jdbcType="VARCHAR" javaType="string"/>   
+	    <result column="bdate" property="bdate" />  
+	    <result column="sdate" property="sdate" />      
+    </resultMap>
+      
+    <select id="SelectAllBill" resultMap="BillResults">
+      SELECT * from bill order by sid desc;
+    </select>
+	<select id="SelectBillByBill" resultMap="BillResults">
+      SELECT * FROM bill WHERE uid=#{uid} AND sid=#{sid};
+    </select> 
+    <insert id="BuyStocks" parameterType="com.ssm.entity.Bill">
+      INSERT INTO bill(uid,sid,balance,abalance,cost,date) 
+      VALUES (#{uid},#{sid},#{balance},#{balance},#{cost},NOW());	
+    </insert>
+    <update id="UpdateStocks" parameterType="com.ssm.entity.Bill">
+      UPDATE bill SET balance=balance+#{balance},date=NOW() WHERE uid=#{uid} AND sid=#{sid};
+    </update> 
+    <insert id="SellStocks" parameterType="com.ssm.entity.Bill">
+      INSERT INTO h_bill(uid,sid,num,cost,bdate,sdate) 
+      VALUES (#{uid},#{sid},#{balance},#{cost},NOW(),NOW());	
+    </insert>
+    <select id="SearchBillByUid" parameterType="Integer" resultMap="UserCurrentResult">
+    	SELECT B.sid,B.uid,S.sname,B.balance,B.abalance,B.cost 
+    	FROM bill B,stock S 
+    	WHERE B.sid=S.sid AND B.uid=#{uid};
+    </select>
+    <select id="SelectBillNum" resultMap="BillCount">
+        SELECT users.uid,users.uname,users.online,count(users.uid) as count from bill,users where bill.uid = users.uid and bill.date>= "2017-06-08 09:30:00" GROUP BY uid;
+    </select>
+    
+    <select id="SelectHistory" resultMap="BillHistory">
+        SELECT h_bill.uid,count(h_bill.uid) as total,users.uname,h_bill.state FROM h_bill,users WHERE users.uid = h_bill.uid
+GROUP BY h_bill.uid,h_bill.state;
+    </select>
+    
+     
+    <select id="SelectHisStock" resultMap="HistoryStock">
+       SELECT uid,sid,num,state,sdate,bdate FROM h_bill ORDER BY sdate;
+
+    </select>
+    
+   
+
+</mapper>

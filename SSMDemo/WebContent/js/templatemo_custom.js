@@ -40,6 +40,33 @@ jQuery(document).ready(function($){
 			$('#menu-container .homepage').fadeOut(1000, function(){
 		        $('#menu-container .portfolio').fadeIn(1000);
 			});
+			
+		    $('#user-record-table').bootstrapTable('refresh'); //刷新表格
+		    $('#uidInput').val(getCookie("uid"));
+		    alert(getCookie("uid"));
+			$('#user-record-table').bootstrapTable({
+				method:'POST',
+		        dataType:'json',
+		        cache: false,
+		        striped: true,                      //是否显示行间隔色
+		        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+		        url:"billt/userBill.action?uid="+getCookie("uid"),
+		        pageNumber:1,                       //初始化加载第一页，默认第一页
+		        pageSize: 5,                        //每页的记录行数（*）
+		        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		    });
+			
+			$('#user-money-table').bootstrapTable({
+				method:'POST',
+		        dataType:'json',
+		        cache: false,
+		        striped: true,                      //是否显示行间隔色
+		        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+		        url:"usert/userBalance.action?uid="+getCookie("uid"),
+		        pageNumber:1,                       //初始化加载第一页，默认第一页
+		        pageSize: 5,                        //每页的记录行数（*）
+		        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		    });
 		}
 		else{
 			alert("请登录！");

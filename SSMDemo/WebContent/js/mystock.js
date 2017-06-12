@@ -505,7 +505,7 @@ var stock_minute1={
 					data=data.split("\n");
 					if(data[0].split(",").length==7){
 						stock_minute1.data=data;
-						c.call(o,true);
+						//c.call(o,true);
 					}else{
 						c.call(o,false);	
 					}

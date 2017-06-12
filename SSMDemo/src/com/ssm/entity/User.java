@@ -8,10 +8,10 @@ package com.ssm.entity;
  */
 public class User {
    private int uid,age,money;
-   private String uname,gender,upwd,udate,context;
+   private String uname,gender,upwd,udate,context,degree,online;
    
    public User(){}
-   public User(int uid,int age,int money,String uname,String upwd,String udate,String context){
+   public User(int uid,int age,int money,String uname,String upwd,String udate,String context,String degree,String online){
 	   this.uid=uid;
 	   this.age=age;
 	   this.money=money;
@@ -19,6 +19,8 @@ public class User {
 	   this.upwd=upwd;
 	   this.udate=udate;
 	   this.context=context;
+	   this.degree = degree;
+	   this.online = online;
    }
    
 	public int getUid() {
@@ -76,6 +78,20 @@ public class User {
 
 	public void setMoney(int money) {
 		this.money = money;
+	}
+	public String getOnline() {
+		return online;
+	}
+
+	public void setOnline(String online) {
+		this.online = online;
+	}
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
 	}
    
 }

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>交易数据</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+
+    <link rel="icon" type="image/ico" href="http://tattek.com/minimal/assets/images/favicon.ico" />
+    <!-- Bootstrap -->
+    <link href="assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/vendor/animate/animate.css">
+    <link type="text/css" rel="stylesheet" media="all" href="assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+    <link rel="stylesheet" href="assets/js/vendor/videobackground/css/jquery.videobackground.css">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap-checkbox.css">
+
+    <link rel="stylesheet" href="assets/js/vendor/chosen/css/chosen.min.css">
+    <link rel="stylesheet" href="assets/js/vendor/chosen/css/chosen-bootstrap.css">
+    <link rel="stylesheet" href="assets/js/vendor/datatables/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="assets/js/vendor/datatables/css/ColVis.css">
+    <link rel="stylesheet" href="assets/js/vendor/datatables/css/TableTools.css">
+
+    <link href="assets/css/minimal.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="bg-1">
+
+
+ 
+
+
+    <!-- Preloader -->
+    <div class="mask"><div id="loader"></div></div>
+    <!--/Preloader -->
+
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+
+      
+
+
+      <!-- Make page fluid -->
+      <div class="row">
+        
+
+
+
+
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top" role="navigation" id="navbar">
+          
+
+
+          <!-- Branding -->
+          <div class="navbar-header col-md-2">
+            <a class="navbar-brand" href="index.html">
+              <strong>Stocks</strong>
+            </a>
+            <div class="sidebar-collapse">
+              <a href="#">
+                <i class="fa fa-bars"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Branding end -->
+
+
+          <!-- .nav-collapse -->
+          <div class="navbar-collapse">
+                        
+            <!-- Page refresh -->
+            <ul class="nav navbar-nav refresh">
+              <li class="divided">
+                <a href="#" class="page-refresh"><i class="fa fa-refresh"></i></a>
+              </li>
+            </ul>
+            <!-- /Page refresh -->
+
+            <!-- Search -->
+            <div class="search" id="main-search">
+              <i class="fa fa-search"></i> <input type="text" placeholder="Search...">
+            </div>
+            <!-- Search end -->
+
+            <!-- Quick Actions -->
+            <ul class="nav navbar-nav quick-actions">
+
+              <li class="dropdown divided user" id="current-user">
+                <div class="profile-photo">
+                  <img src="assets/images/profile-photo1.jpeg" alt />
+                </div>
+                <a class="dropdown-toggle options" data-toggle="dropdown" id="showname">
+                  <i class="fa fa-caret-down"></i>
+                </a>
+                
+                <ul class="dropdown-menu arrow settings">
+
+                  <li>
+                    
+                    <h3>Backgrounds:</h3>
+                    <ul id="color-schemes">
+                      <li><a href="#" class="bg-1"></a></li>
+                      <li><a href="#" class="bg-2"></a></li>
+                      <li><a href="#" class="bg-3"></a></li>
+                      <li><a href="#" class="bg-4"></a></li>
+                      <li><a href="#" class="bg-5"></a></li>
+                      <li><a href="#" class="bg-6"></a></li>
+                    </ul>
+
+                    <div class="form-group videobg-check">
+                      <label class="col-xs-8 control-label">Video BG</label>
+                      <div class="col-xs-4 control-label">
+                        <div class="onoffswitch greensea small">
+                          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="videobg-check">
+                          <label class="onoffswitch-label" for="videobg-check">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                  </li>
+
+                  <li class="divider"></li>
+
+                  <li>
+                    <a href="#"><i class="fa fa-user"></i> Profile</a>
+                  </li>
+
+                  <li>
+                    <a href="#"><i class="fa fa-calendar"></i> Calendar</a>
+                  </li>
+
+                 
+
+                  <li class="divider"></li>
+
+                  <li>
+                    <a href="javascript:Logout();"><i class="fa fa-power-off"></i> Logout</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <!-- /Quick Actions -->
+
+           <!-- Sidebar -->
+            <ul class="nav navbar-nav side-nav" id="sidebar">
+              
+              <li class="collapsed-content"> 
+                <ul>
+                  <li class="search"><!-- Collapsed search pasting here at 768px --></li>
+                </ul>
+              </li>
+
+              <li class="navigation" id="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="#navigation">管理平台 <i class="fa fa-angle-up"></i></a>
+                
+                <ul class="menu">
+                  
+                  <li class="active">
+                    <a href="index.html">
+                      <i class="fa fa-tachometer"></i> 首页
+                      <span class="badge badge-red">1</span>
+                    </a>
+                  </li>
+
+                 <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th-large"></i> 信息查看 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="tables.html">
+                          <i class="fa fa-caret-right"></i> 用户信息
+                        </a>
+                      </li>
+                      <li>
+                        <a href="datatables.html">
+                          <i class="fa fa-caret-right"></i> 交易数据
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
+              </li>
+
+              <li class="summary" id="order-summary">
+                <a href="#" class="sidebar-toggle underline" data-toggle="#order-summary">网站数据查看 <i class="fa fa-angle-up"></i></a>
+
+                <div class="media">
+                  <a class="pull-right" href="#">
+                    <span id="sales-chart"></span>
+                  </a>
+                  <div class="media-body">
+                                                    本周交易量
+                    <h3 class="media-heading">26, 149</h3>
+                  </div>
+                </div>
+
+                <div class="media">
+                  <a class="pull-right" href="#">
+                    <span id="balance-chart"></span>
+                  </a>
+                  <div class="media-body">
+                                                    本周访问量
+                    <h3 class="media-heading">318, 651</h3>
+                  </div>
+                </div>
+
+              </li> 
+            </ul>
+            <!-- Sidebar end -->
+
+
+          </div>
+          <!--/.nav-collapse -->
+
+        </div>
+        <!-- Fixed navbar end -->
+             
+
+
+
+        
+        <!-- Page content -->
+        <div id="content" class="col-md-12">
+
+          <!-- page header -->
+          <div class="pageheader">
+            
+
+            <h2><i class="fa fa-lightbulb-o" style="line-height: 48px;padding-left: 0;"></i> 股票交易数据 <span>// 请仔细审核</span></h2>
+            
+
+            <div class="breadcrumbs">
+              <ol class="breadcrumb">
+                <li>您在这：</li>
+                <li><a href="index.html">管理平台</a></li>
+                <li><a href="tables.html">信息查看</a></li>
+                <li class="active">交易数据</li>
+              </ol>
+            </div>
+
+
+          </div>
+          <!-- /page header -->
+          
+          
+
+
+
+
+          <!-- content main container -->
+          <div class="main">
+
+
+
+
+            <!-- row -->
+            <div class="row">
+
+              
+              <!-- col 12 -->
+              <div class="col-md-12">
+                
+                
+                <!-- tile -->
+                <section class="tile transparent">
+
+
+                  <!-- tile header -->
+                  <div class="tile-header transparent">
+                    <h1><strong>历史交易</strong>记录</h1>
+                    <span class="note">包含 <span class="italic">所有用户曾经购买并出售记录</span></span>
+                    <div class="controls">
+                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                  </div>
+                  <!-- /tile header -->
+
+                  <!-- tile body -->
+                  <div class="tile-body color transparent-black rounded-corners">
+                    
+                    <div class="table-responsive">
+                      <table  class="table table-datatable table-custom" id="basicDataTable" 
+                            data-url="../stockt/searchHisstock.action" 
+                          
+                            data-toggle="table"
+				       		data-pagination="true" 
+					   		data-click-to-select="true"	
+				        	data-side-pagination="client">
+                        <thead>
+                          <tr>
+                            <th data-field="uid" data-sortable="true">用户ID</th>
+                            <th data-field="sid" data-sortable="true">股票ID</th>
+                            <th data-field="num" data-sortable="true">交易总数</th>
+                            <th data-field="state" data-sortable="true">盈亏</th>
+                            <th data-field="bdate" data-sortable="true">购买时间</th>
+                            <th data-field="sdate" data-sortable="true">出售时间</th>
+                          </tr>
+                        </thead>
+                       
+                      </table>
+                    </div>
+                  </div>
+                  <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+              </div>
+              <!-- /col 12 -->     
+            </div>
+            <!-- /row -->
+          </div>
+          <!-- /content container -->
+        </div>
+        <!-- Page content end -->
+
+<!--dynamic table-->
+	<!-- Placed js at the end of the document so the pages load faster -->
+	<script src="js/jquery.js" ></script>
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/modernizr.min.js"></script>
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/bootstrap-table.js"></script>  
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/bootstrap-table-zh-CN.js"></script>
+	<script src="js/tableExport.js"></script>
+	
+	<!--dynamic table-->
+	<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/DT_bootstrap.js"></script>
+	<!--dynamic table initialization -->
+	<script src="js/dynamic_table_init.js"></script>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="assets/js/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&skin=sons-of-obsidian"></script>
+    <script type="text/javascript" src="assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/blockui/jquery.blockUI.js"></script>\
+
+    <script src="assets/js/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/js/vendor/datatables/ColReorderWithResize.js"></script>
+    <script src="assets/js/vendor/datatables/colvis/dataTables.colVis.min.js"></script>
+    <script src="assets/js/vendor/datatables/tabletools/ZeroClipboard.js"></script>
+    <script src="assets/js/vendor/datatables/tabletools/dataTables.tableTools.min.js"></script>
+    <script src="assets/js/vendor/datatables/dataTables.bootstrap.js"></script>
+
+    <script src="assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+    <script src="assets/js/minimal.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+		//判断是否是html5机制浏览器来不同方式读取浏览器缓存                                                    usermsg                 usermsg
+		var str= window.localStorage?localStorage.getItem("usermsg"):Cookie.read("usermsg");
+		if(str!=null)
+		{
+			str = "Welcome:   "+str;
+			$("#showname").html(str);	
+		}else{
+			alert("请先登录");
+			location.href="index.html";
+		}
+		
+	});
+    function Logout()
+	{
+		localStorage.removeItem("usermsg");
+		//alert(localStorage.getItem("userid"));
+		location.href="index.html";
+		changeonline(localStorage.getItem("userid"));
+	}
+	function changeonline(uid)
+    {
+    	$.ajax({
+            url:"../usert/changeonline.action",
+            method: "POST",
+            data: {"uid":uid},
+            dataType: "json",
+            success:function(data){
+            	alert("已注销，请重新登录！");
+            	return true;
+            }
+            });
+    }
+      
+    </script>
+  </body>
+</html>
+      

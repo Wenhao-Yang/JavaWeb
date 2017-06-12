@@ -27,6 +27,10 @@ body {
 div.main{
 	float:center;
 }
+#pre{
+	width:100%;
+	height:100%;
+}
 #stock-dynamic-table{
 	background:#CCCCCC;
 }
@@ -104,9 +108,12 @@ div.userlog {
     width: 45%; 
     height: 60%; 
     display: none;
-    background: #FFFFFF; position: fixed; 
-    top: 20%; left: 25%; z-index: 10000; 
-    border: 1px solid #ccc; border-radius: 10px; 
+    background: #FFFFFF; 
+    position: fixed; 
+    top: 20%; left: 25%; 
+    z-index: 10000; 
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
     -webkit-border-radius: 10px; 
     box-shadow: 3px 2px 4px rgba(0,0,0,0.2); 
     -webkit-box-shadow: 3px 2px 4px rgba(0,0,0,0.2); 
@@ -122,8 +129,13 @@ div.userlog {
     box-shadow: 3px 2px 4px rgba(0,0,0,0.2); 
     -webkit-box-shadow: 3px 2px 4px rgba(0,0,0,0.2); 
 }
-#inB a{
+#inB{
 	vertical-align: middle;
+}
+#userB{
+	position:absolute;
+	z-index:100;
+	right: 12%;
 }
 
 form.form-signin{
@@ -184,6 +196,55 @@ input.form-control{
 	z-index:50;
 }
 
+/*用户下拉菜单*/
+.menu_list ul li{
+	display: block;
+	text-align: center;
+	width: 100%;
+}
+.menu_list ul li .fuMenu{
+	font-size: 14px;
+	cursor: pointer;
+	height: 100%;
+	line-height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	width: 100%;
+	border-bottom: 1px solid #16222b;
+	float: left;
+}
+.menu_list ul li .xiala{
+	float: left;
+	margin-left: -50px;
+	margin-top: 27px;
+}
+.menu_list ul li .div1 {
+	width: 100%;
+	height: auto;
+	float: left;
+}
+.menu_list ul li .div1 .zcd{
+	background: #CDB38B;
+	font-size: 14px;
+	height: 100%;
+	margin-bottom: 1px;
+	cursor: pointer;
+	text-align: center;
+	width: 100%;
+}
+.div1 {
+	height: 200px;
+	display: none;
+}
+.menu_list ul li .div1 .zcd:hover{ color: #FFF; background-color: #1c2b36; font-weight: bold; }
+.removes{
+	color: #0FB9EF !important;
+	border-left: 3px solid #0FB9EF;
+}
+ul,
+li {
+	list-style: none
+}
 
 /*-------------------------------
             LOGIN STYLES
