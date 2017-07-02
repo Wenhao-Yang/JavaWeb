@@ -7,11 +7,12 @@ package com.ssm.entity;
  *
  */
 public class User {
-   private int uid,age,money;
-   private String uname,gender,upwd,udate,context,degree,online;
+   private int uid,age;
+   private double money;
+   private String uname,gender,upwd,udate,context,degree,online,work,sign;
    
    public User(){}
-   public User(int uid,int age,int money,String uname,String upwd,String udate,String context,String degree,String online){
+   public User(int uid,int age,double money,String uname,String upwd,String udate,String context,String degree,String online, String sign){
 	   this.uid=uid;
 	   this.age=age;
 	   this.money=money;
@@ -21,6 +22,8 @@ public class User {
 	   this.context=context;
 	   this.degree = degree;
 	   this.online = online;
+	   this.work = work;
+	   this.sign=sign;
    }
    
 	public int getUid() {
@@ -72,11 +75,11 @@ public class User {
 		this.context = context;
 	}
 
-	public int getMoney() {
+	public double getMoney() {
 		return money;
 	}
 
-	public void setMoney(int money) {
+	public void setMoney(double money) {
 		this.money = money;
 	}
 	public String getOnline() {
@@ -92,6 +95,30 @@ public class User {
 
 	public void setDegree(String degree) {
 		this.degree = degree;
+	}
+	/**
+	 * @return the work
+	 */
+	public String getWork() {
+		return work;
+	}
+	/**
+	 * @param work the work to set
+	 */
+	public void setWork(String work) {
+		this.work = work;
+	}
+	/**
+	 * @return the sign
+	 */
+	public String getSign() {
+		return sign;
+	}
+	/**
+	 * @param sign the sign to set
+	 */
+	public void setSign(String sign) {
+		this.sign = sign;
 	}
    
 }

@@ -43,7 +43,7 @@ jQuery(document).ready(function($){
 			
 		    $('#user-record-table').bootstrapTable('refresh'); //刷新表格
 		    $('#uidInput').val(getCookie("uid"));
-		    alert(getCookie("uid"));
+		    alert("你好用户 "+getCookie("uid")+" !");
 			$('#user-record-table').bootstrapTable({
 				method:'POST',
 		        dataType:'json',
@@ -96,9 +96,10 @@ jQuery(document).ready(function($){
 	});
 
 	$(".main_menu a.templatemo_page5").click(function(){    
-    $('#menu-container .homepage').fadeOut(1000, function(){
-        $('#menu-container .about').fadeIn(1000);
-	    });
+//	    $('#menu-container .homepage').fadeOut(1000, function(){
+//	        $('#menu-container .about').fadeIn(1000);
+//		    });
+		window.location.href="http://101.200.36.178/stockbbs/";
 		return false;
 	});
 	
@@ -110,10 +111,8 @@ jQuery(document).ready(function($){
 	});
 	
 	$(".main_menu a.templatemo_page6").click(function(){    
-    $('#menu-container .homepage').fadeOut(1000, function(){
-        $('#menu-container .contact').fadeIn(1000);
-		loadScript();		
-	    });
+		window.location.href="http://101.200.36.178/rate/hui.html"; 
+
 	});
 	
 	

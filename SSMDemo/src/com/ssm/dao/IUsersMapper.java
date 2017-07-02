@@ -3,6 +3,7 @@ package com.ssm.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,10 @@ public interface IUsersMapper {
 	public int DeleteUser(int uid);
 	public int ChangeOnline(int uid);
 	public int ChangeOnline1(int uid);
+	public int ChangePsw(@Param("uid")int uid,@Param("upwd")String upwd);
+	public int ChangeInfo(@Param("uname")String uname, @Param("age")String age,@Param("sex")String sex, @Param("work")String work, @Param("sign")String sign);
+	public User SelectUserByUname(String uname);
+
 	public Map<String, String> SearchUserBalance(int uid);
 	//public int SelectUserOnline(int uid);
 //	public int InsertUsers(List<User> listuser);

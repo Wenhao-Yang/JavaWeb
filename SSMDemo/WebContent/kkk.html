@@ -2,10 +2,12 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>kkk</title>
+	
+	<title>K-line</title>
 	<link rel="stylesheet" href="css/templatemo_misc.css">
 	<link rel="stylesheet" href="css/style.css">
    	<link type="text/css" rel="stylesheet" href="css/easy-responsive-tabs.css" />
+   	
     <link href="css/templatemo_style.css" rel="stylesheet"> 
     <script type="text/javascript" src="js/echarts.js"></script>   	  	
 	<script src="js/jquery-1.10.2.min.js"></script> 
@@ -18,18 +20,204 @@
        
     </div>
     
-      <div id="main" style="width: 1000px;height:500px;top:50px;left:150px;"></div>
+      <div id="main" style="width: 1000px;height:500px;top:50px;left:0px;"></div>
+      <div id="table" style="width: 300px;height:500px;top:-500px;left:1000px;position: relative;">
+      <div class="fshbbox">
+        <div class="fshbboxr">
+            
+            <div class="stiqc">
+                <div class="qctit">
+                    <ul id="tabview1">
+                        <li class="at"  style="color:#FFF;font-size:22px">行 情 报 价</li>
+                        
+                    </ul>
+                </div>
+                <div id="qctinfo">
+                    <div class="bxaox">
+                        <ul>
+                            <li><span class="qaa" style="color:#FFF">卖五:</span><span class="qab" id="irba"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irbb"  style="color:#FFF">--</span></li>
+                            <li><span class="qaa" style="color:#FFF">卖四:</span><span class="qab" id="irbc"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irbd"  style="color:#FFF">--</span></li>
+                            <li><span class="qaa" style="color:#FFF">卖三:</span><span class="qab" id="irbe"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irbf"  style="color:#FFF">--</span></li>
+                            <li><span class="qaa" style="color:#FFF">卖二:</span><span class="qab" id="irbg"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irbh"  style="color:#FFF">--</span></li>
+                            <li><span class="qaa" style="color:#FFF">卖一:</span><span class="qab" id="irbi"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irbj"  style="color:#FFF">--</span></li>
+                        </ul>
+                    </div>
+                    <div class="bxaox">
+                        <ul>
+                            <li><span class="qaa"  style="color:#FFF">买一:</span><span class="qab" id="irda"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irdb"  style="color:#FFF">--</span></li>
+                            <li><span class="qaa"  style="color:#FFF">买二:</span><span class="qab" id="irdc"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irdd"  style="color:#FFF">--</span></li>
+                            <li><span class="qaa"  style="color:#FFF">买三:</span><span class="qab" id="irde"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irdf"  style="color:#FFF">--</span></li>
+                            <li><span class="qaa"  style="color:#FFF">买四:</span><span class="qab" id="irdg"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irdh"  style="color:#FFF">--</span></li>
+                            <li><span class="qaa"  style="color:#FFF">买五:</span><span class="qab" id="irdi"  style="color:#FFF">--</span><span class="qac" style="color:#FFF">-   成交量：</span><span class="qac" id="irdj"  style="color:#FFF">--</span></li>
+                        </ul>
+                    </div>
+                </div><br></br>
+                <div style="display:none" id="myfavor">
+                    <div class="bxaox">
+                    </div>
+                </div>
+                <div style="display:none" id="latest">
+                    <div class="bxaox">
+                    </div>
+                </div>
+                <div class="bxaox">
+                    <ul>
+                        <li><span class="qba"   style="color:#FFF">最新：</span><span class="qbb" id="irea"  style="color:#FFF">-</span></li>
+                        <li><span class="qbc"  style="color:#FFF">均价：</span><span class="qbd" id="ireb"  style="color:#FFF">-</span></li>
+                        <li><span class="qba"   style="color:#FFF">涨跌：</span><span class="qbb" id="irec"  style="color:#FFF">-</span></li>
+                        <li><span class="qba"   style="color:#FFF">涨幅：</span><span class="qbb" id="iree"  style="color:#FFF">-</span></li>
+                        <li><span class="qbc"  style="color:#FFF">今开：</span><span class="qbd" id="ired"  style="color:#FFF">-</span></li>
+                        <li><span class="qbc"  style="color:#FFF">昨收：</span><span class="qbd" id="irej"  style="color:#FFF">-</span></li>
+                        
+                        <li><span class="qbc"  style="color:#FFF">最高：</span><span class="qbd" id="iref"  style="color:#FFF">-</span></li>
+                        
+                        <li><span class="qbc"  style="color:#FFF">最低：</span><span class="qbd" id="ireh"  style="color:#FFF">-</span></li>
+                        <li><span class="qba"   style="color:#FFF">总手：</span><span class="qbb" id="ireg"  style="color:#FFF">-</span></li>
+                        
+                        <li><span class="qba"   style="color:#FFF">现手：</span><span class="qbb" id="irei"  style="color:#FFF">-</span></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+            
+           
+        </div>
+    </div>
+    
+    </div>
       <script type="text/javascript">
-      function GetQueryString(name) { 
+      var value_i="";
+   	var pre_due = 0;
+   	var pre_pri = 0;
+   	var name = [];
+   	var price = [];
+   	var ntime = [];
+   	var pre_value =[];
+   	var now_i = 0;
+   	var str0 = ["stitit","stime","stizxj","stizd","stizf"];
+   	var str  = ["irba","irbb","irbc","irbd","irbe","irbf","irbg","irbh","irbi","irbj"];
+   	var num  = [21,20,23,22,25,24,27,26,29,28];
+   	var str1 = ["irda","irdb","irdc","irdd","irde","irdf","irdg","irdh","irdi","irdj"];
+   	var num1 = [11,10,13,12,15,14,17,16,19,18];
+   	var str2 = ["irea","ireb","irec","ired","iree","iref","ireg","ireh","irei","irej","irek","irel","irem","iren","ireo","irep"];
+   	var str_c = ["irba","irbc","irbe","irbg","irbi","irda","irdc","irde","irdg","irdi","irea","irec","iree"];
+   	var num_c = [21,23,25,27,29,11,13,15,17,19];
+   	var num2 = [];
+      function updata()
+      {
+    	  
+    	  $.ajax({
+              type: "POST",
+              url: "stockt/kinfo1.action",
+              data: {sid:'600000',stype:'sh'},
+			  dataType: "json",
+              success: function(data){
+                     //console.log(data);
+                    
+                 	var z = data[3]-data[1];
+					var z_r = (data[3]-data[1])/data[1];
+					var value  = [data[0],data[30]+" "+data[31],data[3],z.toFixed(2),((z_r*100).toFixed(2))+ '%'];
+					var value1 = [];
+					var value2 = [data[3]-pre_pri,z,z_r];
+					var value3 = [];
+					for(var i = 0;i<10;i++)
+					{
+						value1.push(data[num_c[i]]);
+					}
+					value1.push(value2[0]);
+					value1.push(value2[1]);
+					value1.push(value2[2]);
+					//console.log(value1);
+					
+					//console.log(pre_value);
+					for(var i = 0;i<11;i++)
+					{
+						value3.push(value1[i]);
+						value1[i] = value1[i] - pre_value[i];
+					}
+					value3.push(value1[11]);
+					value3.push(value1[12]);
+					pre_value = value3;
+					//console.log(value1);
+					pre_pri = data[3];
+					//console.log(value[0]);
+					
+					for(var i = 0;i<5;i++)
+					{
+						//document.getElementById(str0[i]).innerHTML=value[i];
+					}
+					
+					for(var i = 0;i<10;i++)
+					{
+						if(i%2==0)
+						{
+							document.getElementById(str[i]).innerHTML=data[num[i]];
+							document.getElementById(str1[i]).innerHTML=data[num1[i]];
+						}else{
+							document.getElementById(str[i]).innerHTML=parseInt(data[num[i]]/100);
+							document.getElementById(str1[i]).innerHTML=parseInt(data[num1[i]]/100);
+						}
+						
+					}
+					document.getElementById(str2[0]).innerHTML=data[3];
+					document.getElementById(str2[1]).innerHTML=((data[9]/data[8]).toFixed(3));
+					//console.log(z.toFixed(2));
+					document.getElementById(str2[2]).innerHTML=(z.toFixed(2));
+					//console.log(z_r.toFixed(2));
+					document.getElementById(str2[4]).innerHTML=((z_r*100).toFixed(2))+ '%' ;
+					document.getElementById(str2[3]).innerHTML=data[1];
+					document.getElementById(str2[5]).innerHTML=data[4];
+					document.getElementById(str2[6]).innerHTML=parseInt(data[8]/100);
+					document.getElementById(str2[7]).innerHTML=data[5];
+					
+					if(pre_due==0)
+					{
+						document.getElementById(str2[8]).innerHTML=0;
+					}else
+					{
+						document.getElementById(str2[8]).innerHTML=((data[8]/100)-pre_due).toFixed(2);
+					}
+					pre_due = data[8]/100;
+					document.getElementById(str2[9]).innerHTML=data[2];
+					//console.log(str_c);
+					for(var i = 0;i<13;i++)
+					{
+						console.log(str_c[i]);
+						if(value1[i]>=0)
+						{
+							if(value1[i]>0)
+							{
+								document.getElementById(str_c[i]).style.color ="Red";
+							}else{
+								document.getElementById(str_c[i]).style.color ="White";
+							}
+							
+						}else
+						{
+							document.getElementById(str_c[i]).style.color ="Green";
+						}
+					}
+					
+					
+					now_i++;
+                     
+              }
+          });
+      }
+      function GetQueryString(name) 
+      { 
           var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i"); 
           var r = window.location.search.substr(1).match(reg); 
           if (r!=null) 
           	return (r[2]); 
           return null; 
       } 
+      
       var code = GetQueryString("code");
 	  var s_date = GetQueryString("s_date");
 	  var sname = decodeURI(GetQueryString("sname"));
+	  setInterval(updata,3000);
 	  $('#title').text("股票："+sname+" 股票代码：" +code);
 	  //var titleStr="股票："+sname+" 股票代码：" +code;
 	  if(s_date.length==10)
@@ -37,14 +225,14 @@
 		  var s_date1 = s_date.split("-");
 		  s_date = s_date1[0]+s_date1[1]+s_date1[2];
 	  }
-	  console.log(s_date);
+	  //console.log(s_date);
 	  var e_date = GetQueryString("e_date");
 	  if(e_date.length==10)
 	  {
 		  var e_date1 = e_date.split("-");
 		  e_date = e_date1[0]+e_date1[1]+e_date1[2];
 	  }
-	  console.log(e_date);
+	  //console.log(e_date);
       var myChart = echarts.init(document.getElementById('main'));
       
       function calculateMA(dayCount, data) {
@@ -69,21 +257,18 @@
 		  data: {code:code,start:s_date,end:e_date},
 		  dataType: "json",	  
 		  success: function(data){
-			    
-			    //var rawData1 = data.substring(1,data.length-1);
-			    //console.log(data);
-			    //console.log(typeof(data));
+
 			    var rawData = data.reverse();
-			    console.log(rawData);
-		        //console.log("rawData");
+			    
+		       
 			    var dates = rawData.map(function (item) {
 			        return item[0];
 			    });
-			    console.log(dates);
+			  
 			    var data = rawData.map(function (item) {
 			        return [+item[6], +item[3], +item[5], +item[3]];
 			    });
-			    console.log(data[0][3]);
+			    
 			    var option = {
 			        backgroundColor: '#333333',
 			        legend: {

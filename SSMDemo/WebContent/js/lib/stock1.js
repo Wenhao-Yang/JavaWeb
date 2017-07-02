@@ -27,7 +27,7 @@ var stock={
 			J:"#ff80ff"
 		}
 	},
-	touch:{left:125,top:150},
+	touch:{left:120,top:150},
 	stockID:"",//当前股票ID,
 	stockType:"",//股票分类
 	data:null,//当前行情数据,
@@ -42,16 +42,16 @@ var stock={
 		try {sq2 = num2.toString().split(".")[1].length;}
 		catch (e) {sq2 = 0;}
 		m = Math.pow(10,Math.max(sq1, sq2));
-		console.log("addNum");
+		//console.log("addNum");
 		return (num1 * m + num2 * m) / m;
 	},
 	header:function(){
-		console.log("hearder");
+		//console.log("hearder");
 		var data=this.data;
 		$("#name").html(data[0]);
 		//(当前价-昨收价)/昨收价
 		var range=(data[3]-data[2])/data[2];
-		//console.log(data);
+		////console.log(data);
 		if(data[3]==0){
 			range=0;
 			data[3]=data[2];
@@ -76,10 +76,10 @@ var stock={
 		data=null;
 	},
 	ajax:function(data,c,o){
-		console.log("ajax");
+		//console.log("ajax");
 		var timeout=15000;
 		if(data.Action=="current-hq"){timeout=3000;}
-		console.log(data);
+		//console.log(data);
 		var ajaxTimeoutTest=$.ajax({
 								  method: "POST",
 								  timeout : timeout, 
@@ -89,12 +89,12 @@ var stock={
 								  dataType: "json",
 								  
 								}).done(function( data ) {
-									//console.log(12);
-									//console.log(data);
+									////console.log(12);
+									////console.log(data);
 									c.call(o,true,data);
 									delete data;
 								}).fail(function() {
-									console.log(data);
+									//console.log(data);
 									//c.call(o,true,data);
 									c.call(o,false)
 								});
@@ -105,9 +105,9 @@ var stock={
 		time:0,
 		//是否交易时间内
 		isRun:function(){
-			console.log("isRun");
-			console.log(stock.day);
-			console.log(stock.data[30]);
+			//console.log("isRun");
+			//console.log(stock.day);
+			//console.log(stock.data[30]);
 			if(stock.day!=stock.data[30]){
 				//return false;	
 			}
@@ -121,7 +121,7 @@ var stock={
 		},
 		//首次加载行情
 		load:function(data){
-			console.log("hq:load");
+			//console.log("hq:load");
 			if(data.hq!=null){
 				$("#name").html(data.hq.split(",")[0]);
 			}
@@ -152,10 +152,10 @@ var stock={
 
 		//更新行情
 		reload:function(c,o){
-			console.log("hq:reload");
+			//console.log("hq:reload");
 			$.getScript("http://hq.sinajs.cn/list="+stock.stockType+stock.stockID).done(function(){ 
 				stock.data=eval("hq_str_"+stock.stockType+stock.stockID).split(",");
-				//console.log(stock.data);
+				////console.log(stock.data);
 				//更新顶部
 				stock.header();
 				
@@ -165,21 +165,21 @@ var stock={
 			});
 		},
 		run:function(){
-			console.log("hq:run");
+			//console.log("hq:run");
 			var index=0;
 			
 			//启动线程
 			window.setInterval(function(){
-				console.log(stock.hq.isRun());
+				//console.log(stock.hq.isRun());
 				if(stock.hq.isRun()){
 					index++;
 					stock.hq.reload(function(result){
-						console.log("897243578923478583427852345");
-						//console.log("result:"result);
+						//console.log("897243578923478583427852345");
+						////console.log("result:"result);
 						if(1){
-							console.log($("#minute"));
+							//console.log($("#minute"));
 							if($("#minute").length==1){
-								console.log("jkdsjcjsadcjanscnkascsadcsadc");
+								//console.log("jkdsjcjsadcjanscnkascsadcsadc");
 								stock_minute1.update();
 							}
 						}
@@ -201,7 +201,7 @@ var stock={
 	},
 	//错误提示
 	error:function(msg,top){
-		console.log("error");
+		//console.log("error");
 		if($("#error").length==0){
 			$("body").append('<div id="error"><div></div></div>');
 		}
@@ -214,7 +214,7 @@ var stock={
 	configData:null,
 	//只加载一次
 	load:function(data){
-		console.log("load");
+		//console.log("load");
 		
 		$.ajaxSetup({
 				cache: true
@@ -240,7 +240,7 @@ var stock={
 		
 		//stock.tpl.menu(data);//创建菜单
 		stock.tpl.minute('minute');
-		console.log(data);
+		//console.log(data);
 		
 		this.hq.load(data);
 		delete data;
@@ -249,7 +249,7 @@ var stock={
 	menu:{
 		
 		load:function(name){
-			console.log("menu:load");
+			//console.log("menu:load");
 			$("#nav li").removeClass("current");
 			$("#nav #nav-"+name).addClass("current");
 			stock.current=name;
@@ -268,7 +268,7 @@ var stock={
 		},
 		//点击
 		click:function(){
-			console.log("menu:click");
+			//console.log("menu:click");
 			$("#nav li").click(function(){
 				stock.menu.load($(this).attr("name"));
 			})
@@ -279,7 +279,7 @@ var stock={
 		
 		//顶部
 		header:function(){
-			console.log("tpl:header");
+			//console.log("tpl:header");
 			var str="";
 			str+='<div id="net-layout"></div><div id="net-error">网络已断开</div><div id="header"><span id="name"></span><span id="current-price"></span><span id="current-bargain"></span><span id="current-time"></span><ul></ul><span id="close"><img src="images/close.png"></span></div>';
 			$("body").append(str);
@@ -288,7 +288,7 @@ var stock={
 		},
 		//菜单
 		menu:function(data){
-			console.log("tpl:menu");
+			//console.log("tpl:menu");
 			var str="";
 			str+='<div id="nav"><ul>';
 			for(var i=0;i<1;i++){
@@ -302,7 +302,7 @@ var stock={
 		},
 		//曲线模板
 		min:function(name){
-			console.log("tpl:min");
+			//console.log("tpl:min");
 			if($("#"+name).length==0){
 				str="";
 				str+='<div class="item item-min" id="'+name+'"><div class="touch" id="touch-'+name+'">';
@@ -323,7 +323,7 @@ var stock={
 		},
 		//K线模板
 		k:function(name){
-			console.log("tpl:k");
+			//console.log("tpl:k");
 			if($("#"+name).length==0){
 				str="";
 				str+='<div class="item item-k" id="'+name+'"><div class="touch" id="touch-'+name+'">';
@@ -355,7 +355,7 @@ var stock={
 			name=null;
 		},
 		minute:function(name){
-			console.log("tpl:minute");
+			//console.log("tpl:minute");
 			if($("#"+name).length==0){
 				var str="";
 				str+='<div class="item" id="'+name+'"><div class="touch" id="touch-'+name+'">';
@@ -378,7 +378,7 @@ var stock={
 	//加载JS
 	script:{
 		jspath:function(){
-			console.log("script:jspath");
+			//console.log("script:jspath");
 			var js="stock.js";
 			var scripts = document.getElementsByTagName("script");
 			var path = "";
@@ -399,11 +399,11 @@ var stock={
 			if (path.indexOf("https:") == -1 && path.indexOf("http:") == -1 && path.indexOf("file:") == -1 && path.indexOf("\/") != 0) {
 				path = href + "/" + path;
 			}
-			//console.log(path);
+			////console.log(path);
 			return path;
 		},
 		isPC:function() {
-			console.log("script:isPC");
+			//console.log("script:isPC");
 			var userAgentInfo = navigator.userAgent;
 			var Agents = ["Android", "iPhone",
 						"SymbianOS", "Windows Phone",
@@ -418,17 +418,17 @@ var stock={
 			return flag;
 		},
 		reload:function(name){
-			console.log("script:reload");
+			//console.log("script:reload");
 			$("#loading").show();
 			this.load(name);
 		},
 		//JS入口
 		load:function(name){
-	        console.log("script:load");
+	        //console.log("script:load");
 			this.include.load(name,function(){
 				
 				eval("stock_"+name).load(name,function(result){
-					console.log("result:"+result);
+					//console.log("result:"+result);
 					result = true;
 					if(!result){
 						stock.error('<span onclick="stock.script.reload(\''+name+'\')" >点1击1重新加载</span>',90);	
@@ -444,15 +444,15 @@ var stock={
 						stock.tpl.min(name);
 					}
 					//画图
-					console.log("name1:"+name);
+					//console.log("name1:"+name);
 					// /..canvas();
-					console.log("name1:"+name);
+					//console.log("name1:"+name);
 					//eval("stock_"+name).canvas(function(){
 						//$(".item").hide();
 						//$("#"+name).show();
 						//$("#loading").hide();//隐藏加载框
 					//});
-					console.log("name2:"+name);
+					//console.log("name2:"+name);
 					delete name;
 				});
 			});	
@@ -463,15 +463,15 @@ var stock={
 		include:{
 			jslist:{},
 			load:function(name,c,o){
-				console.log("include:load");
+				//console.log("include:load");
 				if(eval("this.jslist._"+name)==undefined){
 					eval("this.jslist._"+name+"='"+name+"'");
 					if(name=="minute"){
-						console.log(stock.jspath);
+						//console.log(stock.jspath);
 					
 						
 					}else{
-						//console.log('http://jieone.com/demo/stock/data/stock.php?Action=loadjs&name='+name);
+						////console.log('http://jieone.com/demo/stock/data/stock.php?Action=loadjs&name='+name);
 						$.getScript('data/stock.php?Action=loadjs&name='+name).done(function() {  
 							
 							c.call(o);
@@ -504,14 +504,14 @@ var stock_minute1={
 			this.name=name;
 			//Action:name,stockID:stock.stockID,stockType:stock.stockType
 			stock.ajax({},function(result,data){
-				console.log("syock_minute1:load");
+				//console.log("syock_minute1:load");
 				if(!result||data==""){
 					c.call(o,false);
 				}else{
 					data=data.split("\n");
 					if(data[0].split(",").length==7){
 						stock_minute1.data=data;
-						c.call(o,true);
+						//c.call(o,true);
 					}else{
 						c.call(o,false);	
 					}
@@ -521,12 +521,12 @@ var stock_minute1={
 		},
 		//画图
 		canvas:function(){
-			console.log("canvas");
+			//console.log("canvas");
 			this.dispose();//先处理数据
 			this.k.load();//加载K线图
 			this.l.load();//加载K线图
 			this.sellbuy();
-			console.log("ay");
+			//console.log("ay");
 			//只加载一次
 			if(!this.istouch){
 				this.istouch=true;
@@ -547,8 +547,8 @@ var stock_minute1={
 		update:function(){
 			//追加行情
 			stock_minute1.load('minute');
-			console.log("stock_minute1.update");
-			console.log(this.data.length);
+			//console.log("stock_minute1.update");
+			//console.log(this.data.length);
 			if(this.data.length>0){
 				if(this.data[this.data.length-1].split(",")[0].split(":").length==3){
 					this.data.pop();
@@ -655,14 +655,15 @@ var stock_minute1={
 				
 				//曲线
 				cans.beginPath();
-				cans.lineWidth = 2; 
+				cans.lineWidth = 4; 
 				cans.strokeStyle=stock.color.trend;
 				var _data=data[0].split(",");
 				var x=0;
 				var y=this.getY(_data[1]);
+				//console.log(1111);
 				cans.moveTo(x,y);
 				stock_minute1.xy.push({x:x,y:y});
-				
+				//console.log(data);
 				//从1开始
 				for(var i=1;i<data.length;i++){
 					var _data=data[i];
@@ -672,10 +673,13 @@ var stock_minute1={
 					x+=this.width/(stock_minute1.datacount-1);
 					y=this.getY(_data[1]);
 					cans.lineTo(x,y);
+					
 					stock_minute1.xy.push({x:x,y:y});
 				}
+				//console.log("x:"+x);
+				//console.log("y:"+y);
 				if(stock.hq.isRun()){
-					$("#dot").css({left:x/2,top:y/2});
+					$("#dot").css({left:x*0.75,top:y*0.75});
 				}else{
 					$("#dot").css({left:-1000});	
 				}
@@ -798,7 +802,7 @@ var stock_minute1={
 		},
 		//处理数据
 		dispose:function(){
-			console.log("dispose");
+			//console.log("dispose");
 			var data=this.data,_data,define;
 			
 			var PRE=stock.data[2]*1;//昨日收盘价
@@ -892,7 +896,7 @@ var stock_minute1={
 		str+='<li><span class="name1"  style="font-size:25px"><B>'+data[0]+'</B></span></li><br /><br />';
 		str+='<li><span class="time1"  style="font-size:20px"><B>'+data[30]+'  '+data[31]+'</B></span></li>';
 		var roit = (data[3]-p_price1)/p_price1;
-		console.log("roit"+roit);
+		//console.log("roit"+roit);
 		roit = roit*100;
 		if(p_price1>data[3])
 		{
@@ -949,11 +953,11 @@ var stock_minute1={
 			
 			if(stock.isPC){
 				$("#"+touchID).mousedown(function(e){
-					stock_minute1.touch.touchStart(e.clientX,e.clientY);
-					
+					stock_minute1.touch.touchStart(e.clientX/1.33,e.clientY/1.33);
+					//console.log(1.33);
 					document.onmousemove = function(e) {
 						if (!stock_minute1.touch.spirit) return;
-						stock_minute1.touch.touchMove(e.clientX,e.clientY);	
+						stock_minute1.touch.touchMove(e.clientX/1.33,e.clientY/1.33);	
 					}
 					document.onmouseup = function () {
 						if (!stock_minute1.touch.spirit) return;
@@ -1003,15 +1007,15 @@ var stock_minute1={
 			
 			data=data.split(",");
 			
-			y=stock_minute1.xy[index].y/2;
+			y=stock_minute1.xy[index].y;
 			
-			$("#"+stock_minute1.name).find(".x").css({top:y});
+			$("#"+stock_minute1.name).find(".x").css({top:y*0.75});
 			
 			$("#"+stock_minute1.name).find(".x").find(".current-price").html(data[1]);
 			
 			$("#"+stock_minute1.name).find(".x").find(".current-range").html(((data[1]-stock_minute1.k.define.PRE)/(stock_minute1.k.define.PRE)*100).toFixed(2)+"%");
 			
-			$("#"+stock_minute1.name).find(".y").css({left:parseInt(stock_minute1.xy[index].x/2)});
+			$("#"+stock_minute1.name).find(".y").css({left:parseInt(stock_minute1.xy[index].x*0.75)});
 			
 			if(data[2]==-1){
 				var volume="--";

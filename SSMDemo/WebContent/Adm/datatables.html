@@ -324,25 +324,7 @@
         </div>
         <!-- Page content end -->
 
-<!--dynamic table-->
-	<!-- Placed js at the end of the document so the pages load faster -->
-	<script src="js/jquery.js" ></script>
-	<script src="js/jquery-1.10.2.min.js"></script>
-	<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/modernizr.min.js"></script>
-	<script src="js/jquery.nicescroll.js"></script>
-	<script src="js/bootstrap-table.js"></script>  
-	<script src="js/bootstrap-table-export.js"></script>
-	<script src="js/bootstrap-table-zh-CN.js"></script>
-	<script src="js/tableExport.js"></script>
-	
-	<!--dynamic table-->
-	<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="js/DT_bootstrap.js"></script>
-	<!--dynamic table initialization -->
-	<script src="js/dynamic_table_init.js"></script>
+
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -368,7 +350,19 @@
 
     <script src="assets/js/minimal.min.js"></script>
 
+<!--dynamic table-->
+	<!-- Placed js at the end of the document so the pages load faster -->
+	<script src="js/bootstrap-table.js"></script>  
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/bootstrap-table-zh-CN.js"></script>
+	<script src="js/tableExport.js"></script>
+	<!--dynamic table-->
+	<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/DT_bootstrap.js"></script>
+	<!--dynamic table initialization -->
+	<script src="js/dynamic_table_init.js"></script>
     <script>
+<!--dynamic table-->  
     $(document).ready(function(){
 		//判断是否是html5机制浏览器来不同方式读取浏览器缓存                                                    usermsg                 usermsg
 		var str= window.localStorage?localStorage.getItem("usermsg"):Cookie.read("usermsg");

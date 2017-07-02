@@ -1,5 +1,6 @@
 package com.ssm.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -65,7 +67,7 @@ public class StockController {
 		List<Stock> listStock=this.stocksMapper.SelectStockAll();
 		Map<String, Object> map=null;
 		
-		System.out.println("请求查看全部股票！");
+		//System.out.println("请求查看全部股票！");
 		
 		for (Stock stock : listStock) {
 			map=new HashMap<String, Object>();
@@ -76,6 +78,79 @@ public class StockController {
 		}
 		return res;
 	}
+	
+	//查找所有股票
+	@RequestMapping("/searchTodayStock")
+	@ResponseBody
+	public String SearchTodayStocks(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("sid")int sid) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+	
+		Test my=new Test();
+		
+		String sr=my.sendPost("http://jieone.com/demo/stock/data/stock.php?callback=jQuery17206472256606980518_1495438225734&Action=minute&stockID="+sid+"&stockType=sh", "");
+		String[] astr1 = sr.split(",");
+		int ii=0;
+		String strr ="";
+		String[] r_str= new String [1000];
+		int count =0;
+        for (int i = 0; i < astr1.length-1; i++) {
+        	if(ii==6)
+        	{
+        		String[] astr2 = astr1[i].split(":");
+        		String str1 = astr2[0].substring(0,astr2[0].length()-2);
+        		//System.out.println();
+        		String str2 = astr2[0].substring(astr2[0].length()-2,astr2[0].length())+":"+astr2[1];
+
+        		//String str2 = astr2[0].substring(astr2[0].length()-2,astr2[0].length())+":"+astr2[1];
+        		//System.out.println(str1);
+        		strr = strr+','+str1;
+        		r_str[count] = strr;
+       		//System.out.println(r_str[count]);
+        		count++;
+        		strr = str2;
+        		//System.out.println(str2);
+        		ii=0;
+        	}else{
+        		if(i==0)
+        		{
+        			strr = astr1[i];
+        		}else{
+        			strr = strr+','+astr1[i];
+        		}
+        	}
+            //System.out.println(sourceStrArray[i]);
+        	ii++;
+        }
+        String strc="";
+        for (int i = 0; i < count; i++) {
+        	strc = strc + r_str[i];
+        	strc = strc + ";";
+        }
+        //System.out.println(strc);
+        //System.out.println("strc");
+        return strc;
+
+	}
+	
+	@RequestMapping("/kinfo1")
+	@ResponseBody 
+	public String[] Sinfo(HttpServletRequest request, HttpServletResponse response,@RequestParam("sid")String sid,
+			@RequestParam("stype")String stype) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");//ml页面请求的编码格式，国际标准中文编码格式
+		response.setCharacterEncoding("utf-8");//往往异步机制返回的页面编码格式，中国标准的中文编码格式
+	
+		Test my=new Test();
+		
+		String sr=my.sendPost("http://hq.sinajs.cn/list="+stype+sid, "");
+		String[] astr1 = sr.split("\"");
+		String[] astr2 = astr1[1].split(",");
+        //System.out.println(astr2[1]);
+        return astr2;
+	}
+
 	
 	//查看股票信息
 	@RequestMapping("/searchStockBySid")
@@ -95,7 +170,7 @@ public class StockController {
 			String[] astr1 = sr.split("\"");
 			sr=astr1[1];
 			String[] resultStr=sr.split(",");
-			System.out.println("查看股票实时数据！");
+			//System.out.println("查看股票实时数据！");
 			
 			map=new HashMap<String, Object>();
 			map.put("sid", stock.getSid());
@@ -149,7 +224,7 @@ public class StockController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();
-		System.out.println("search stock history");
+		//System.out.println("search stock history");
 		List<Bill> listStock=this.billsMapper.SelectAllBill();
 		Map<String, Object> map=null;
 		
@@ -174,7 +249,7 @@ public class StockController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();
-		System.out.println("search stock history");
+		//System.out.println("search stock history");
 		List<HisStock> listStock=this.billsMapper.SelectHisStock();
 		Map<String, Object> map=null;
 		
@@ -201,7 +276,7 @@ public class StockController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();
-		System.out.println("search stock history");
+		//System.out.println("search stock history");
 		List<HisStock> listStock=this.billsMapper.SelectHisStock();//全部的已出售订单
 		List<Bill> listStock1=this.billsMapper.SelectAllBill();//全部的已购买订单
 		Map<String, Object> map=null;
@@ -273,10 +348,10 @@ public class StockController {
 		    
 		    
 		}
-		for(int i=0;i<7;i++)
-		{
-			System.out.println(weeknum[i]);
-		}
+//		for(int i=0;i<7;i++)
+//		{
+//			System.out.println(weeknum[i]);
+//		}
 		for (Bill stock : listStock1) {
 			//map=new HashMap<String, Object>();
 			//System.out.println(stock.getDate());

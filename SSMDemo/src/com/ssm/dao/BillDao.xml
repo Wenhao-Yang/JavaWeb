@@ -7,6 +7,7 @@
 <mapper namespace="com.ssm.dao.IBillsMapper">
    
     <resultMap id="BillResults" type="com.ssm.entity.Bill">
+    	<result column="bid" property="bid" jdbcType="INTEGER" javaType="Integer" /> 
 	    <result column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />        
 	    <result column="sid" property="sid" jdbcType="INTEGER" javaType="Integer" />
 	    <result column="balance" property="balance" jdbcType="INTEGER" javaType="Integer" />
@@ -16,6 +17,7 @@
     </resultMap>      
    
     <resultMap type="com.ssm.entity.Bill" id="UserCurrentResult" autoMapping="true">
+    	<result column="bid" property="bid" jdbcType="INTEGER" javaType="Integer" />
     	<result column="sid" property="sid" jdbcType="INTEGER" javaType="Integer" />
     	<result column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />
     	<result column="balance" property="balance" jdbcType="INTEGER" javaType="Integer" />
@@ -56,10 +58,10 @@
     </select> 
     <insert id="BuyStocks" parameterType="com.ssm.entity.Bill">
       INSERT INTO bill(uid,sid,balance,abalance,cost,date) 
-      VALUES (#{uid},#{sid},#{balance},#{balance},#{cost},NOW());	
+      VALUES (#{uid},#{sid},#{balance},0,#{cost},NOW());	
     </insert>
     <update id="UpdateStocks" parameterType="com.ssm.entity.Bill">
-      UPDATE bill SET balance=balance+#{balance},date=NOW() WHERE uid=#{uid} AND sid=#{sid};
+      UPDATE bill SET balance=#{balance},cost=#{cost},abalance=#{abalance},date=NOW() WHERE uid=#{uid} AND sid=#{sid};
     </update> 
     <insert id="SellStocks" parameterType="com.ssm.entity.Bill">
       INSERT INTO h_bill(uid,sid,num,cost,bdate,sdate) 

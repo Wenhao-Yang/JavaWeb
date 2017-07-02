@@ -12,7 +12,9 @@
 	     <result column="gender" property="gender" jdbcType="VARCHAR" javaType="string"/> 
 	     <result column="upwd" property="upwd" jdbcType="VARCHAR" javaType="string"/>  
 	     <result column="udate" property="udate" jdbcType="VARCHAR" javaType="string"/>
-	     <result column="context" property="context" jdbcType="VARCHAR" javaType="string"/>             
+	     <result column="context" property="context" jdbcType="VARCHAR" javaType="string"/> 
+	     <result column="work" property="work" jdbcType="VARCHAR" javaType="string"/>
+	     <result column="sign" property="sign" jdbcType="VARCHAR" javaType="string"/>            
     </resultMap>    
     
    
@@ -42,7 +44,7 @@
     
     <update id="UpdateUser" parameterType="com.ssm.entity.User">
     	UPDATE users 
-    	SET age=#{age},udate=now(),uname=#{uname}, upwd=#{upwd},context=#{context},degree=#{degree},online=#{online} 
+    	SET age=#{age},udate=now(),uname=#{uname}, upwd=#{upwd},money=#{money},context=#{context},degree=#{degree},online=#{online} 
     	WHERE uid=#{uid}
     </update>
     <delete id="DeleteUser" >
@@ -54,6 +56,16 @@
     <update id="ChangeOnline1" >
         UPDATE users SET online="0" WHERE uid=#{uid};
     </update>
+    <update id="ChangePsw" >
+        UPDATE users SET upwd=#{upwd} WHERE uid=#{uid};
+    </update>
+    <update id="ChangeInfo" >
+        UPDATE users SET age=#{age},gender=#{sex},work=#{work},sign=#{sign} WHERE uname=#{uname};
+    </update>
+   <select id="SelectUserByUname" resultMap="UserResults">
+    	SELECT * FROM users where uname=#{0};
+   </select>
+    
     
     <update id="UpdateUserByLogout" parameterType="String">
         UPDATE users SET online="0" WHERE uname=#{name};

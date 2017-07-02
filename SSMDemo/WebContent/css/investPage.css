@@ -62,14 +62,14 @@ input.investInput{
 }
 
 div#buyAndSell{
-	width:45%;
+	width:40%;
 	height:316px;
 }
 
 div#userMoney{
 	padding-top:0px;
 	float:right;
-	width:50%;
+	width:55%;
 	height:316px;
 }
 div#recordDetails{
@@ -89,7 +89,7 @@ div#recordDetails{
 }
 .infoBlock{
 	margin-bottom:5px;
-	font-size:5px;
+	font-size:12px;
 	height:18px;	
 }
 .infoInput{

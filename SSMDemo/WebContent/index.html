@@ -49,8 +49,7 @@
 									</div>
 								</li>
 							</ul>
-					</div>
-                		
+						</div>
                 	</div>	
                 </div>  
        </div>
@@ -92,7 +91,7 @@
                 	<div class="templatemo_link"><a class="show-5 templatemo_page5" href="#">股票论坛</a></div>
                 </div>
                 <div class="templatemo_maincontact">
-                	<div class="templatemo_link"><a class="show-6 templatemo_page6" href="#">联系我们</a></div>
+                	<div class="templatemo_link"><a class="show-6 templatemo_page6" href="#">外汇信息</a></div>
                 </div>
             </div>
     </div>
@@ -110,7 +109,8 @@
 							data-url="stockt/searchStock.action"  
 				       		data-page-list="[5, 10]"
 				       		data-toggle="table"
-					   		data-click-to-select="true">
+					   		data-click-to-select="true"
+					   		data-search="true">
                       		<thead style="overflow=auto;">
                         	<tr>
 					            <th data-field="sid" data-sortable="true">股票代码</th>
@@ -183,10 +183,7 @@
 			        </div>
 			        <div class="infoBlock">
 			             <label class="infoLabel">买五：</label><input class="infoInput" id="buyFiv"/><input class="infoInput" id="numOfBuyFiv"/></br>
-			        </div>
-                	
-			       
-			             
+			        </div>             
                     	
                   </div>
               </div>
@@ -218,16 +215,15 @@
 			             			<label class="investLabel" id="sellOrBuyPrice">买入价格：</label><input class="investInput" id="price" name="cost"/></br>
 			             		</div>
 			             		<div class="investBlock">
-			             			<label class="investLabel" id="accessNumber">可买(股)：</label><input class="investInput" readonly="true" /></br>
+			             			<label class="investLabel" >可买(股)：</label><input class="investInput" id="accessNumber" readonly="true" /></br>
 			             		</div>
 			             		<div class="investBlock">
 			             			<label class="investLabel" id="sellOrBuyNumber">买入数量：</label><input class="investInput" id="number" name="balance"/></br>
 			             		</div>
-	
-				             	                       		
+      	                       		
                         	</form>  
                         	<button class="investBtn" id="removeContent">重填</button>
-				            <button class="investBtn" id="buyOrSellBtn">买入</button>            	
+				            <button class="investBtn" id="buyOrSellBtn" disabled="true">买入</button>            	
                         </div>
 						<div class="inputBlock pre-scrollable" id="userMoney">					
 							<table class="table table-bordered scrolltable"
@@ -246,26 +242,24 @@
                     	<div class="inputBlock recordDetails pre-scrollable" id="recordDetails">
                     		<table class="table table-bordered scrolltable"
 				                    id="user-record-table"
-				                    url="usert/userBalance.action?uid=13"
 				                    data-show-refresh="true" >
 	                      		<thead style="overflow=auto;">
 	                        	<tr>
 						            <th data-field="sid">证券代码</th>
-						            <th data-field="stock.sname">证券名称</th>
+						            <th data-field="sname">证券名称</th>
 						            <th data-field="balance">股票金额</th>
 						            <th data-field="abalance">可用余额</th>
 						            <th data-field="unbalance">冻结数量</th>
-						            <th data-field="profit">盈亏金额</th>
-						            <th data-field="cost">成本价格</th>
-						            <th data-field="profitrate">盈亏比率</th>
+						            <th data-field="profits">盈亏金额</th>
+						            <th data-field="cost">成本价</th>
+						            <th data-field="currentPri">市价</th>
+						            <th data-field="profitsRate">盈亏比率</th>
 						            <th data-field="uid">股东账户</th>
 						        </tr>
 		                      	</thead>
                     		</table>
                     	</div>
-                    	
 							<div class="overlay"></div>	
-                
             </div>
     	</div>
     </div>
@@ -465,7 +459,7 @@
         	<a href="javascript:;" id="closeBtn" class="closeBtn">×</a>
         </div>
         <form class="form-signin">
-        	<div class="sign-title">登录</div>
+        	<div class="thumbnail"><img src="images/photos/icon.svg"/></div>
             <div class="login-wrap">
             	<input type="text" class="form-control" id="username" placeholder="User ID" autofocus>
             	<input type="password" class="form-control" id="pwd" placeholder="Password">
@@ -473,15 +467,15 @@
             	<button id="btn-login" type="button" class="btn btn-lg btn-login btn-block">
             		<i class="fa fa-check"></i>
             	</button>
-                <div class="registration">Not a member yet?
+                <div class="thecheckbox" id="checkBox">
+                	<input type="checkbox" value="remember-me"> 记住密码
+<!--                     <span class="pull-right"> -->
+                    <a data-toggle="modal" href="#myModal"> 忘记密码?</a>
+<!-- 					</span> -->
+                </div>
+                <div class="registration">还不是会员?
                 	<a class="" >注册</a>
                 </div>
-                <label class="checkbox">
-                	<input type="checkbox" value="remember-me"> Remember me
-                    <span class="pull-right">
-                    	<a data-toggle="modal" href="#myModal"> 忘记密码?</a>
-					</span>
-                </label>
 
             </div>
 
@@ -494,13 +488,13 @@
                                 <h4 class="modal-title">Forgot Password ?</h4>
                             </div>
                             <div class="modal-body">
-                                <p>Enter your e-mail address below to reset your password.</p>
+                                <p>输入你的个人信息以提交</p>
                                 <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
 
                             </div>
                             <div class="modal-footer">
-                                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                                <button class="btn btn-primary" type="button">Submit</button>
+                                <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                                <button class="btn btn-primary" type="button">提交</button>
                             </div>
                         </div>
                     </div>
@@ -688,7 +682,9 @@
 	    					}, 100)
 	    					.end().siblings().find(".div1").hide(100);
 	                    	setCookie('uname',"",-2);
-	                    	setCookie("uid", "", -2);s
+	                    	setCookie("uid", "", -2);
+	                    	
+	                    	window.location.reload();
 	                    }else{
 	                        alert("失败!");
 	                    }
@@ -698,31 +694,37 @@
 	                }
 	            });
 	        });
-   
+   			
 	        $("#regSubmit").click(function(){
-	            $.ajax({
-	                url:"usert/regist.action",
-	                method: "POST",
-	                data: $('#form-signup').serialize(),
-	                dataType: "json",
-	                success:function(data){
-	                	console.log($('#form-signup').serialize());
-	                    console.log("data:");//ok
-	                    if(data=="success"){
-	    					alert("regist users success");
+	        	if ($("input[name='uname']").val()!="" && $("input[name='upwd']").val()!=""){
+	        		$.ajax({
+		                url:"usert/regist.action",
+		                method: "POST",
+		                data: $('#form-signup').serialize(),
+		                dataType: "json",
+		                success:function(data){
+		                	console.log($('#form-signup').serialize());
+		                    console.log("data:");//ok
+		                    if(data=="success"){
+		    					alert("regist users success");
 
-	    					$('#dialogBg').fadeOut(300,function(){
-	                            $('#dialogUp').fadeOut();
-	                        });
-	    				}else{
-	    					alert("regist users error");
-	    				}
-	                    
-	                },
-	                error:function(){
-	                    alert("error!");
-	                }
-	            });
+		    					$('#dialogBg').fadeOut(300,function(){
+		                            $('#dialogUp').fadeOut();
+		                        });
+		    				}else{
+		    					alert("regist users error");
+		    				}
+		                    
+		                },
+		                error:function(){
+		                    alert("error!");
+		                }
+		            });
+	        	}
+	        	else{
+	        		alert("信息不完整");
+	        	}
+	            
 	        }); 
 	        
 // 	        $('#buyOrSellBtn').on('click',function () {
@@ -737,45 +739,53 @@
 				$('input.infoInput').val(""); 
 			});
 			$('#buyOrSellBtn').click(function(){
-				console.log($('#BuySellForm').serialize());
-				if($("#saleType").val()=="buy"){
-					$.ajax({
-		                url:"billt/buyStock.action",
-		                method: "POST",
-		                data: $('#BuySellForm').serialize(),
-		                dataType: "json",
-		                success:function(data){
-		                	if(data=="success"){
-		                		alert("购买成功！");
-		                	}
-		                	else{
-		                		alert("购买失败！");
-		                	}	                    
-		                },
-		                error:function(){
-		                    //alert("error!");
-		                }
-		            });
+				if ($('#number').val()!=""){
+					console.log($('#BuySellForm').serialize());
+					if($("#saleType").val()=="buy"){
+						$.ajax({
+			                url:"billt/buyStock.action",
+			                method: "POST",
+			                data: $('#BuySellForm').serialize(),
+			                dataType: "json",
+			                success:function(data){
+			                	if(data=="success"){
+			                		alert("购买成功！");
+			                		$('#number').val("");
+			                		$('#user-record-table').bootstrapTable('refresh'); //刷新表格
+			                		$('#user-money-table').bootstrapTable('refresh'); //刷新表格
+			                	}
+			                	else{
+			                		alert("购买失败！");
+			                	}	                    
+			                },
+			                error:function(){
+			                    //alert("error!");
+			                }
+			            });
+					}
+					else if ($("#saleType").val()=="sell") {
+						$.ajax({
+			                url:"billt/sellStock.action",
+			                method: "POST",
+			                data: $('#BuySellForm').serialize(),
+			                dataType: "json",
+			                success:function(data){
+			                	if(data=="success"){
+			                		alert("卖出成功！");
+			                		$('#user-record-table').bootstrapTable('refresh'); //刷新表格
+			                		$('#user-money-table').bootstrapTable('refresh'); //刷新表格
+			                	}
+			                	else{
+			                		alert("卖出失败！");
+			                	}	                    
+			                },
+			                error:function(){
+			                    //alert("error!");
+			                }
+						});
+					}
 				}
-				else if ($("#saleType").val()=="sell") {
-					$.ajax({
-		                url:"billt/sellStock.action",
-		                method: "POST",
-		                data: $('#BuySellForm').serialize(),
-		                dataType: "json",
-		                success:function(data){
-		                	if(data=="success"){
-		                		alert("卖出成功！");
-		                	}
-		                	else{
-		                		alert("卖出失败！");
-		                	}	                    
-		                },
-		                error:function(){
-		                    //alert("error!");
-		                }
-					});
-				}
+				
 			});
 
 	    });
@@ -880,45 +890,177 @@
 	  	      	//跳转到K线图网页
 	  	       	window.location.href='kkk.html?code='+sid+'&s_date=20170101&e_date='+e_date+'&sname='+sname;
 			});
+			
+			function check(){
+			    var user=$('#inputSname').val();
+			    var pwd=document.getElementById("pwd");
+			    if(user==""){
+			    	$('#investInput').attr("readOnly",false);
+			        return;
+			    }
+			    else{
+			    	$('#investInput').attr("readOnly",true);
+			    return true;
+			    
+			  }   
+			}
+			
+			$('#price').blur(function(){
+				var opt=$("#saleType").val();
+			    if(opt=="buy"){
+					//买入判断
+					$('#buyOrSellBtn').attr("disabled",false);
+					if(parseFloat($('#price').val())>parseFloat($('#sellFiv').val())){
+						alert("价格过高！");
+						$('#price').val("");
+						$('#buyOrSellBtn').attr("disabled","disabled");
+					}
+					else if(parseFloat($('#price').val())==parseFloat($('#sellFiv').val())){
+						$('#accessNumber').val(
+						parseInt($('#numOfSellFiv').val())+
+						parseInt($('#numOfSellFou').val())+
+						parseInt($('#numOfSellThr').val())+
+						parseInt($('#numOfSellSec').val())+
+						parseInt($('#numOfSellFir').val()));
+					}
+					else if(parseFloat($('#price').val())>=parseFloat($('#sellFou').val())){
+						$('#accessNumber').val(
+								parseInt($('#numOfSellFou').val())+
+								parseInt($('#numOfSellThr').val())+
+								parseInt($('#numOfSellSec').val())+
+								parseInt($('#numOfSellFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())>=parseFloat($('#sellThr').val())){
+						$('#accessNumber').val(
+								parseInt($('#numOfSellThr').val())+
+								parseInt($('#numOfSellSec').val())+
+								parseInt($('#numOfSellFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())>=parseFloat($('#sellSec').val())){
+						$('#accessNumber').val(
+								parseInt($('#numOfSellSec').val())+
+								parseInt($('#numOfSellFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())>=parseFloat($('#sellFir').val())){
+						$('#accessNumber').val(
+								parseInt($('#numOfSellFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())<parseFloat($('#sellFir').val())){
+						alert("价格过低");
+						$('#buyOrSellBtn').attr("disabled","disabled");
+						$('#accessNumber').val("");
+					}
+			    }
+			    else{
+			    	//卖出判断
+					if(parseFloat($('#price').val())>parseFloat($('#buyFir').val())){
+						alert("价格过高！");
+						$('#buyOrSellBtn').attr("disabled","disabled");
+						$('#price').val("");
+					}
+					else if(parseFloat($('#price').val())==parseFloat($('#buyFir').val())){
+						$('#accessNumber').val(
+						parseInt($('#numOfBuyFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())>=parseFloat($('#buySec').val())){
+						$('#accessNumber').val(
+								parseInt($('#numOfBuySec').val())+
+								parseInt($('#numOfBuyFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())>=parseFloat($('#buyThr').val())){
+						$('#accessNumber').val(
+								parseInt($('#numOfBuyThr').val())+
+								parseInt($('#numOfBuySec').val())+
+								parseInt($('#numOfBuyFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())>=parseFloat($('#buyFou').val())){
+						$('#accessNumber').val(
+								parseInt($('#numOfBuyFou').val())+
+								parseInt($('#numOfBuyThr').val())+
+								parseInt($('#numOfBuySec').val())+
+								parseInt($('#numOfBuyFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())>=parseFloat($('#buyFiv').val())){
+						$('#accessNumber').val(
+								parseInt($('#numOfBuyFiv').val())+
+								parseInt($('#numOfBuyFou').val())+
+								parseInt($('#numOfBuyThr').val())+
+								parseInt($('#numOfBuySec').val())+
+								parseInt($('#numOfBuyFir').val())
+						);
+					}
+					else if(parseFloat($('#price').val())<parseFloat($('#buyFiv').val())){
+						alert("价格过低");
+						$('#buyOrSellBtn').attr("disabled","disabled");
+						$('#accessNumber').val("");
+					}
+			    }
+				
+			});
+			$('#number').blur(function(){
+				if (parseInt($('#number').val())>parseInt($('#accessNumber').val()) || parseInt($('#number').val())<0){
+					alert("股份数量错误！");
+					$('#number').val("");
+				}
+			});
+			
 			$('#inputSid').blur(function(){
-				$.ajax({
-	                url:"stockt/searchStockBySid.action",
-	                method: "POST",
-	                data: {"sid":$(this).val()},
-	                dataType: "json",
-	                success:function(data){
-	                	console.log(data);
-	                	$('#inputSname').val(data.sname);
-	                	
-	                	$('#sellFiv').val(data.priOfSellFiv);
-	                	$('#sellFou').val(data.priOfSellFou);
-	                	$('#sellThr').val(data.priOfSellThr);
-	                	$('#sellSec').val(data.priOfSellSec);
-	                	$('#sellFir').val(data.priOfSellFir);
-	                	$('#buyFiv').val(data.priOfBuyFiv);
-	                	$('#buyFou').val(data.priOfBuyFou);
-	                	$('#buyThr').val(data.priOfBuyThr);
-	                	$('#buySec').val(data.priOfBuySec);
-	                	$('#buyFir').val(data.priOfBuyFir);
-	                	
-	                	$('#numOfSellFiv').val(data.numOfSellFiv);
-	                	$('#numOfSellFou').val(data.numOfSellFou);
-	                	$('#numOfSellThr').val(data.numOfSellThr);
-	                	$('#numOfSellSec').val(data.numOfSellSec);
-	                	$('#numOfSellFir').val(data.numOfSellFir);
-	                	$('#numOfBuyFiv').val(data.numOfBuyFiv);
-	                	$('#numOfBuyFou').val(data.numOfBuyFou);
-	                	$('#numOfBuyThr').val(data.numOfBuyThr);
-	                	$('#numOfBuySec').val(data.numOfBuySec);
-	                	$('#numOfBuyFir').val(data.numOfBuyFir);
-	                	
-						//获取返回的股票的参数
-	                    
-	                },
-	                error:function(){
-	                    alert("error!");
-	                }
-	            });
+				
+				if (parseInt($('#inputSid').val())>=600000 && parseInt($('#inputSid').val())<6039999){
+					$.ajax({
+		                url:"stockt/searchStockBySid.action",
+		                method: "POST",
+		                data: {"sid":$(this).val()},
+		                dataType: "json",
+		                success:function(data){
+		                	console.log(data);
+		                	$('#inputSname').val(data.sname);
+		                	
+		                	$('#sellFiv').val(data.priOfSellFiv);
+		                	$('#sellFou').val(data.priOfSellFou);
+		                	$('#sellThr').val(data.priOfSellThr);
+		                	$('#sellSec').val(data.priOfSellSec);
+		                	$('#sellFir').val(data.priOfSellFir);
+		                	$('#buyFiv').val(data.priOfBuyFiv);
+		                	$('#buyFou').val(data.priOfBuyFou);
+		                	$('#buyThr').val(data.priOfBuyThr);
+		                	$('#buySec').val(data.priOfBuySec);
+		                	$('#buyFir').val(data.priOfBuyFir);
+		                	
+		                	$('#numOfSellFiv').val(data.numOfSellFiv);
+		                	$('#numOfSellFou').val(data.numOfSellFou);
+		                	$('#numOfSellThr').val(data.numOfSellThr);
+		                	$('#numOfSellSec').val(data.numOfSellSec);
+		                	$('#numOfSellFir').val(data.numOfSellFir);
+		                	$('#numOfBuyFiv').val(data.numOfBuyFiv);
+		                	$('#numOfBuyFou').val(data.numOfBuyFou);
+		                	$('#numOfBuyThr').val(data.numOfBuyThr);
+		                	$('#numOfBuySec').val(data.numOfBuySec);
+		                	$('#numOfBuyFir').val(data.numOfBuyFir);           	
+							//获取返回的股票的参数   
+		                },
+		                error:function(){
+		                    alert("error!");
+		                }
+		            });
+				}
+				else{
+					alert("请输入正确的上证代码 600000~603999！");
+					$('#number').val("");
+					$('#inputSid').val("");
+					$('#inputSname').val("");
+					$('#price').val("");
+					$('#accessNumber').val("");
+				}
+				
 			});
 			
 			$("#saleType").change(function(){
@@ -947,9 +1089,7 @@
 // 			    	$('#userMoney').attr("style","width:98.5%;");
 			    }
 			});
-			
 
-	
 </script>
 	  
   </body>

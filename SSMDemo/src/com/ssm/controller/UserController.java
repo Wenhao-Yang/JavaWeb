@@ -82,12 +82,12 @@ public class UserController {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		System.out.println("用户： "+ usn+"  密码：  "+pwd);		
+		//System.out.println("用户： "+ usn+"  密码：  "+pwd);		
 
 		Map<String, Object> map=new HashMap<String, Object>();
 		User user=userMapper.SelectUserByLogin(usn, pwd);		
 		if(user!=null && userMapper.ChangeOnline(user.getUid())>0){
-			System.out.println("登录成功！");
+			//System.out.println("登录成功！");
 			map.put("id", user.getUid());
 			map.put("name",user.getUname()); 
 		}
@@ -105,7 +105,7 @@ public class UserController {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		System.out.println(usn+" 登出！ ");		
+		//System.out.println(usn+" 登出！ ");		
 		
 		return userMapper.UpdateUserByLogout(usn)>0?"success":"error";
 	}
@@ -122,7 +122,7 @@ public class UserController {
 		List<User> listUser=this.userMapper.SelectUserAll();
 		Map<String, Object> map=null;
 		
-		System.out.println("search all user");
+		//System.out.println("search all user");
 		
 		for (User user : listUser) {
 			map=new HashMap<String, Object>();
@@ -133,7 +133,7 @@ public class UserController {
 			map.put("edit", "<a href='javascript:void(0);' class='btn btn-info  btn-sm' title='"
 			        +user.getUid()+"' id='editUserBt'>Edit</a>");
 			map.put("del", "<a href='javascript:void(0);' class='btn btn-danger btn-sm'  title='"+user.getUid()+"' id='deleteUserBtn'>Delete</a>");
-			
+			map.put("date",user.getUdate());
 			res.add(map);
 		}
 		
@@ -150,8 +150,8 @@ public class UserController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		
-		System.out.println("注册用户：" + user.getUname()+" - "+user.getUpwd()+
-				" - "+user.getGender()+" - "+user.getAge());
+		//System.out.println("注册用户：" + user.getUname()+" - "+user.getUpwd()+
+		//		" - "+user.getGender()+" - "+user.getAge());
 		
 		return userMapper.InsertUser(user)>0?"success":"error";
 	}
@@ -166,8 +166,8 @@ public class UserController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		
-		System.out.println("修改用户:"+users.getUname()+" - "+users.getUpwd()
-							+ " - " + users.getAge()+ " - " +users.getContext()+  " --  "+users.getUid());
+		//System.out.println("修改用户:"+users.getUname()+" - "+users.getUpwd()
+		//					+ " - " + users.getAge()+ " - " +users.getContext()+  " --  "+users.getUid());
 		
 		return userMapper.UpdateUser(users)>0?"success":"error";
 	}
@@ -182,7 +182,7 @@ public class UserController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		
-		System.out.println("删除用户-uid-"+uid);
+		//System.out.println("删除用户-uid-"+uid);
 		
 		return userMapper.DeleteUser(uid)>0?"success":"error";
 	}
@@ -192,7 +192,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<byte []> DownloadImg1(@RequestParam("logo")String logo,
 			HttpServletRequest request,	HttpServletResponse response)throws Exception{
-		System.out.println("图片:"+logo);
+		//System.out.println("图片:"+logo);
 		//创建路径，创建File对象操作
 //		String path="E:/Android/images/"+logo;
 		response.setCharacterEncoding("utf-8");
@@ -204,7 +204,9 @@ public class UserController {
 //	    System.out.println("image:"+logo);	       
 	    response.setHeader("Content-Disposition", "attachment;filename="+java.net.URLEncoder.encode(logo,"utf-8"));
 	        //获取下载文件的真实路径
-	    String filename="C:/Users/WILLIAM/Desktop/H.W/img/"+logo;//+filename	          
+	    //File directory = new File("");//设定为当前文件夹 
+	    //System.out.println(directory.getCanonicalPath());
+	    String filename="/var/lib/tomcat7/webapps/SSMDemo/images/photos/"+logo;//+filename	          
 	          //创建文件输入流
 	    FileInputStream fis=new FileInputStream(filename);
 	        //创建缓冲输入流
@@ -247,7 +249,7 @@ public class UserController {
 			
 			res.add(map);
 		}
-		System.out.println(res);
+		//System.out.println(res);
 		return res;
 	}
 	
@@ -314,13 +316,13 @@ public class UserController {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		System.out.println(uid+"  //  ");		
+		//System.out.println(uid+"  //  ");		
 
 		Map<String, Object> map=new HashMap<String, Object>();
 		User user=userMapper.SelectUserByUid(uid);	
 		
 		if(user!=null){
-			System.out.println(user.getUid()+"  +");
+			//System.out.println(user.getUid()+"  +");
 			
 			map.put("id", user.getUid());
 			map.put("name",user.getUname());
@@ -341,7 +343,7 @@ public class UserController {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		System.out.println("返回用户  --  "+uid+"的余额信息");		
+		//System.out.println("返回用户  --  "+uid+"的余额信息");		
 
 		Map<String, Object> map=new HashMap<String, Object>();
 		List<Map<String, Object>> res=new ArrayList<Map<String,Object>>();
@@ -395,7 +397,7 @@ public class UserController {
 		file.transferTo(new File(filePath));
 		// 上传的文件名
 		String filename = file.getOriginalFilename();
-		System.out.println("fff " + filename + "/" +users.getUname());
+		//System.out.println("fff " + filename + "/" +users.getUname());
 
 		String contextpath = request.getScheme() +"://" + 
 							 request.getServerName()  + ":" +
@@ -468,7 +470,7 @@ public class UserController {
 			}
 			//System.out.println(k_str[i]);
 		}
-		System.out.println(k_str1.length);
+		//System.out.println(k_str1.length);
 		int l=k_str.length/9;
 		List<List<String>> arr_str = new ArrayList<List<String>>();
 		
@@ -544,7 +546,7 @@ public class UserController {
 				int ttotal = (int) (num_s+num_f);
 				map.put("total", ttotal);
 				map.put("roit",df.format(suc*100));
-				System.out.println(df.format(suc*100));
+				//System.out.println(df.format(suc*100));
 				i=0;
 				res.add(map);
 			}	
@@ -567,6 +569,70 @@ public class UserController {
 			return false;
 		}
 				
+	}
+	@RequestMapping("/changepassword")
+	@ResponseBody  
+	public boolean ChangePsw(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("uid")int uid,@RequestParam("upwd")String upwd) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");	
+//		System.out.println(uid);
+//		System.out.println(upwd);
+		int user=userMapper.ChangePsw(uid, upwd);
+		if(user==1)
+		{
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	@RequestMapping("/changeinfo")
+	@ResponseBody  
+	public boolean ChangeInfo(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("uname")String uname,@RequestParam("age")String age,@RequestParam("sex")String sex,
+			@RequestParam("work")String work,@RequestParam("sign")String sign) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");	
+//		System.out.println(uname);
+//		System.out.println(sex);
+//		System.out.println(sign);
+//		System.out.println(work);
+		int user=userMapper.ChangeInfo(uname,age,sex,work,sign);
+		if(user==1)
+		{
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	@RequestMapping("/getinfo")
+	@ResponseBody  
+	public Map<String, Object> GetInfo(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("uname")String uname) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");	
+		//System.out.println(uname);
+		
+		User user=userMapper.SelectUserByUname(uname);
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		if(user!=null){
+			//System.out.println(user.getUid()+"  +");
+			
+			map.put("id", user.getUid());
+			map.put("name",user.getUname());
+			map.put("age",user.getAge());
+			map.put("gender",user.getGender());
+			map.put("sign",user.getSign());
+			map.put("work",user.getWork());
+		}
+		return map;	
+		
 	}
 	
 

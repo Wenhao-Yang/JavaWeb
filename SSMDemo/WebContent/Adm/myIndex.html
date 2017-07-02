@@ -32,7 +32,9 @@
     <![endif]-->
     <script>
         var _hmt = _hmt || [];
+        _hmt.push(['_setAccount', '10811109']);
     </script>
+    
   </head>
   <body class="bg-1">
 
@@ -146,7 +148,7 @@
                   <li class="search"><!-- Collapsed search pasting here at 768px --></li>
                 </ul>
               </li>
-              
+
               <li class="navigation" id="navigation">
                 <a href="#" class="sidebar-toggle" data-toggle="#navigation">管理平台 <i class="fa fa-angle-up"></i></a>
                 
@@ -371,7 +373,7 @@
 
                       <div class="media-body">
                         <small>访问量</small>
-                        <h2 class="media-heading animate-number" data-value="4" data-animation-duration="1500">0</h2>
+                        <h2 class="media-heading animate-number" id="visittoday1"  data-animation-duration="1500">0</h2>
                       </div>
                     </div> 
 
@@ -380,7 +382,7 @@
                         <div class="title">今日访问量</div>
                       </div>
                       <div class="status pull-right bg-transparent-black-1">
-                        <span class="animate-number" data-value="2" data-animation-duration="1500">0</span>%
+                        <span class="animate-number"  id="visittoday2"data-animation-duration="1500">0</span>%
                       </div>
                       <div class="clearfix"></div>
                       <div class="progress progress-little progress-transparent-black">
@@ -521,17 +523,17 @@
 
                     <div class="progress-list with-heading">
                       <div class="details">
-                        <div class="title"><h2><i class="fa fa-hdd-o"></i> <span class="animate-number" data-value="4" data-animation-duration="1600">0</span> GB</h2></div>
+                        <div class="title"><h2><i class="fa fa-hdd-o"></i> <span class="animate-number" data-value="2" data-animation-duration="1600">0</span> GB</h2></div>
                       </div>
                       <div class="status pull-right bg-transparent-black-1">
-                        <span class="animate-number" data-value="50" data-animation-duration="1500">0</span>%
+                        <span class="animate-number" data-value="24" data-animation-duration="1500">0</span>%
                       </div>
                       <div class="clearfix"></div>
                       <div class="progress progress-little progress-transparent-black" style="margin-bottom: 5px">
-                        <div class="progress-bar animate-progress-bar" data-percentage="50%"></div>
+                        <div class="progress-bar animate-progress-bar" data-percentage="24%"></div>
                       </div>
                     </div>  
-                    <p class="description"><strong>4GB</strong> used of <strong class="white-text">8GB</strong> on Server</p>
+                    <p class="description"><strong>483MB</strong> used of <strong class="white-text">2GB</strong> on Server</p>
                   </div>
                   <!-- /tile widget -->
 
@@ -764,6 +766,7 @@
                       + seperator2 + date.getSeconds();
               return currentdate;
         }
+    	console.log(_hmt.push(['_trackPageview','10811109']));
     	$.ajax({
             type:"POST",
             url:"../usert/searchUser.action",
@@ -785,6 +788,7 @@
             			
             		}
             		totaluser=totaluser+1;
+            		//console.log(newuser);
             		//console.log(date.substring(0,10));
             		//console.log(nowday.substring(0,10));
             		//console.log(etime.getDay());
@@ -868,6 +872,28 @@
                 
             }         
        });
+    	//今日访问量
+    	$.ajax({
+             type: "GET",
+             url: "http://101.200.36.178/tongji/demo.php",
+             dataType: "text",
+             success: function(data){
+                        //console.log(data);
+                       var str = data.split('----------------------get data----------------------');
+                        
+                       var str1 =str[1].split("\"sum\":[[");
+                        //console.log(str1);
+                       var str2 = str1[1].split(",");
+                       console.log(str2[0]);
+                       var x = document.getElementById("visittoday1");
+                    var y = document.getElementById("visittoday2");
+                   	x.setAttribute("data-value", str2[0]);
+                   	y.setAttribute("data-value", str2[0]);
+                   	x.innerHTML = str2[0];
+                   	y.innerHTML = str2[0];
+             },
+
+             });
       // Initialize card flip
       $('.card.hover').hover(function(){
         $(this).addClass('flip');
@@ -878,13 +904,13 @@
       // 用户访问数与交易量
       function getd1()
       {
-    	  var d2 =[ [1, 13],
-                    [2, 58],
-                    [3, 17],
-                    [4, 24],
-                    [5, 48],
-                    [6, 14],
-                    [7, 55],
+    	  var d2 =[ [1, 6],
+                    [2, 16],
+                    [3, 0],
+                    [4, 0],
+                    [5, 0],
+                    [6, 0],
+                    [7, 0],
                     
           ];
     	  return d2;

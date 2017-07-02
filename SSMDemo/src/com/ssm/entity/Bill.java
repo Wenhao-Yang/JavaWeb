@@ -1,7 +1,7 @@
 package com.ssm.entity;
 
 public class Bill {
-	private int uid,sid,balance,abalance;
+	private int bid,uid,sid,balance,abalance;
 	private double cost;
 	private String date,context;
 	private Stock stock;
@@ -74,6 +74,20 @@ public class Bill {
 	 */
 	public void setStock(Stock stock) {
 		this.stock = stock;
+	}
+
+	/**
+	 * @return the bid
+	 */
+	public int getBid() {
+		return bid;
+	}
+
+	/**
+	 * @param bid the bid to set
+	 */
+	public void setBid(int bid) {
+		this.bid = bid;
 	}
 
 }
