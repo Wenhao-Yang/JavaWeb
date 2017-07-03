@@ -1,0 +1,87 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.infor">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout style="@style/wrap_layout"
+        android:layout_marginTop="100dp"  >
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+        <LinearLayout style="@style/mid_layout" >
+            <TextView style="@style/usertext"
+                android:text="头像"
+                android:id="@+id/image" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout" >
+            <TextView style="@style/usertext"
+                android:text="名称" />
+            <EditText style="@style/usertext"
+                android:layout_width="200dp"
+                android:background="@null"
+                android:text="Jim"
+                android:focusable="false"
+                android:id="@+id/name"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <LinearLayout style="@style/mid_layout" >
+            <TextView style="@style/usertext"
+                android:text="年龄" />
+            <EditText style="@style/usertext"
+                android:layout_width="200dp"
+                android:background="@null"
+                android:text=""
+                android:id="@+id/age"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+
+        <LinearLayout style="@style/single_layout">
+            <TextView style="@style/usertext"
+                android:text="性别" />
+            <EditText style="@style/usertext"
+                android:layout_width="200dp"
+                android:background="@null"
+                android:text=""
+                android:id="@+id/sex"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <!-- 下圆角-->
+        <View style="@style/bg_line"/>
+        <LinearLayout style="@style/bottom_layout">
+            <TextView style="@style/usertext"
+                android:text="签名"
+                />
+            <EditText style="@style/usertext"
+                android:layout_width="200dp"
+                android:background="@null"
+                android:text=""
+                android:id="@+id/sign"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <LinearLayout style="@style/bottom_layout">
+            <TextView style="@style/usertext"
+                android:text="职业" />
+            <EditText style="@style/usertext"
+                android:layout_width="200dp"
+                android:background="@null"
+                android:text=""
+                android:id="@+id/work"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="保存"
+        android:id="@+id/save"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="150dp"/>
+
+</FrameLayout>

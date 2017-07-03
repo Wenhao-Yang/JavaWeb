@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
  * Use the {@link StockInfo#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StockInfo extends Fragment implements View.OnClickListener {
+public class StockInfo extends Fragment {
 
     EditText et_sid,et_sname;
     TextView tv_NumOfSellFiv,
@@ -190,7 +190,6 @@ public class StockInfo extends Fragment implements View.OnClickListener {
         tv_NumOfSellFir= (TextView) v.findViewById(R.id.tv_NumOfSellFir);
         tv_NumOfBuyFiv= (TextView) v.findViewById(R.id.tv_NumOfBuyFiv);
 
-        tv_NumOfBuyFir.setOnClickListener(this);
         et_sid.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -258,11 +257,6 @@ public class StockInfo extends Fragment implements View.OnClickListener {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onClick(View v) {
-        System.out.println("点击事件");
     }
 
     /**

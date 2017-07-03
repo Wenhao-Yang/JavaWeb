@@ -62,6 +62,7 @@ import butterknife.Bind;
 
 public class MinuteFragment extends Fragment {
 
+
     private LineDataSet d1, d2;
     MyXAxis xAxisLine;
     MyYAxis axisRightLine;

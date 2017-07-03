@@ -1,7 +1,6 @@
 package layout;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,16 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.william.www.thestock.MainActivity;
+import com.william.www.thestock.SharedPreferencesHelper;
 import com.william.www.thestock.R;
-import com.william.www.thestock.api.SharedPreferencesHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +35,6 @@ public class Login extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
-    private String FileName="shared";
 
     private FragmentManager manager;
     private FragmentTransaction ft;
@@ -114,11 +110,9 @@ public class Login extends Fragment {
                             username.setText(userinfo.getString("name"));
                             callBackValue.SendMessageValue(userinfo.getString("id"),userinfo.getString("name"));
                             //System.out.println(userinfo.getString("name"));
-                            //本地保存用户名和密码
-                            SharedPreferencesHelper shared=new SharedPreferencesHelper();
-                            shared.putValue(getContext(),FileName,"name",userinfo.getString("name"));
-                            shared.putValue(getContext(),FileName,"id",userinfo.getString("id"));
-
+                            SharedPreferencesHelper share = new SharedPreferencesHelper();
+                            share.putValue(getContext(),"shared","name",userinfo.getString("name"));
+                            share.putValue(getContext(),"shared","id",userinfo.getString("id"));
                             //跳转回主页
                             ft = manager.beginTransaction();
                             ft.replace(R.id.main_container, StockInfo.newInstance());

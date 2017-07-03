@@ -20,13 +20,13 @@
     <item android:title="更多">
         <menu>
             <item
+                android:id="@+id/nav_self"
+                android:icon="@mipmap/ic_launcher"
+                android:title="个人中心" />
+            <item
                 android:id="@+id/nav_aboutus"
                 android:icon="@mipmap/ic_launcher"
                 android:title="关于我们" />
-            <item
-                android:id="@+id/nav_bbs"
-                android:icon="@mipmap/ic_launcher"
-                android:title="股票论坛" />
         </menu>
     </item>
 

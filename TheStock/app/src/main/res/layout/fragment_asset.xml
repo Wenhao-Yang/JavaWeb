@@ -1,0 +1,60 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.asset">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout style="@style/wrap_layout"
+        android:layout_marginTop="50dp"  >
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout" >
+            <TextView style="@style/usertext"
+                android:id="@+id/bill1"
+                />
+
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 下圆角-->
+        <LinearLayout style="@style/bottom_layout">
+            <TextView style="@style/usertext"
+
+                android:id="@+id/bill2"/>
+
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <LinearLayout style="@style/single_layout">
+            <TextView style="@style/usertext"
+                android:id="@+id/bill3"/>
+
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 下圆角-->
+        <LinearLayout style="@style/bottom_layout">
+            <TextView style="@style/usertext"
+
+                android:id="@+id/bill4"/>
+
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <LinearLayout style="@style/single_layout">
+            <TextView style="@style/usertext"
+                android:id="@+id/bill5"/>
+
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 下圆角-->
+        <LinearLayout style="@style/bottom_layout">
+            <TextView style="@style/usertext"
+
+                android:id="@+id/bill6"/>
+
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>

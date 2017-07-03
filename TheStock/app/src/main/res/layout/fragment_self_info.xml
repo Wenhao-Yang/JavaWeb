@@ -1,0 +1,66 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="layout.SelfInfo">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300.0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:src="@drawable/large" />
+
+    <LinearLayout style="@style/wrap_layout"
+        android:layout_marginTop="350dp"  >
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout" >
+            <TextView style="@style/usertext"
+                android:text="个人信息"
+                android:id="@+id/xinxi"
+                />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 下圆角-->
+        <LinearLayout style="@style/bottom_layout">
+            <TextView style="@style/usertext"
+                android:text="个人资产"
+                android:id="@+id/asset"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <LinearLayout style="@style/single_layout">
+            <TextView style="@style/usertext" android:text="修改密码" android:id="@+id/chanpsw"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:text="Jim"
+        android:layout_marginTop="315dp"
+        android:layout_marginLeft="165dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center"
+        android:src="@drawable/large"
+        app:border_color="@android:color/white"
+        app:border_width="2dp" />
+
+
+</FrameLayout>

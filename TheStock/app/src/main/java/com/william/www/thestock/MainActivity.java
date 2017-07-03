@@ -2,13 +2,16 @@ package com.william.www.thestock;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,11 +21,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.william.www.thestock.api.StockDataHttp;
+import com.william.www.thestock.SharedPreferencesHelper;
 
 import org.json.JSONException;
 import org.xutils.image.ImageOptions;
@@ -32,10 +37,13 @@ import layout.InvestFragment;
 import layout.Login;
 import layout.MinuteFragment;
 import layout.NewsFragment;
+import layout.SelfInfo;
 import layout.StockInfo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity
                 implements NavigationView.OnNavigationItemSelectedListener,
@@ -45,9 +53,10 @@ public class MainActivity extends AppCompatActivity
     //TabLayout mTabLayout;
 
     private TextView tv_username;
+    private TextView textView;
     private ImageView iv_usericon;
+    private Button button;
     private View headerView;
-
 
     // Fragment管理对象
 
@@ -87,7 +96,18 @@ public class MainActivity extends AppCompatActivity
 
         tv_username= (TextView) headerView.findViewById(R.id.tv_username);
         iv_usericon= (ImageView) headerView.findViewById(R.id.iv_usericon);
-
+        textView =(TextView)headerView.findViewById(R.id.textView);
+        button = (Button)headerView.findViewById(R.id.logout);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferencesHelper share = new SharedPreferencesHelper();
+                share.putValue(getApplicationContext(),"shared","name","");
+                share.putValue(getApplicationContext(),"shared","id","");
+                SendMessageValue1("","登录");
+                button.setVisibility(View.INVISIBLE);
+            }
+        });
         tv_username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,12 +169,31 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_stockinfo) {
             fragment=new StockInfo();
         } else if (id == R.id.nav_stockinvest) {
-            fragment=new InvestFragment();
+            SharedPreferencesHelper share = new SharedPreferencesHelper();
+            String name = share.getValue(this,"shared","name","");
+            if(name.equals(""))
+            {
+                System.out.println(name);
+                fragment = new Login();
+            }else{
+                System.out.println(name);
+                fragment=new InvestFragment();
+            }
         } else if (id == R.id.nav_stockpredict) {
             fragment=new NewsFragment();
         } else if (id == R.id.nav_aboutus) {
 
-        } else if (id == R.id.nav_bbs) {
+        } else if (id == R.id.nav_self) {
+            SharedPreferencesHelper share = new SharedPreferencesHelper();
+            String name = share.getValue(this,"shared","name","");
+            if(name.equals(""))
+            {
+                //System.out.println(name);
+                fragment = new Login();
+            }else{
+                //System.out.println(name);
+                fragment=new SelfInfo();
+            }
 
         }
         getSupportFragmentManager()
@@ -183,6 +222,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void SendMessageValue(String uid, String uname) {
         tv_username.setText(uname);
+        button.setVisibility(View.VISIBLE);
+        textView.setText("祝君好运！");
 
         ImageOptions options=new ImageOptions.Builder()
                 //设置加载过程中的图片
@@ -199,5 +240,12 @@ public class MainActivity extends AppCompatActivity
         x.image()
                 .bind(iv_usericon,"http://47.93.227.240:8080/SSMDemo/usert/download.action?logo=user"+uid+".png",options);
         System.out.println("success");
+    }
+    public void SendMessageValue1(String uid, String uname) {
+        tv_username.setText(uname);
+        button.setVisibility(View.VISIBLE);
+        textView.setText("...");
+
+        iv_usericon.setImageResource(R.mipmap.default_icon);
     }
 }

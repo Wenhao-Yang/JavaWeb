@@ -40,7 +40,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.william.www.thestock.R;
 import com.william.www.thestock.api.ConstantTest;
-import com.william.www.thestock.api.SharedPreferencesHelper;
+import com.william.www.thestock.SharedPreferencesHelper;
 import com.william.www.thestock.bean.DataParse;
 import com.william.www.thestock.bean.MinutesBean;
 import com.william.www.thestock.mychart.MyBarChart;
