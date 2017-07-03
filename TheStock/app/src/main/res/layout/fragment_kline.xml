@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="layout.KLineFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <com.github.mikephil.charting.charts.CombinedChart
+        android:id="@+id/cc_combinedchart"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="2">
+
+    </com.github.mikephil.charting.charts.CombinedChart>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/cc_barchart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </com.github.mikephil.charting.charts.BarChart>
+
+</LinearLayout>

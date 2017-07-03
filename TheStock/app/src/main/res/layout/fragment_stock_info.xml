@@ -1,0 +1,165 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.StockInfo">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/tl_StockList"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <EditText
+                android:id="@+id/et_sid"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="股票代码"/>
+            <EditText
+                android:id="@+id/et_sname"
+                android:textSize="35dp"
+                android:layout_toRightOf="@+id/et_sid"
+                android:background="@color/white_f"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="股票名称"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/tl_StockInfo"
+            android:layout_toRightOf="@+id/tl_StockList"
+            android:layout_width="match_parent"
+            android:layout_weight="2"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_NumOfSellFiv"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="卖五"/>
+            <TextView
+                android:id="@+id/tv_NumOfBuyFir"
+                android:layout_toRightOf="@+id/tv_NumOfSellFiv"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="买一"/>
+            <TextView
+                android:id="@+id/tv_NumOfSellFou"
+                android:layout_below="@+id/tv_NumOfSellFiv"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="卖四"/>
+            <TextView
+                android:id="@+id/tv_NumOfBuyTwo"
+                android:layout_below="@+id/tv_NumOfSellFiv"
+                android:layout_toRightOf="@+id/tv_NumOfSellFou"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="买二"/>
+            <TextView
+                android:id="@+id/tv_NumOfSellThr"
+                android:layout_below="@+id/tv_NumOfSellFou"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="卖三"/>
+            <TextView
+                android:id="@+id/tv_NumOfBuyThr"
+                android:layout_below="@+id/tv_NumOfSellFou"
+                android:layout_toRightOf="@+id/tv_NumOfSellThr"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="买三"/>
+            <TextView
+                android:id="@+id/tv_NumOfSellTwo"
+                android:layout_below="@+id/tv_NumOfSellThr"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="卖二"/>
+            <TextView
+                android:id="@+id/tv_NumOfBuyFou"
+                android:layout_below="@+id/tv_NumOfSellThr"
+                android:layout_toRightOf="@+id/tv_NumOfSellTwo"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="买四"/>
+            <TextView
+                android:id="@+id/tv_NumOfSellFir"
+                android:layout_below="@+id/tv_NumOfSellTwo"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="卖一"/>
+            <TextView
+                android:id="@+id/tv_NumOfBuyFiv"
+                android:layout_below="@+id/tv_NumOfSellTwo"
+                android:layout_toRightOf="@+id/tv_NumOfSellFir"
+                android:textSize="15dp"
+                android:background="@color/white_f"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="买五"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/ll_header"
+        android:layout_height="400dp">
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/tabstrip"
+            android:layout_width="wrap_content"
+            android:background="@color/white_f"
+            android:layout_height="50dip"
+            android:gravity="center" />
+    </android.support.v4.view.ViewPager>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="right|bottom"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:id="@+id/bt_CheckBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查看实时图" />
+
+        <Button
+
+            android:id="@+id/bt_CheckK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/bt_CheckBig"
+            android:text="查看K线图" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

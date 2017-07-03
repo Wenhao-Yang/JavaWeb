@@ -1,0 +1,253 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.InvestFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <com.william.www.thestock.mychart.MyLineChart
+        android:id="@+id/mc_investChart"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+    </com.william.www.thestock.mychart.MyLineChart>
+
+    <com.william.www.thestock.mychart.MyBarChart
+        android:id="@+id/mbc_investChart"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/mc_investChart"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp">
+    </com.william.www.thestock.mychart.MyBarChart>
+    <RelativeLayout
+        android:id="@+id/rl_currentInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mbc_investChart"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/rl_operate">
+        <EditText
+            android:id="@+id/et_investSid"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="股票代码"/>
+
+        <EditText
+            android:id="@+id/et_investSname"
+            android:layout_toRightOf="@+id/et_investSid"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="股票名称"/>
+        <TextView
+            android:id="@+id/label_currentPri"
+            android:layout_toRightOf="@+id/et_investSname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:text="实时价格："
+            android:layout_above="@+id/et_investNum"
+            android:layout_alignParentTop="true" />
+        <TextView
+            android:id="@+id/tv_CurrentPri"
+            android:layout_toRightOf="@+id/label_currentPri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:hint="00.00"
+            android:layout_alignBottom="@+id/label_currentPri"
+            android:layout_alignParentTop="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="买入/卖出:"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_alignBottom="@+id/et_investCost"
+            android:layout_below="@+id/et_investSname"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/label_currentPri" />
+        <EditText
+            android:id="@+id/et_investCost"
+            android:layout_below="@+id/et_investSid"
+            android:layout_toRightOf="@+id/et_investSname"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:hint="价格"/>
+        <EditText
+            android:id="@+id/et_investNum"
+            android:layout_below="@+id/et_investSid"
+            android:layout_toRightOf="@+id/et_investCost"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:hint="数量"/>
+    </RelativeLayout>
+    <TableLayout
+        android:id="@+id/tl_userProperty"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rl_currentInfo"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/rl_operate">
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center">
+            <TextView
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="可用金额"/>
+            <TextView
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="冻结金额"/>
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/textView2"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="股票市值" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="总资产" />
+        </TableRow>
+    </TableLayout>
+    <RelativeLayout
+        android:id="@+id/rl_operate"
+        android:layout_width="80dp"
+        android:layout_height="150dp"
+        android:layout_alignTop="@+id/rl_currentInfo"
+        android:layout_alignParentEnd="true">
+        <Button
+            android:id="@+id/bt_Buy"
+            android:layout_gravity="top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="买入"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+        <Button
+            android:id="@+id/bt_Sell"
+            android:layout_below="@+id/bt_Buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卖出" />
+        <Button
+            android:id="@+id/bt_Refresh"
+            android:layout_below="@+id/bt_Sell"
+            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="刷新"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/scrollView2"
+        android:layout_below="@+id/rl_operate"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal"
+            >
+            <TableLayout
+                android:id="@+id/tl_userRecord"
+                android:layout_width="800dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tl_userProperty">
+
+                <TableRow
+                    android:layout_width="1000dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="证券代码" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="证券名称" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="股票余额" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="可用余额" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="冻结数量" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="盈亏金额" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="成本价" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="市价" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="盈亏比" />
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="股东账户" />
+                </TableRow>
+            </TableLayout>
+        </HorizontalScrollView>
+    </ScrollView>
+
+
+
+
+
+</RelativeLayout>

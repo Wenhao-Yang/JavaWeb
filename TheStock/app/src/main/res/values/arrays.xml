@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="info_tab">
+        <item>实时价格</item>
+        <item>K线图</item>
+    </array>
+</resources>
